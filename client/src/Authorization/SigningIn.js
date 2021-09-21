@@ -12,6 +12,9 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import { useDispatch } from 'react-redux';
+import { auth } from '../redux/features/users';
+import { useState } from 'react';
 
 function Copyright(props) {
   return (
@@ -32,14 +35,19 @@ function Copyright(props) {
 }
 
 export default function SigningIn() {
+  const dispatch = useDispatch()
+  const [login, setLogin] = useState()
+  const [password, setPassword] = useState()
+
+  const handleChangeLogin = (e) => {
+    setLogin(e.target.value)
+  }
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value)
+  }
+
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    dispatch(auth({login, password}))
   };
 
   return (
@@ -65,11 +73,9 @@ export default function SigningIn() {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            label="login"
             autoFocus
+            onChange={handleChangeLogin}
           />
           <TextField
             margin="normal"
@@ -80,16 +86,17 @@ export default function SigningIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleChangePassword}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={handleSubmit}
           >
             авторизация
           </Button>
