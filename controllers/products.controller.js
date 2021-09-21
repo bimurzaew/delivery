@@ -1,4 +1,5 @@
 const Product = require("../models/Product.model");
+const Category = require("../models/Category.model");
 
 module.exports.productsController = {
   addProduct: async (req, res) => {
@@ -73,10 +74,12 @@ module.exports.productsController = {
       res.json(e.toString());
     }
   },
-  getProductByCategory: async (req,res) => {
+  getProductByCategory: async (req, res) => {
     try {
-      const category = await 
-      const product = await Product.find({category})
+      const product = await Product.find({ category: req.params.id });
+      res.json(product);
+    } catch (e) {
+      res.json(e.toString());
     }
-  }
+  },
 };
