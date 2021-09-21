@@ -1,13 +1,13 @@
 import { applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import { courierReducer } from "./features/courier";
+import { users } from "./features/users";
 
 const { createStore } = require("redux");
 
 export const store = createStore(
   combineReducers({
-    courier: courierReducer,
+    users,
   }),
   composeWithDevTools(applyMiddleware(thunk))
 );
