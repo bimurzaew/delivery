@@ -3,13 +3,15 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const chalk = require("chalk");
 const fileUpload = require("express-fileupload");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(fileUpload());
+app.use(fileUpload({}));
+app.use("public", express.static(path.resolve(__dirname, "/client/public")));
 app.use(require("./routes/index"));
 
 mongoose
