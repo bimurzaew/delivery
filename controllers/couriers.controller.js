@@ -1,16 +1,20 @@
 const bcrypt = require("bcrypt");
-const Courier = require("../models/Courier.model");
 const jwt = require("jsonwebtoken")
+const Courier = require("../models/Courier.model");
 
 module.exports.courierControllers = {
   registerCourier: async (req, res) => {
-    const { name, login, password } = req.body;
+    try {
+        const { name, login, password } = req.body;
 
-    const hash = await bcrypt.hash(password, Number(process.env.SALT));
+        const hash = await bcrypt.hash(password, Number(process.env.SALT));
 
-    const courier = await Courier.create({ name, login, password: hash });
+        const courier = await Courier.create({ name, login, password: hash });
 
-    res.json(courier);
+        res.json(courier);
+    }catch (e) {
+        res.json(e.toString())
+    }
   },
   // eslint-disable-next-line consistent-return
   login: async (req, res) => {
