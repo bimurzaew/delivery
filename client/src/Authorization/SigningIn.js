@@ -12,9 +12,15 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+<<<<<<< HEAD
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {authCourier, registerCourier} from "../redux/features/courier";
+=======
+import { useDispatch } from 'react-redux';
+import { auth } from '../redux/features/users';
+import { useState } from 'react';
+>>>>>>> 20d0ab6f4aa05da61c0a70a475f8482ce4047a34
 
 function Copyright(props) {
   return (
@@ -34,6 +40,7 @@ function Copyright(props) {
   );
 }
 
+<<<<<<< HEAD
 export default function SigningUp() {
   const [login , setLogin] = useState("");
   const [password , setPassword] = useState("");
@@ -48,12 +55,29 @@ export default function SigningUp() {
 
   const handleSubmit = () => {
     dispatch(authCourier({login, password}))
+=======
+export default function SigningIn() {
+  const dispatch = useDispatch()
+  const [login, setLogin] = useState()
+  const [password, setPassword] = useState()
+
+  const handleChangeLogin = (e) => {
+    setLogin(e.target.value)
+  }
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value)
+  }
+
+  const handleSubmit = (event) => {
+    dispatch(auth({login, password}))
+>>>>>>> 20d0ab6f4aa05da61c0a70a475f8482ce4047a34
   };
 
   const dispatch = useDispatch();
 
 
   return (
+<<<<<<< HEAD
       // eslint-disable-next-line react/jsx-no-undef
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -114,6 +138,67 @@ export default function SigningUp() {
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
+=======
+    // eslint-disable-next-line react/jsx-no-undef
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          {/* eslint-disable-next-line react/jsx-no-undef */}
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          авторизация
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            label="login"
+            autoFocus
+            onChange={handleChangeLogin}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            onChange={handleChangePassword}
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={handleSubmit}
+          >
+            авторизация
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+>>>>>>> 20d0ab6f4aa05da61c0a70a475f8482ce4047a34
             </Grid>
           </Box>
         </Box>

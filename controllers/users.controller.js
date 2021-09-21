@@ -1,11 +1,11 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Vendor = require("../models/Vendor.model");
+const User = require("../models/User.model");
 
-module.exports.vendorsController = {
-  registerVendor: async (req, res) => {
+module.exports.usersController = {
+  register: async (req, res) => {
     try {
-      const { login, password, storeName, email } = req.body;
+      const { login, password, name, email } = req.body;
       const hash = await bcrypt.hash(password, Number(process.env.SALT));
 
       if (!login) {
@@ -17,19 +17,19 @@ module.exports.vendorsController = {
       if (!email) {
         return res.json({ error: "необходимо ввести почту" });
       }
-      if (!storeName) {
-        return res.json({ error: "необходимо ввести пароль" });
+      if (!name) {
+        return res.json({ error: "необходимо ввести имя" });
       }
 
-      const log = await Vendor.findOne({ login });
+      const log = await User.findOne({ login });
       if (log) {
         return res.json({ error: "такой логин занят" });
       }
-      await Vendor.create({
+      await User.create({
         login,
         password: hash,
         email,
-        storeName,
+        name,
       });
 
       res.json("success");
@@ -37,10 +37,10 @@ module.exports.vendorsController = {
       res.json(e.toString());
     }
   },
-  vendorAuth: async (req, res) => {
+  login: async (req, res) => {
     try {
       const { login, password } = req.body;
-      const candidate = await Vendor.findOne({ login });
+      const candidate = await User.findOne({ login });
 
       if (login.length === 0) {
         res.status(401).json({ error: "необходимо ввести логин" });
@@ -60,18 +60,16 @@ module.exports.vendorsController = {
       }
 
       const payload = {
-        id: candidate._id,
-        role: "Vendor",
+        id: candidate.id,
       };
 
-      const token = jwt.sign(payload, process.env.SECRET_KEY, {
+      const token = jwt.sign(payload, process.env.SECRET_JWT, {
         expiresIn: "24h",
       });
 
-      res.json(token);
+      res.json({ token });
     } catch (e) {
       res.status(401).json(e.toString());
     }
   },
-
 };

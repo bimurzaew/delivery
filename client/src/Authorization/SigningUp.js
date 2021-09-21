@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
-import {registerCourier} from "../redux/features/courier";
+import {register} from "../redux/features/users";
 
 function Copyright(props) {
   return (
@@ -47,7 +47,7 @@ export default function SigningUp() {
   }
 
   const handleSubmit = () => {
-    dispatch(registerCourier({login, password}))
+    dispatch(register({login, password}))
   };
 
   const dispatch = useDispatch();
@@ -66,7 +66,6 @@ export default function SigningUp() {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          {/* eslint-disable-next-line react/jsx-no-undef */}
         </Avatar>
         <Typography component="h1" variant="h5">
           Регистрация

@@ -5,9 +5,9 @@ const productSchema = mongoose.Schema({
   price: Number,
   desc: String,
   image: String,
-  storeId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Vendor",
+    ref: "User",
   },
   category:{
     type: mongoose.Schema.Types.ObjectId,
