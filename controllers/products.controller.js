@@ -38,10 +38,7 @@ module.exports.productsController = {
           res.json(err.toString());
         } else {
           await Product.findByIdAndUpdate(req.params.id, {
-            name,
-            price,
-            desc,
-            image: newFileName,
+            $set: { ...req.body },
           });
           res.json("success");
         }
