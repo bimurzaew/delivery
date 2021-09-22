@@ -12,9 +12,9 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {register} from "../redux/features/users";
+import { useDispatch } from 'react-redux';
+import { auth } from '../../redux/features/users';
+import { useState } from 'react';
 
 function Copyright(props) {
   return (
@@ -34,24 +34,21 @@ function Copyright(props) {
   );
 }
 
-export default function SigningUp() {
-  const [login , setLogin] = useState("");
-  const [password , setPassword] = useState("");
+export default function SigningIn() {
+  const dispatch = useDispatch()
+  const [login, setLogin] = useState()
+  const [password, setPassword] = useState()
 
-  const handleChangeLogin =(e) => {
+  const handleChangeLogin = (e) => {
     setLogin(e.target.value)
   }
-
-  const handleChangePassword =(e) => {
+  const handleChangePassword = (e) => {
     setPassword(e.target.value)
   }
 
-  const handleSubmit = () => {
-    dispatch(register({login, password}))
+  const handleSubmit = (event) => {
+    dispatch(auth({login, password}))
   };
-
-  const dispatch = useDispatch();
-
 
   return (
     // eslint-disable-next-line react/jsx-no-undef
@@ -66,16 +63,17 @@ export default function SigningUp() {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          {/* eslint-disable-next-line react/jsx-no-undef */}
         </Avatar>
         <Typography component="h1" variant="h5">
-          Регистрация
+          авторизация
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
             fullWidth
-            label="Login"
+            label="login"
             autoFocus
             onChange={handleChangeLogin}
           />
@@ -100,7 +98,7 @@ export default function SigningUp() {
             sx={{ mt: 3, mb: 2 }}
             onClick={handleSubmit}
           >
-            Регистрация
+            авторизация
           </Button>
           <Grid container>
             <Grid item xs>

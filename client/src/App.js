@@ -1,8 +1,8 @@
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import {Switch, Route} from "react-router-dom";
-import SigningIn from "./Authorization/SigningIn";
-import SigningUp from "./Authorization/SigningUp";
+import SigningIn from "./components/Authorization/SigningIn";
+import SigningUp from "./components/Authorization/SigningUp";
 import {store} from "./redux/configureStore";
 
 function App() {
