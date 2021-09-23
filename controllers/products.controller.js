@@ -1,10 +1,9 @@
 const Product = require("../models/Product.model");
-const Category = require("../models/Category.model");
 
 module.exports.productsController = {
   addProduct: async (req, res) => {
     try {
-      const { name, price, desc } = req.body;
+      const { name, price, desc , amount} = req.body;
       const { image } = req.files;
       const newFileName = `/images${Math.floor(Math.random() * 10000)}${
         image.name
@@ -17,6 +16,7 @@ module.exports.productsController = {
             name,
             price,
             desc,
+            amount,
             image: newFileName,
           });
           res.json("success");
