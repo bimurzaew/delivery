@@ -5,20 +5,26 @@ const User = require("../models/User.model");
 module.exports.usersController = {
   register: async (req, res) => {
     try {
-      const { login, password, name, email, lastName } = req.body;
+      const { login, password, name, email, lastName, role } = req.body;
       const hash = await bcrypt.hash(password, Number(process.env.SALT));
 
+      if (!lastName) {
+        return res.json({ error: "необходимо ввести фамилию" });
+      }
+      if (!name) {
+        return res.json({ error: "необходимо ввести имя" });
+      }
+      if (!email) {
+        return res.json({ error: "необходимо ввести почту" });
+      }
+      if (!role) {
+        return res.json({ error: "в чем заключается суть вашей жизни?" });
+      }
       if (!login) {
         return res.json({ error: "необходимо ввести логин" });
       }
       if (!password) {
         return res.json({ error: "необходимо ввести пароль" });
-      }
-      if (!email) {
-        return res.json({ error: "необходимо ввести почту" });
-      }
-      if (!name) {
-        return res.json({ error: "необходимо ввести имя" });
       }
 
       const log = await User.findOne({ login });
@@ -30,7 +36,8 @@ module.exports.usersController = {
         password: hash,
         email,
         name,
-        lastName
+        lastName,
+        role
       });
 
       res.json("success");
@@ -40,7 +47,7 @@ module.exports.usersController = {
   },
   login: async (req, res) => {
     try {
-      const { login, password } = req.body;
+      const { login, password, role } = req.body;
       const candidate = await User.findOne({ login });
 
       if (login.length === 0) {
@@ -48,6 +55,13 @@ module.exports.usersController = {
       }
       if (password.length === 0) {
         res.status(401).json({ error: "необходимо ввести пароль" });
+      }
+      if (role.length === 0) {
+        res.status(401).json({ error: "дог ойле йокх ю хьа" });
+      }
+
+      if (role !== candidate.role) {
+        res.json({error:`хьом вац ${role}`})
       }
 
       if (!candidate) {
@@ -61,7 +75,7 @@ module.exports.usersController = {
       }
 
       const payload = {
-        id: candidate.id,
+        id: candidate._id,
       };
 
       const token = jwt.sign(payload, process.env.SECRET_JWT, {

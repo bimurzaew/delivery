@@ -4,11 +4,12 @@ const { authMiddleware } = require("../middlewares/authMiddleware");
 
 const router = Router();
 
-router.post("/product", productsController.addProduct);
+router.post("/product", authMiddleware, productsController.addProduct);
 router.patch("/product/:id",authMiddleware, productsController.editProduct);
 router.delete("/product/:id/delete",authMiddleware, productsController.deleteProduct);
 router.get("/products", productsController.getProducts);
 router.get("/product/:id", productsController.getProductById);
 router.get("/product/category/:id", productsController.getProductByCategory);
+router.get("/products/user", authMiddleware, productsController.getProductsForUser)
 
 module.exports = router;

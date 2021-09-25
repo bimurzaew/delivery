@@ -1,15 +1,16 @@
 const Product = require("../models/Product.model");
 const Category = require("../models/Category.model");
+const User = require("../models/User.model");
 
 module.exports.productsController = {
   addProduct: async (req, res) => {
     try {
-      const { name, price, desc } = req.body;
+      const user = await User.findById(req.user.id);
+      const { name, price, desc, category } = req.body;
       const { image } = req.files;
-      const newFileName = `/images${Math.floor(Math.random() * 10000)}${
-        image.name
-      }`;
-      await image.mv(`./client/public/images${newFileName}`, async (err) => {
+
+      const newFileName = `${Math.floor(Math.random() * 10000)}${image.name}`;
+      await image.mv(`./client/public/images/${newFileName}`, async (err) => {
         if (err) {
           res.json(err.toString());
         } else {
@@ -18,8 +19,10 @@ module.exports.productsController = {
             price,
             desc,
             image: newFileName,
+            category,
+            user,
           });
-          res.json("success");
+          res.json({ message: "success" });
         }
       });
     } catch (e) {
@@ -29,20 +32,23 @@ module.exports.productsController = {
   editProduct: async (req, res) => {
     try {
       const { name, price, desc } = req.body;
-      const { image } = req.files;
-      const newFileName = `/images${Math.floor(Math.random() * 10000)}${
-        image.name
-      }`;
-      await image.mv(`./client/public/images${newFileName}`, async (err) => {
-        if (err) {
-          res.json(err.toString());
-        } else {
-          await Product.findByIdAndUpdate(req.params.id, {
-            $set: { ...req.body },
-          });
-          res.json("success");
-        }
-      });
+      const product = await Product.findById(req.params.id)
+      await Product.findByIdAndUpdate(product.id, {
+        $set: {...req.body}
+      })
+      res.json('d1avala')
+      // const { image } = req.files;
+      // const newFileName = `${Math.floor(Math.random() * 10000)}${image.name}`;
+      // await image.mv(`./client/public/images/${newFileName}`, async (err) => {
+      //   if (err) {
+      //     res.json(err.toString());
+      //   } else {
+      //     await Product.findByIdAndUpdate(req.params.id, {
+      //       $set: { ...req.body, image: newFileName },
+      //     });
+      //     res.json("success");
+      //   }
+      // });
     } catch (e) {
       res.status(401).json(e.toString());
     }
@@ -74,6 +80,15 @@ module.exports.productsController = {
   getProductByCategory: async (req, res) => {
     try {
       const product = await Product.find({ category: req.params.id });
+      res.json(product);
+    } catch (e) {
+      res.json(e.toString());
+    }
+  },
+  getProductsForUser: async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+      const product = await Product.find({ user });
       res.json(product);
     } catch (e) {
       res.json(e.toString());

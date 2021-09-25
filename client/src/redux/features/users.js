@@ -33,13 +33,14 @@ export const users = (state = initialState, action) => {
     case "user/signIn/rejected":
       return {
         ...state,
-        error: action.payload,
+        error: action.payload.error,
       };
     case "user/signIn/fulfilled":
       return {
         ...state,
         loading: false,
         token: action.payload.token,
+        error: null
       };
     default:
       return state;
@@ -60,17 +61,16 @@ export const register = ({ login, password, email, name, role, lastName }) => {
       dispatch({ type: "user/signup/rejected", payload: json });
     } else {
       dispatch({ type: "user/signup/fulfilled", payload: json });
-      localStorage.setItem("role", role)
     }
   };
 };
 
-export const auth = ({ login, password }) => {
+export const auth = ({ login, password, role }) => {
   return async (dispatch) => {
     dispatch({type:"user/signIn/pending"})
     const response = await fetch("http://localhost:7777/user/auth", {
       method:"POST",
-      body:JSON.stringify({login, password}),
+      body:JSON.stringify({login, password, role}),
       headers:{
         "Content-type":"application/json"
       }
@@ -78,9 +78,13 @@ export const auth = ({ login, password }) => {
     const json = await response.json()
     if  (json.error) {
       dispatch({type:"user/signIn/rejected", payload:json})
+      throw new Error(json.error);
     }else {
       dispatch({type:"user/signIn/fulfilled", payload:json})
     }
     localStorage.setItem("token", json.token)
+    localStorage.setItem("role", role)
   };
 };
+
+
