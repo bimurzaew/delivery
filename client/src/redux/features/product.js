@@ -1,5 +1,3 @@
-import { get } from "mongoose";
-
 const initialState = {
   products: null,
   loading: false,
