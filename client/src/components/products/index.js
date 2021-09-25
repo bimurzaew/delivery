@@ -9,6 +9,7 @@ import {
   plusProduct,
 } from "../../redux/features/cart";
 import { addOrder } from "../../redux/features/order";
+import Order from "../order";
 
 function Products(props) {
   const products = useSelector((state) => state.product.product);
@@ -48,38 +49,47 @@ function Products(props) {
       <thead>
         <tr>
           <td onClick={() => setBox(true)}>
-            {box &&
-              cart.map((item) => {
-                return (
-                  <div key={item._id}>
-                    <span key={item._id}>{item.product.name} </span>
-                    остаток:
-                    <span>
-                      {item.product.amount
-                        ? (item.product.amount + 1) - item.amount
-                        : 0}
-                      -
-                    </span>
-                    количество:
-                    <span>
-                      <button
-                        onClick={() => plus(item._id)}
-                        disabled={item.product.amount === 0}
-                      >
-                        +
-                      </button>
-                      {item.amount}
-                      <button onClick={() => minus(item._id)}>-</button>
-                    </span>
-                    __
-                    <span onClick={() => handleDelete(item._id)}> X</span>
-                  </div>
-                );
-              })}
-            <button onClick={() => addProductrOrder(cart)}>
-              Оформить заказ
-            </button>
+            {box && (
+              <div>
+                {cart.map((item) => {
+                  return (
+                    <div key={item._id}>
+                      <span key={item._id}>{item.product.name} </span>
+                      остаток:
+                      <span>
+                        {item.product.amount
+                          ? item.product.amount + 1 - item.amount
+                          : 0}
+                        -
+                      </span>
+                      количество:
+                      <span>
+                        <button
+                          onClick={() => plus(item._id)}
+                          disabled={item.product.amount === 0}
+                        >
+                          +
+                        </button>
+                        {item.amount}
+                        <button onClick={() => minus(item._id)}>-</button>
+                      </span>
+                      __
+                      <span onClick={() => handleDelete(item._id)}> X</span>
+                    </div>
+                  );
+                })}
+                <button onClick={() => addProductrOrder(cart)}>
+                  Оформить заказ
+                </button>
+              </div>
+            )}
             корзина
+          </td>
+          <td/>
+          <td/>
+          <td/>
+          <td>
+            <Order />
           </td>
         </tr>
       </thead>
