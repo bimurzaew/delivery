@@ -60,7 +60,7 @@ module.exports.productsController = {
   },
   getProducts: async (req, res) => {
     try {
-      const products = await Product.find().populate();
+      const products = await Product.find().sort({ 'amount': -1 });
       res.json(products);
     } catch (e) {
       res.json(e.toString());

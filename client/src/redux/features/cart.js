@@ -25,8 +25,61 @@ export const cartReducer = (state=initialState,action) => {
                     }
                 })
             }
+        case "plusProduct/cart/fulfilled":
+            return {
+                ...state,
+                products:state.products.filter(item => {
+                    if (item._id === action.payload._id){
+                        // if (item.amount>0){
+                            return{
+                                ...item,
+                                amount:item.amount++
+                            }
+                        // }
+                    }
+                    return item
+                })
+            }
+        case "minusProduct/cart/fulfilled":
+            return {
+                ...state,
+                products:state.products.filter(item => {
+                    if (item._id === action.payload._id){
+                        // if (item.amount>0){
+                            return{
+                                ...item,
+                                amount:item.amount--
+                            }
+                        // }
+                    }
+                    return item
+                })
+            }
         default:
             return state
+    }
+}
+
+export const minusProduct = (id) => {
+    return async dispatch => {
+        const response = await fetch(`http://localhost:7777/cart/minusAmount/${id}`,{
+            method:"PATCH"
+        })
+        const json = await response.json()
+
+        dispatch({type:"minusProduct/cart/fulfilled", payload:json})
+    }
+}
+export const plusProduct = (id) => {
+    return async dispatch => {
+        //
+        const response = await fetch(`http://localhost:7777/cart/plusAmount/${id}`,{
+            method:"PATCH"
+        });
+        const json = await response.json();
+        console.log(json.amount)
+
+        dispatch({type:"plusProduct/cart/fulfilled", payload:json})
     }
 }
 
@@ -66,3 +119,4 @@ export const deleteProduct = ({id}) => {
         dispatch({type:"deleteProduct/cart/fulfilled", payload: { json,id }})
     }
 }
+
