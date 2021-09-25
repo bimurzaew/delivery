@@ -5,6 +5,8 @@ import { store } from "../redux/configureStore";
 import SignInPage from "./authorization/SignInPage";
 import SignUpPage from "./authorization/SignUpPage";
 import Products from "./product/Products";
+import Header from "./header/header";
+import Main from "./main";
 
 
 function App() {
@@ -20,6 +22,10 @@ function App() {
           </Route>
           <Route path="/product">
             <Products />
+          </Route>
+          <Route path='/'>
+            <Header />
+            <Main />
           </Route>
         </Switch>
       </BrowserRouter>

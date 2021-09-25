@@ -3,9 +3,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { users } from "./features/users";
 import { product } from "./features/product";
-import { cartReducer} from "./features/cart";
-import { orderReducer } from './features/order'
-import {categories} from "./features/categories";
+import { cartReducer } from "./features/cart";
+import { orderReducer } from "./features/order";
+import { categories } from "./features/categories";
 
 const { createStore } = require("redux");
 
@@ -15,7 +15,7 @@ export const store = createStore(
     product,
     categories,
     cart: cartReducer,
-    order:orderReducer
+    order: orderReducer,
   }),
   composeWithDevTools(applyMiddleware(thunk))
 );
