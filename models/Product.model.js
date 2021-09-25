@@ -12,7 +12,8 @@ const productSchema = mongoose.Schema({
   category:{
     type: mongoose.Schema.Types.ObjectId,
     ref:"Category"
-  }
+  },
+  amount:Number
 });
 
 const Product = mongoose.model("Product", productSchema);

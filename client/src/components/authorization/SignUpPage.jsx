@@ -58,7 +58,7 @@ const currencies = [
   },
 ];
 
-export default function SignUp() {
+export default function SignUpPage() {
   const classes = useStyles();
   const dispatch = useDispatch();
 

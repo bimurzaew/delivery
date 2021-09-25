@@ -6,7 +6,8 @@ module.exports.productsController = {
   addProduct: async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
-      const { name, price, desc, category } = req.body;
+      const { name, price, desc, category, amount } = req.body;
+
       const { image } = req.files;
 
       const newFileName = `${Math.floor(Math.random() * 10000)}${image.name}`;
@@ -18,6 +19,7 @@ module.exports.productsController = {
             name,
             price,
             desc,
+            amount,
             image: newFileName,
             category,
             user,
@@ -32,11 +34,11 @@ module.exports.productsController = {
   editProduct: async (req, res) => {
     try {
       const { name, price, desc } = req.body;
-      const product = await Product.findById(req.params.id)
+      const product = await Product.findById(req.params.id);
       await Product.findByIdAndUpdate(product.id, {
-        $set: {...req.body}
-      })
-      res.json('d1avala')
+        $set: { ...req.body },
+      });
+      res.json("d1avala");
       // const { image } = req.files;
       // const newFileName = `${Math.floor(Math.random() * 10000)}${image.name}`;
       // await image.mv(`./client/public/images/${newFileName}`, async (err) => {
@@ -63,7 +65,7 @@ module.exports.productsController = {
   },
   getProducts: async (req, res) => {
     try {
-      const products = await Product.find().populate();
+      const products = await Product.find().sort({ amount: -1 });
       res.json(products);
     } catch (e) {
       res.json(e.toString());
