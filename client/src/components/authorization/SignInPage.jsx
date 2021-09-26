@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -64,12 +64,12 @@ const useStyles = makeStyles((theme) => ({
 
 const currencies = [
   {
-    value: "Vendor",
-    label: "Vendor",
+    value: "vendor",
+    label: "Продавец",
   },
   {
-    value: "Courier",
-    label: "Courier",
+    value: "courier",
+    label: "Курьер",
   },
 ];
 
@@ -98,12 +98,21 @@ export default function SignInPage() {
 
   const handleSubmit = () => {
     dispatch(auth({ password, login, role }))
+<<<<<<< HEAD
       .then(() => {
         if (!error) {
           history.push("/product");
         }
       })
       .catch((e) => {});
+=======
+        .then(() => {
+          if (!error) {
+            history.push("/vendor");
+          }
+        })
+        .catch((e) => {});
+>>>>>>> main
   };
 
   return (

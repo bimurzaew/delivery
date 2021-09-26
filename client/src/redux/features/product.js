@@ -7,18 +7,18 @@ const initialState = {
 
 export const product = (state = initialState, action) => {
   switch (action.type) {
-    case "product/add/pending":
+    case "vendor/add/pending":
       return {
         ...state,
         loading: true,
       };
-    case "product/add/rejected":
+    case "vendor/add/rejected":
       return {
         ...state,
         loading: false,
         error: action.payload.error,
       };
-    case "product/add/fulfilled":
+    case "vendor/add/fulfilled":
       return {
         ...state,
         loading: false,
@@ -41,18 +41,18 @@ export const product = (state = initialState, action) => {
         loading: false,
         products: action.payload,
       };
-    case "product/delete/pending":
+    case "vendor/delete/pending":
       return {
         ...state,
         loading: true,
       };
-    case "product/delete/rejected":
+    case "vendor/delete/rejected":
       return {
         ...state,
         loading: false,
         error: action.payload.error,
       };
-    case "product/delete/fulfilled":
+    case "vendor/delete/fulfilled":
       return {
         ...state,
         loading: false,
@@ -65,7 +65,7 @@ export const product = (state = initialState, action) => {
 
 export const addProduct = ({ file, name, desc, price, category }) => {
   return async (dispatch, getState) => {
-    dispatch({ type: "product/add/pending" });
+    dispatch({ type: "vendor/add/pending" });
     const state = getState();
     const formData = new FormData();
     formData.append("image", file);
@@ -82,9 +82,9 @@ export const addProduct = ({ file, name, desc, price, category }) => {
     });
     const json = await response.json();
     if (json.error) {
-      dispatch({ type: "product/add/rejected", payload: json });
+      dispatch({ type: "vendor/add/rejected", payload: json });
     } else {
-      dispatch({ type: "product/add/fulfilled", payload: json });
+      dispatch({ type: "vendor/add/fulfilled", payload: json });
     }
   };
 };
@@ -107,7 +107,7 @@ export const getProductsForUser = () => {
 };
 export const deleteProduct = (id) => {
   return async (dispatch, getState) => {
-    dispatch({ type: "product/delete/pending" });
+    dispatch({ type: "vendor/delete/pending" });
     const state = getState();
     const response = await fetch(`/product/${id}/delete`, {
       method: "DELETE",
@@ -117,9 +117,9 @@ export const deleteProduct = (id) => {
     });
     const json = await response.json();
     if (json.error) {
-      dispatch({ type: "product/delete/rejected" });
+      dispatch({ type: "vendor/delete/rejected" });
     } else {
-      dispatch({ type: "product/delete/fulfilled" });
+      dispatch({ type: "vendor/delete/fulfilled" });
     }
   };
 };
