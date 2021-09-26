@@ -8,7 +8,6 @@ import Products from "./vendor/Products";
 import Header from "./header/header";
 import Main from "./main";
 
-
 function App() {
   return (
     <Provider store={store}>
@@ -23,12 +22,16 @@ function App() {
           <Route path="/product">
             <Products />
           </Route>
-          <Route path='/'>
+          <Route exact path="/">
+            <Header />
+          </Route>
+          <Route path="/">
             <Main />
           </Route>
         </Switch>
       </BrowserRouter>
     </Provider>
+
   );
 }
 
