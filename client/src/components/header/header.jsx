@@ -9,6 +9,7 @@ import {
 import { ShoppingCart } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
+import CartModal from './CartModal'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,13 +27,10 @@ function Header(props) {
   return (
     <>
       <Container fixed>
-
         <AppBar className={classes.Appbar} position="fixed">
           <Toolbar>
             <Typography variant="h6">Delivery</Typography>
-            <IconButton edge="start" color="inherit" aria-label="menu">
-              <ShoppingCart />
-            </IconButton>
+            <CartModal/>
             <IconButton>
               <Avatar />
             </IconButton>

@@ -95,6 +95,8 @@ export const loadCart = () => {
     const json = await response.json();
 
     dispatch({ type: "load/cart/fulfilled", payload: json });
+
+    console.log(json)
   };
 };
 
