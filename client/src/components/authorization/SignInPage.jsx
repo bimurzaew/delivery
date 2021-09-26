@@ -98,21 +98,14 @@ export default function SignInPage() {
 
   const handleSubmit = () => {
     dispatch(auth({ password, login, role }))
-<<<<<<< HEAD
-      .then(() => {
-        if (!error) {
-          history.push("/product");
-        }
-      })
-      .catch((e) => {});
-=======
+
         .then(() => {
           if (!error) {
             history.push("/vendor");
           }
         })
         .catch((e) => {});
->>>>>>> main
+
   };
 
   return (
