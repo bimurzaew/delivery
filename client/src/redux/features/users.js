@@ -23,7 +23,7 @@ export const users = (state = initialState, action) => {
         ...state,
         loading: false,
         message: action.payload,
-        role: action.payload.role
+        role: action.payload.role,
       };
     case "user/signIn/pending":
       return {
@@ -40,13 +40,21 @@ export const users = (state = initialState, action) => {
         ...state,
         loading: false,
         token: action.payload.token,
-        error: null
+        error: null,
       };
     default:
       return state;
   }
 };
-export const register = ({ login, password, email, name, role, lastName }) => {
+export const register = ({
+  login,
+  password,
+  email,
+  name,
+  role,
+  lastName,
+  business,
+}) => {
   return async (dispatch) => {
     dispatch({ type: "user/signup/pending" });
     const response = await fetch("http://localhost:7777/user", {
@@ -54,7 +62,15 @@ export const register = ({ login, password, email, name, role, lastName }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ login, password, name, email, role, lastName }),
+      body: JSON.stringify({
+        login,
+        password,
+        name,
+        email,
+        role,
+        lastName,
+        business,
+      }),
     });
     const json = await response.json();
     if (json.error) {
@@ -67,23 +83,23 @@ export const register = ({ login, password, email, name, role, lastName }) => {
 
 export const auth = ({ login, password, role }) => {
   return async (dispatch) => {
-    dispatch({type:"user/signIn/pending"})
+    dispatch({ type: "user/signIn/pending" });
     const response = await fetch("http://localhost:7777/user/auth", {
-      method:"POST",
-      body:JSON.stringify({login, password, role}),
-      headers:{
-        "Content-type":"application/json"
-      }
-    })
-    const json = await response.json()
-    if  (json.error) {
-      dispatch({type:"user/signIn/rejected", payload:json})
+      method: "POST",
+      body: JSON.stringify({ login, password, role }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    const json = await response.json();
+    if (json.error) {
+      dispatch({ type: "user/signIn/rejected", payload: json });
       throw new Error(json.error);
-    }else {
-      dispatch({type:"user/signIn/fulfilled", payload:json})
+    } else {
+      dispatch({ type: "user/signIn/fulfilled", payload: json });
     }
-    localStorage.setItem("token", json.token)
-    localStorage.setItem("role", role)
+    localStorage.setItem("token", json.token);
+    localStorage.setItem("role", role);
   };
 };
 

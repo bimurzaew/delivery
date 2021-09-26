@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import { store } from "../redux/configureStore";
 import SignInPage from "./authorization/SignInPage";
 import SignUpPage from "./authorization/SignUpPage";
-import Products from "./product/Products";
+import Products from "./vendor/Products";
 import Header from "./header/header";
 import Main from "./main";
 
@@ -24,7 +24,6 @@ function App() {
             <Products />
           </Route>
           <Route path='/'>
-            <Header />
             <Main />
           </Route>
         </Switch>
