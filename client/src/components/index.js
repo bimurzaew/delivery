@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { loadProduct } from "../../redux/features/product";
+// import { loadProduct } from "../../redux/features/vendor";
 import {
   addProduct,
   deleteProduct,

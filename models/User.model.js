@@ -6,7 +6,11 @@ const userSchema = mongoose.Schema({
   login:String,
   password:String,
   email:String,
-  role:String
+  role:String,
+  business:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"Business"
+  }
 });
 
 const User = mongoose.model("User", userSchema);
