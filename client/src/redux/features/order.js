@@ -10,12 +10,12 @@ export const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         orders: [...state.orders, action.payload],
-      }
+      };
     case "load/order/fulfilled":
       return {
         ...state,
-        orders: action.payload
-      }
+        orders: action.payload,
+      };
     default:
       return state;
   }
@@ -33,10 +33,10 @@ export const addOrder = () => {
 };
 
 export const loadOrder = () => {
-  return async dispacth => {
+  return async (dispatch) => {
     const response = await fetch(`http://localhost:7777/order`);
     const json = await response.json();
 
-    dispacth({type:"load/order/fulfilled", payload:json})
-  }
+    dispatch({ type: "load/order/fulfilled", payload: json });
+  };
 };

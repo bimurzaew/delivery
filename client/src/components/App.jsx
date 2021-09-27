@@ -7,12 +7,18 @@ import SignUpPage from "./authorization/SignUpPage";
 import Products from "./vendor/Products";
 import Header from "./header/header";
 import Main from "./main";
+import Two from "./TwoHeader/Two";
 
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
+          <Route exact path="/">
+            <Header />
+            <Main />
+            <Two />
+          </Route>
           <Route path="/signIn">
             <SignInPage />
           </Route>
@@ -23,13 +29,9 @@ function App() {
             <Header />
             <Products />
           </Route>
-          <Route exact path="/">
-            <Main />
-          </Route>
         </Switch>
       </BrowserRouter>
     </Provider>
-
   );
 }
 

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../redux/features/categories";
-import {Link} from "react-router-dom";
+import { Grid } from "@material-ui/core";
+import { Category } from "@material-ui/icons";
 
 function Main() {
   const dispatch = useDispatch();
@@ -12,10 +13,11 @@ function Main() {
   }, []);
 
   return (
-    <div>
-      <Link>Рестораны</Link>
-      <Link>Магазины</Link>
-    </div>
+    <Grid container>
+      {category?.map((ctg) => {
+        return <Category key={ctg._id} categor={ctg} />;
+      })}
+    </Grid>
   );
 }
 
