@@ -4,8 +4,9 @@ import {Switch, Route} from "react-router-dom";
 import SigningIn from "./components/Authorization/SigningIn";
 import SigningUp from "./components/Authorization/SigningUp";
 import {store} from "./redux/configureStore";
-import Main from "./components/main/index"
 import Header from './components/header/header';
+import Two from './components/TwoHeader/Two';
+import "./App.css"
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <Header/>
         <Switch>
           <Route>
-            <Main/>
+            <Two/>
+
           </Route>
             <Route path="/signIn">
                 <SigningIn/>
