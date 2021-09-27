@@ -1,10 +1,8 @@
 import * as React from "react";
 import Button from "@material-ui/core/Button";
 import { ButtonGroup, IconButton, Paper, Popover } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
 import { ShoppingCart } from "@material-ui/icons";
 import {
-  addProduct,
   deleteProduct,
   loadCart,
   minusProduct,
@@ -14,7 +12,7 @@ import { addOrder } from "../../redux/features/order";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function BasicPopover() {
+export default function CartModal() {
   const cart = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -22,9 +20,7 @@ export default function BasicPopover() {
   }, []);
 
 
-  const addProductToBox = (id) => {
-    dispatch(addProduct(id));
-  };
+
 
   const addProductrOrder = (cart) => {
     dispatch(addOrder());
@@ -54,9 +50,7 @@ export default function BasicPopover() {
 
   return (
     <div>
-      {/*<Button aria-describedby={id} variant="contained" onClick={handleClick}>*/}
-      {/*  Open Popover*/}
-      {/*</Button>*/}
+
       <IconButton
         onClick={handleClick}
         edge="start"
