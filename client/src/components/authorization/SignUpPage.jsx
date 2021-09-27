@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -16,11 +16,9 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
-  MenuItem,
   Radio,
   RadioGroup,
 } from "@material-ui/core";
-import { getBusiness } from "../../redux/features/business";
 
 function Copyright() {
   return (
@@ -34,7 +32,6 @@ function Copyright() {
     </Typography>
   );
 }
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -66,16 +63,12 @@ export default function SignUpPage() {
   const [email, setEmail] = useState();
   const [role, setRole] = useState();
   const [lastName, setLastName] = useState();
-  const [business, setBusiness] = useState();
 
   const loading = useSelector((state) => state.users.loading);
   const error = useSelector((state) => state.users.error);
   const message = useSelector((state) => state.users.message);
-  const bus = useSelector((state) => state.business.items);
 
-  useEffect(() => {
-    dispatch(getBusiness());
-  }, []);
+
 
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -95,14 +88,9 @@ export default function SignUpPage() {
   const handleChangeRole = (e) => {
     setRole(e.target.value);
   };
-  const handleChangeBusiness = (e) => {
-    setBusiness(e.target.value);
-  };
 
   const handleSubmit = () => {
-    dispatch(
-      register({ password, login, name, email, role, lastName, business })
-    );
+    dispatch(register({ password, login, name, email, role, lastName }));
   };
 
   return (
@@ -166,6 +154,28 @@ export default function SignUpPage() {
                 autoComplete="логин"
               />
             </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete
+                onChange={handleChangeLogin}
+                variant="outlined"
+                required
+                fullWidth
+                label="Логин"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                onChange={handleChangePassword}
+                required
+                fullWidth
+                label="Пароль"
+                autoComplete
+                type="password"
+              />
+            </Grid>
             <Grid item xs={12}>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Who are you warrior?</FormLabel>
@@ -188,53 +198,6 @@ export default function SignUpPage() {
                   />
                 </RadioGroup>
               </FormControl>
-              {role === "vendor" ? (
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Who are you warrior?</FormLabel>
-                  <RadioGroup
-                    row
-                    aria-label="business"
-                    name="row-radio-buttons-group"
-                  >
-                    {bus?.map((item) => {
-                      return (
-                        <>
-                          <FormControlLabel
-                            value={item._id}
-                            control={<Radio />}
-                            label={item.name}
-                            onChange={handleChangeBusiness}
-                          />
-                        </>
-                      );
-                    })}
-                  </RadioGroup>
-                </FormControl>
-              ) : (
-                ""
-              )}
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete
-                onChange={handleChangeLogin}
-                variant="outlined"
-                required
-                fullWidth
-                label="Логин"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                onChange={handleChangePassword}
-                required
-                fullWidth
-                label="Пароль"
-                autoComplete
-                type="password"
-              />
             </Grid>
           </Grid>
           <Button
