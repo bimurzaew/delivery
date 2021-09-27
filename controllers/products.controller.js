@@ -6,7 +6,7 @@ module.exports.productsController = {
   addProduct: async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
-      const { name, price, desc, category, amount } = req.body;
+      const { name, price, desc, category, amount, business } = req.body;
 
       const { image } = req.files;
 
@@ -15,7 +15,7 @@ module.exports.productsController = {
         if (err) {
           res.json(err.toString());
         } else {
-          await Product.create({
+          const product = await Product.create({
             name,
             price,
             desc,
@@ -23,8 +23,9 @@ module.exports.productsController = {
             image: newFileName,
             category,
             user,
+            business
           });
-          res.json({ message: "success" });
+          res.json(product);
         }
       });
     } catch (e) {
@@ -57,8 +58,10 @@ module.exports.productsController = {
   },
   deleteProduct: async (req, res) => {
     try {
-      await Product.findByIdAndDelete(req.params.id);
-      res.json({ message: "товар удален" });
+      const user = await User.findById(req.user.id);
+     const product = await Product.findByIdAndDelete(req.params.id);
+      const products = await Product.find({ user });
+      res.json(products);
     } catch (e) {
       res.json(e.toString());
     }

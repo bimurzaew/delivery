@@ -13,7 +13,7 @@ function Main() {
 
   return (
     <div>
-      <Link >Рестораны</Link>
+      <Link>Рестораны</Link>
       <Link>Магазины</Link>
     </div>
   );

@@ -5,7 +5,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
+  DialogTitle, FormControlLabel,
   IconButton,
   MenuItem,
   styled,
@@ -16,6 +16,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { addProduct } from "../../redux/features/product";
 import { getCategories } from "../../redux/features/categories";
+import {getUser} from "../../redux/features/users";
+import {getBusiness} from "../../redux/features/business";
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuDialogContent-root": {
@@ -60,8 +63,9 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function AddProduct() {
-  const message = useSelector((item) => item.product.message);
-  const categories = useSelector((item) => item.categories.catalog);
+  const message = useSelector((state) => state.product.message);
+  const categories = useSelector((state) => state.categories.catalog);
+  const user = useSelector((state) => state.users.user);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const [file, setFile] = useState();
@@ -69,14 +73,23 @@ export default function AddProduct() {
   const [price, setPrice] = useState();
   const [desc, setDesc] = useState();
   const [category, setCategory] = useState();
+  const buss = useSelector(state => state.business.items)
+
+  useEffect(() => {
+    dispatch(getBusiness())
+  },[])
 
   useEffect(() => {
     dispatch(getCategories());
   }, []);
+  useEffect(() => {
+    dispatch(getUser())
+  },[])
 
   const handleSendReq = (e) => {
     e.preventDefault();
     dispatch(addProduct({ file: file[0], name, price, desc, category }));
+    setOpen(false)
   };
   const handleFile = (e) => {
     setFile(e.target.files);
@@ -119,7 +132,12 @@ export default function AddProduct() {
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Box>
-            <TextField type="file" onChange={handleFile}></TextField>
+            <FormControlLabel
+                sx={{mr: -1}}
+                control={<input type="file" accept="image/*" style={{display: "none"}} />}
+                onChange={handleFile}
+                label={<AddAPhotoIcon />}
+            />
           </Box>
           <Box>
             <TextField
