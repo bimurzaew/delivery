@@ -1,10 +1,10 @@
 const initialState = {
   loading: false,
   error: false,
-  catalog:null
+  catalog:[]
 };
 
-export const categories = (state = initialState, action) => {
+export const categoriesReducer = (state = initialState, action) => {
   switch (action.type) {
     case "categories/load/pending":
       return {
@@ -31,8 +31,9 @@ export const categories = (state = initialState, action) => {
 export const getCategories = () => {
   return async (dispatch) => {
     dispatch({ type: "categories/load/pending" });
-    const response = await fetch("category");
+    const response = await fetch("http://localhost:7777/category");
     const json = await response.json();
+
     if (json.error) {
       dispatch({ type: "categories/load/rejected", payload: json });
     } else {
