@@ -1,12 +1,22 @@
 const initialState = {
-  products: null,
+  products: [],
   loading: false,
   message: null,
   error: false,
 };
 
-export const product = (state = initialState, action) => {
+export const productReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "load/product/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "load/product/fulfilled":
+      return {
+        ...state,
+        products: action.payload,
+      };
     case "vendor/add/pending":
       return {
         ...state,
@@ -59,6 +69,22 @@ export const product = (state = initialState, action) => {
         message: action.payload,
         products: action.payload
       };
+    case "load/productByCategory/pending":
+      return {
+        ...state,
+        loading: true
+      }
+    case "load/productByCategory/fulfilled":
+      return {
+        ...state,
+        loading: false,
+        products: action.payload
+      }
+    case "case load/productByCategory/fulfilled":
+      return {
+        ...state,
+        products: action.payload
+      }
     default:
       return state;
   }
@@ -126,3 +152,24 @@ export const deleteProduct = (id) => {
   };
 };
 
+export const loadProduct = () => {
+  return async (dispatch) => {
+    dispatch({ type: "load/product/pending" });
+    const response = await fetch("/products");
+    const json = await response.json();
+
+    dispatch({ type: "load/product/fulfilled", payload: json });
+  };
+};
+
+export const loadProductByCategory = (id) => {
+  return async dispatch => {
+    dispatch({type:"load/productByCategory/pending"});
+    const response = await fetch(`http://localhost:7777/vendor/category/${id}`);
+    const json = await response.json();
+
+    // console.log(json)
+
+    dispatch({type:"load/productByCategory/fulfilled",payload:json})
+  }
+}
