@@ -170,28 +170,28 @@ export const loadProductByCategory = (id) => {
     dispatch({ type: "load/productByCategory/fulfilled", payload: json });
   };
 };
-export const editProduct = ({ id, file, name, desc, price, category, amount }) => {
-    return async (dispatch, getState) => {
-      dispatch({ type: "product/edit/pending" });
-      const state = getState();
-      const formData = new FormData();
-      formData.append("image", file);
-      formData.append("name", name);
-      formData.append("desc", desc);
-      formData.append("price", price);
-      formData.append("category", category);
-      formData.append("amount", amount);
-      const response = await fetch(`product/${id}`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${state.users.token}`,
-        },
-      });
-      const json = response.json()
-      if (json.error) {
-        dispatch({type:"product/edit/rejected", payload:json})
-      }else {
-        dispatch({type:"product/edit/fulfilled", payload:json})
-      }
-    };
-  };
+// export const editProduct = ({ id, file, name, desc, price, category, amount }) => {
+//     return async (dispatch, getState) => {
+//       dispatch({ type: "product/edit/pending" });
+//       const state = getState();
+//       const formData = new FormData();
+//       formData.append("image", file);
+//       formData.append("name", name);
+//       formData.append("desc", desc);
+//       formData.append("price", price);
+//       formData.append("category", category);
+//       formData.append("amount", amount);
+//       const response = await fetch(`product/${id}`, {
+//         method: "PATCH",
+//         headers: {
+//           Authorization: `Bearer ${state.users.token}`,
+//         },
+//       });
+//       const json = response.json()
+//       if (json.error) {
+//         dispatch({type:"product/edit/rejected", payload:json})
+//       }else {
+//         dispatch({type:"product/edit/fulfilled", payload:json})
+//       }
+//     };
+//   };

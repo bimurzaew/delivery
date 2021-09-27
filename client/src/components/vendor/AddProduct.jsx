@@ -84,7 +84,7 @@ export default function AddProduct() {
 
   const handleSendReq = (e) => {
     e.preventDefault();
-    dispatch(addProduct({ file: file[0], name, price, desc, category }));
+    dispatch(addProduct({ file: file[0], name, price, desc, category, amount }));
     setOpen(false);
   };
   const handleFile = (e) => {
