@@ -19,13 +19,11 @@ function App() {
           <Route path="/signUp">
             <SignUpPage />
           </Route>
-          <Route path="/product">
+          <Route path="/vendor">
+            <Header />
             <Products />
           </Route>
           <Route exact path="/">
-            <Header />
-          </Route>
-          <Route path="/">
             <Main />
           </Route>
         </Switch>

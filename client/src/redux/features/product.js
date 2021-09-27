@@ -22,7 +22,7 @@ export const product = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        message: action.payload.message,
+        products: [...state.products, action.payload]
       };
     case "products/load/pending":
       return {
@@ -57,13 +57,14 @@ export const product = (state = initialState, action) => {
         ...state,
         loading: false,
         message: action.payload,
+        products: action.payload
       };
     default:
       return state;
   }
 };
 
-export const addProduct = ({ file, name, desc, price, category }) => {
+export const addProduct = ({ file, name, desc, price, category, business }) => {
   return async (dispatch, getState) => {
     dispatch({ type: "vendor/add/pending" });
     const state = getState();
@@ -73,6 +74,7 @@ export const addProduct = ({ file, name, desc, price, category }) => {
     formData.append("desc", desc);
     formData.append("price", price);
     formData.append("category", category);
+
     const response = await fetch("/product", {
       method: "POST",
       headers: {
@@ -117,9 +119,9 @@ export const deleteProduct = (id) => {
     });
     const json = await response.json();
     if (json.error) {
-      dispatch({ type: "vendor/delete/rejected" });
+      dispatch({ type: "vendor/delete/rejected", payload:json });
     } else {
-      dispatch({ type: "vendor/delete/fulfilled" });
+      dispatch({ type: "vendor/delete/fulfilled", payload:json });
     }
   };
 };

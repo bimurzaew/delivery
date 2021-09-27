@@ -88,5 +88,13 @@ module.exports.usersController = {
       res.status(401).json(e.toString());
     }
   },
+  getUser: async (req,res) => {
+    try {
+      const user = await User.findById(req.user.id).populate('business')
+      res.json(user)
+    }catch (e) {
+      res.json(e.toString())
+    }
+  }
 };
 

@@ -42,6 +42,22 @@ export const users = (state = initialState, action) => {
         token: action.payload.token,
         error: null,
       };
+    case "user/load/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "user/load/rejected":
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+    case "user/load/fulfilled":
+      return {
+        ...state,
+        loading: false,
+        user:action.payload
+      };
     default:
       return state;
   }
@@ -102,5 +118,23 @@ export const auth = ({ login, password, role }) => {
     localStorage.setItem("role", role);
   };
 };
+
+export const getUser = () => {
+  return async (dispatch, getState) => {
+    dispatch({type:"user/load/pending"})
+    const state = getState()
+    const response = await fetch('/user', {
+      headers:{
+        Authorization:`Bearer ${state.users.token}`
+      }
+    })
+    const json = await response.json()
+    if (json.error){
+      dispatch({type:"user/load/rejected", payload:json})
+    }else {
+      dispatch({type:"user/load/fulfilled", payload:json})
+    }
+  }
+}
 
 

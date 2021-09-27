@@ -13,7 +13,11 @@ const productSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref:"Category"
   },
-  amount:Number
+  amount:Number,
+  business:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"Business"
+  }
 });
 
 const Product = mongoose.model("Product", productSchema);
