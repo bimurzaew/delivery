@@ -1,13 +1,15 @@
 import React from "react";
-import AddProduct from "./AddProduct";
 import ProductCard from "./ProductCard";
+import AddProduct from "./AddProduct";
+import ProductsTable from "./ProductsTable";
 
 function Products() {
 
   return (
     <>
       <ProductCard />
-      <AddProduct />
+        <AddProduct />
+        <ProductsTable />
     </>
   );
 }

@@ -15,10 +15,10 @@ import { useDispatch, useSelector } from "react-redux";
 export default function CartModal() {
   const cart = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(loadCart());
   }, []);
-
 
 
 
@@ -70,14 +70,14 @@ export default function CartModal() {
         }}
       >
         <Paper>
-          {cart.map((item) => {
+          {cart?.map((item) => {
             return (
               <div key={item._id}>
-                <span key={item._id}>{item.product.name} </span>
+                <span key={item._id}>{item.product?.name} </span>
                 остаток:
                 <span>
-                  {item.product.amount
-                    ? item.product.amount + 1 - item.amount
+                  {item.product?.amount
+                    ? item.product?.amount + 1 - item.amount
                     : 0}
                   -
                 </span>
@@ -85,7 +85,7 @@ export default function CartModal() {
                 <span>
                   <Button
                     onClick={() => plus(item._id)}
-                    disabled={item.product.amount === 0}
+                    disabled={item.product?.amount === 0}
                   >
                     +
                   </Button>

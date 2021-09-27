@@ -5,7 +5,8 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle, FormControlLabel,
+  DialogTitle,
+  FormControlLabel,
   IconButton,
   MenuItem,
   styled,
@@ -16,8 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { addProduct } from "../../redux/features/product";
 import { getCategories } from "../../redux/features/categories";
-import {getUser} from "../../redux/features/users";
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import { getUser } from "../../redux/features/users";
+import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuDialogContent-root": {
@@ -72,18 +73,19 @@ export default function AddProduct() {
   const [price, setPrice] = useState();
   const [desc, setDesc] = useState();
   const [category, setCategory] = useState();
+  const [amount, setAmount] = useState();
 
   useEffect(() => {
     dispatch(getCategories());
   }, []);
   useEffect(() => {
-    dispatch(getUser())
-  },[])
+    dispatch(getUser());
+  }, []);
 
   const handleSendReq = (e) => {
     e.preventDefault();
     dispatch(addProduct({ file: file[0], name, price, desc, category }));
-    setOpen(false)
+    setOpen(false);
   };
   const handleFile = (e) => {
     setFile(e.target.files);
@@ -99,6 +101,9 @@ export default function AddProduct() {
   };
   const handleChangeCategory = (e) => {
     setCategory(e.target.value);
+  };
+  const handleChangeAmount = (e) => {
+    setAmount(e.target.value);
   };
 
   const handleClickOpen = () => {
@@ -127,10 +132,16 @@ export default function AddProduct() {
         <DialogContent dividers>
           <Box>
             <FormControlLabel
-                sx={{mr: -1}}
-                control={<input type="file" accept="image/*" style={{display: "none"}} />}
-                onChange={handleFile}
-                label={<AddAPhotoIcon />}
+              sx={{ mr: -1 }}
+              control={
+                <input
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                />
+              }
+              onChange={handleFile}
+              label={<AddAPhotoIcon />}
             />
           </Box>
           <Box>
@@ -175,6 +186,15 @@ export default function AddProduct() {
               margin="normal"
               label="описание"
               onChange={handleChangeDesc}
+            ></TextField>
+          </Box>
+          <Box>
+            <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                label="количество"
+                onChange={handleChangeAmount}
             ></TextField>
           </Box>
         </DialogContent>
