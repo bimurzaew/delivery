@@ -26,7 +26,7 @@ export default function BasicPopover() {
     dispatch(addProduct(id));
   };
 
-  const addProductrOrder = (cart) => {
+  const addProductOrder = (cart) => {
     dispatch(addOrder());
   };
 

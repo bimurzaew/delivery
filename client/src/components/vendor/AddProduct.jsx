@@ -17,7 +17,6 @@ import { useEffect, useState } from "react";
 import { addProduct } from "../../redux/features/product";
 import { getCategories } from "../../redux/features/categories";
 import {getUser} from "../../redux/features/users";
-import {getBusiness} from "../../redux/features/business";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -73,11 +72,6 @@ export default function AddProduct() {
   const [price, setPrice] = useState();
   const [desc, setDesc] = useState();
   const [category, setCategory] = useState();
-  const buss = useSelector(state => state.business.items)
-
-  useEffect(() => {
-    dispatch(getBusiness())
-  },[])
 
   useEffect(() => {
     dispatch(getCategories());
