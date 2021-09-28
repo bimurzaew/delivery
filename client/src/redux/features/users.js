@@ -56,21 +56,13 @@ export const users = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        user:action.payload
+        user: action.payload,
       };
     default:
       return state;
   }
 };
-export const register = ({
-  login,
-  password,
-  email,
-  name,
-  role,
-  lastName,
-  business,
-}) => {
+export const register = ({ login, password, email, name, role, lastName }) => {
   return async (dispatch) => {
     dispatch({ type: "user/signup/pending" });
     const response = await fetch("http://localhost:7777/user", {
@@ -85,7 +77,6 @@ export const register = ({
         email,
         role,
         lastName,
-        business,
       }),
     });
     const json = await response.json();
@@ -121,20 +112,18 @@ export const auth = ({ login, password, role }) => {
 
 export const getUser = () => {
   return async (dispatch, getState) => {
-    dispatch({type:"user/load/pending"})
-    const state = getState()
-    const response = await fetch('/user', {
-      headers:{
-        Authorization:`Bearer ${state.users.token}`
-      }
-    })
-    const json = await response.json()
-    if (json.error){
-      dispatch({type:"user/load/rejected", payload:json})
-    }else {
-      dispatch({type:"user/load/fulfilled", payload:json})
+    dispatch({ type: "user/load/pending" });
+    const state = getState();
+    const response = await fetch("/user", {
+      headers: {
+        Authorization: `Bearer ${state.users.token}`,
+      },
+    });
+    const json = await response.json();
+    if (json.error) {
+      dispatch({ type: "user/load/rejected", payload: json });
+    } else {
+      dispatch({ type: "user/load/fulfilled", payload: json });
     }
-  }
-}
-
-
+  };
+};

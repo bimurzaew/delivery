@@ -6,9 +6,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
   FormControlLabel,
+  FormLabel,
   IconButton,
   MenuItem,
+  Radio,
+  RadioGroup,
   styled,
   TextField,
 } from "@material-ui/core";
@@ -19,6 +23,7 @@ import { addProduct } from "../../redux/features/product";
 import { getCategories } from "../../redux/features/categories";
 import { getUser } from "../../redux/features/users";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import { getThings } from "../../redux/features/thing";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuDialogContent-root": {
@@ -66,6 +71,7 @@ export default function AddProduct() {
   const message = useSelector((state) => state.product.message);
   const categories = useSelector((state) => state.categories.catalog);
   const user = useSelector((state) => state.users.user);
+  const things = useSelector((state) => state.things.item);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const [file, setFile] = useState();
@@ -74,6 +80,7 @@ export default function AddProduct() {
   const [desc, setDesc] = useState();
   const [category, setCategory] = useState();
   const [amount, setAmount] = useState();
+  const [thing, setThing] = useState();
 
   useEffect(() => {
     dispatch(getCategories());
@@ -81,14 +88,22 @@ export default function AddProduct() {
   useEffect(() => {
     dispatch(getUser());
   }, []);
+  useEffect(() => {
+    dispatch(getThings());
+  }, []);
 
   const handleSendReq = (e) => {
     e.preventDefault();
-    dispatch(addProduct({ file: file[0], name, price, desc, category, amount }));
+    dispatch(
+      addProduct({ file: file[0], name, price, desc, category, amount, thing })
+    );
     setOpen(false);
   };
   const handleFile = (e) => {
     setFile(e.target.files);
+  };
+  const handleChangeThing = (e) => {
+    setThing(e.target.value);
   };
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -112,6 +127,7 @@ export default function AddProduct() {
   const handleClose = () => {
     setOpen(false);
   };
+  console.log(thing)
 
   return (
     <>
@@ -144,6 +160,23 @@ export default function AddProduct() {
               label={<AddAPhotoIcon />}
             />
           </Box>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Who are you warrior?</FormLabel>
+            <RadioGroup row aria-label="role" name="row-radio-buttons-group">
+              <FormControlLabel
+                  value='Eда'
+                  control={<Radio />}
+                  label='Еда'
+                  onChange={handleChangeThing}
+              />
+              <FormControlLabel
+                  value='Продукты'
+                  control={<Radio />}
+                  label='Продукты'
+                  onChange={handleChangeThing}
+              />
+            </RadioGroup>
+          </FormControl>
           <Box>
             <TextField
               variant="outlined"
@@ -190,11 +223,11 @@ export default function AddProduct() {
           </Box>
           <Box>
             <TextField
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                label="количество"
-                onChange={handleChangeAmount}
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              label="количество"
+              onChange={handleChangeAmount}
             ></TextField>
           </Box>
         </DialogContent>

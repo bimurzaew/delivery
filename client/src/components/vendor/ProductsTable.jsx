@@ -23,6 +23,7 @@ import { getCategories } from "../../redux/features/categories";
 import { makeStyles } from "@material-ui/core/styles";
 import AddProduct from "./AddProduct";
 import Loading from "../preload/Loading";
+import EditProduct from "./EditProduct";
 
 const useStyles = makeStyles(() => ({
   img: {
@@ -93,14 +94,14 @@ export default function ProductsTable() {
                     <TableCell component="th" scope="row">
                       {item.name}
                     </TableCell>
-                    <TableCell align="right">{item.category.name}</TableCell>
+                    <TableCell align="right">{item.category?.name}</TableCell>
                     <TableCell align="right">{item.amount}</TableCell>
                     <TableCell align="right">{item.price}</TableCell>
                     <TableCell align="right">
                       <Button onClick={() => handleDeleteProduct(item._id)}>
                         удалить
                       </Button>
-                      <Button>изменить</Button>
+                      <EditProduct item={item}/>
                     </TableCell>
                   </TableRow>
                 ))}
