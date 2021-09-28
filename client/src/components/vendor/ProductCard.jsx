@@ -23,6 +23,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import LoadingModal from "../preload/Loading";
 
+
 const useStyles = makeStyles({
   cards: {
     marginTop: 20,
@@ -52,46 +53,48 @@ export default function ProductCard() {
           <Grid container xs={10} spacing={5} className={classes.cards}>
             {products?.map((item) => {
               return (
-                <Grid item xs={3}>
-                  <Card sx={{ maxWidth: 345 }}>
-                    <CardHeader
-                      avatar={
-                        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                          R
-                        </Avatar>
-                      }
-                      action={
-                        <IconButton aria-label="settings">
-                          <MoreVertIcon />
+                <>
+                  <Grid item xs={3}>
+                    <Card sx={{ maxWidth: 345 }}>
+                      <CardHeader
+                          avatar={
+                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                              R
+                            </Avatar>
+                          }
+                          action={
+                            <IconButton aria-label="settings">
+                              <MoreVertIcon />
+                            </IconButton>
+                          }
+                          title={item.name}
+                          subheader="September 14, 2016"
+                      />
+                      <CardMedia
+                          component="img"
+                          height="194"
+                          image={`../../images/${item.image}`}
+                      />
+                      <CardContent>
+                        <Typography variant="body2" color="text.secondary">
+                          описание: {item.desc}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          цена: {item.price}
+                        </Typography>
+                      </CardContent>
+                      <CardActions disableSpacing>
+                        <IconButton aria-label="share">
+                          <RestoreFromTrashIcon
+                              onClick={() => {
+                                handleDeleteProduct(item._id);
+                              }}
+                          />
                         </IconButton>
-                      }
-                      title={item.name}
-                      subheader="September 14, 2016"
-                    />
-                    <CardMedia
-                      component="img"
-                      height="194"
-                      image={`../../images/${item.image}`}
-                    />
-                    <CardContent>
-                      <Typography variant="body2" color="text.secondary">
-                        описание: {item.desc}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        цена: {item.price}
-                      </Typography>
-                    </CardContent>
-                    <CardActions disableSpacing>
-                      <IconButton aria-label="share">
-                        <RestoreFromTrashIcon
-                          onClick={() => {
-                            handleDeleteProduct(item._id);
-                          }}
-                        />
-                      </IconButton>
-                    </CardActions>
-                  </Card>
-                </Grid>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                </>
               );
             })}
           </Grid>

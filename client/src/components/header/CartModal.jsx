@@ -79,9 +79,11 @@ const useStyles = makeStyles((theme) => ({
 export default function CartModal() {
   const cart = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(loadCart());
   }, []);
+
 
   const addProductOrder = (cart) => {
     dispatch(addOrder());
@@ -185,6 +187,7 @@ export default function CartModal() {
             </tbody>
           </table>
         </Container>
+
       </Popover>
     </div>
   );

@@ -2,28 +2,26 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import {
   Box,
+  Card,
+  CardMedia,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   FormControlLabel,
-  FormLabel,
   IconButton,
   MenuItem,
-  Radio,
-  RadioGroup,
   styled,
   TextField,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { addProduct } from "../../redux/features/product";
 import { getCategories } from "../../redux/features/categories";
 import { getUser } from "../../redux/features/users";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
-import { getThings } from "../../redux/features/thing";
+import { editProduct } from "../../redux/features/product";
+import { Image } from "@material-ui/icons";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuDialogContent-root": {
@@ -67,43 +65,32 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function AddProduct() {
-  const message = useSelector((state) => state.product.message);
+export default function EditProduct({ item }) {
+  // const message = useSelector((state) => state.product.message);
   const categories = useSelector((state) => state.categories.catalog);
-  const user = useSelector((state) => state.users.user);
-  const things = useSelector((state) => state.things.item);
+  // const user = useSelector((state) => state.users.user);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const [file, setFile] = useState();
-  const [name, setName] = useState();
-  const [price, setPrice] = useState();
-  const [desc, setDesc] = useState();
-  const [category, setCategory] = useState();
-  const [amount, setAmount] = useState();
-  const [thing, setThing] = useState();
+  const [file, setFile] = useState(item.file);
+  const [name, setName] = useState(item.name);
+  const [price, setPrice] = useState(item.price);
+  const [desc, setDesc] = useState(item.desc);
+  const [category, setCategory] = useState(item.category);
+  const [amount, setAmount] = useState(item.amount);
 
   useEffect(() => {
     dispatch(getCategories());
   }, []);
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
-  useEffect(() => {
-    dispatch(getThings());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getUser());
+  // }, []);
 
-  const handleSendReq = (e) => {
-    e.preventDefault();
-    dispatch(
-      addProduct({ file: file[0], name, price, desc, category, amount, thing })
-    );
+  const handleSendReq = (id) => {
+    dispatch(editProduct({ file: file[0], id, name, price, desc, category }));
     setOpen(false);
   };
-  const handleFile = (e) => {
+  const handleChangeFile = (e) => {
     setFile(e.target.files);
-  };
-  const handleChangeThing = (e) => {
-    setThing(e.target.value);
   };
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -127,13 +114,10 @@ export default function AddProduct() {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(thing)
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        добавить товар
-      </Button>
+      <Button onClick={handleClickOpen}>Изменить</Button>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -143,7 +127,7 @@ export default function AddProduct() {
           id="customized-dialog-title"
           onClose={handleClose}
         >
-          Добавление товара
+          Изменение товара
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Box>
@@ -156,35 +140,19 @@ export default function AddProduct() {
                   style={{ display: "none" }}
                 />
               }
-              onChange={handleFile}
-              label={<AddAPhotoIcon />}
+              onChange={handleChangeFile}
+              label={<img src={`../../images/${item.image}`} alt="" />}
             />
           </Box>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Who are you warrior?</FormLabel>
-            <RadioGroup row aria-label="role" name="row-radio-buttons-group">
-              <FormControlLabel
-                  value='Eда'
-                  control={<Radio />}
-                  label='Еда'
-                  onChange={handleChangeThing}
-              />
-              <FormControlLabel
-                  value='Продукты'
-                  control={<Radio />}
-                  label='Продукты'
-                  onChange={handleChangeThing}
-              />
-            </RadioGroup>
-          </FormControl>
           <Box>
             <TextField
               variant="outlined"
               fullWidth
               margin="normal"
               label="название товара"
+              value={name}
               onChange={handleChangeName}
-            ></TextField>
+            />
           </Box>
           <Box>
             <TextField
@@ -209,8 +177,9 @@ export default function AddProduct() {
               fullWidth
               margin="normal"
               label="цена"
+              value={price}
               onChange={handleChangePrice}
-            ></TextField>
+            />
           </Box>
           <Box>
             <TextField
@@ -218,8 +187,9 @@ export default function AddProduct() {
               fullWidth
               margin="normal"
               label="описание"
+              value={desc}
               onChange={handleChangeDesc}
-            ></TextField>
+            />
           </Box>
           <Box>
             <TextField
@@ -227,12 +197,19 @@ export default function AddProduct() {
               fullWidth
               margin="normal"
               label="количество"
+              value={amount}
               onChange={handleChangeAmount}
             ></TextField>
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleSendReq}>
+          <Button
+            autoFocus
+            onClick={() => {
+              console.log(item._id)
+              handleSendReq(item._id);
+            }}
+          >
             Сохранить
           </Button>
         </DialogActions>

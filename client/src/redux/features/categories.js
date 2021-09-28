@@ -31,7 +31,7 @@ export const categoriesReducer = (state = initialState, action) => {
 export const getCategories = () => {
   return async (dispatch) => {
     dispatch({ type: "categories/load/pending" });
-    const response = await fetch("http://localhost:7777/category");
+    const response = await fetch("/category");
     const json = await response.json();
 
     if (json.error) {

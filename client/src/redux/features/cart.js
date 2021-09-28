@@ -63,7 +63,7 @@ export const cartReducer = (state = initialState, action) => {
 export const minusProduct = (id) => {
   return async (dispatch) => {
     const response = await fetch(
-      `http://localhost:7777/cart/minusAmount/${id}`,
+      `/cart/minusAmount/${id}`,
       {
         method: "PATCH",
       }
@@ -77,7 +77,7 @@ export const plusProduct = (id) => {
   return async (dispatch) => {
     //
     const response = await fetch(
-      `http://localhost:7777/cart/plusAmount/${id}`,
+      `/cart/plusAmount/${id}`,
       {
         method: "PATCH",
       }
@@ -91,7 +91,7 @@ export const plusProduct = (id) => {
 
 export const loadCart = () => {
   return async (dispatch) => {
-    const response = await fetch("http://localhost:7777/cart");
+    const response = await fetch("/cart");
     const json = await response.json();
 
     dispatch({ type: "load/cart/fulfilled", payload: json });
@@ -102,7 +102,7 @@ export const loadCart = () => {
 
 export const addProduct = (id) => {
   return async (dispatch) => {
-    const response = await fetch(`http://localhost:7777/cart/add`, {
+    const response = await fetch(`/cart/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -119,7 +119,7 @@ export const addProduct = (id) => {
 
 export const deleteProduct = ({ id }) => {
   return async (dispatch) => {
-    const response = await fetch(`http://localhost:7777/cart/delete/${id}`, {
+    const response = await fetch(`/cart/delete/${id}`, {
       method: "DELETE",
     });
     const json = await response.json();
