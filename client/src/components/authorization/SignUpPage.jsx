@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -63,12 +63,11 @@ export default function SignUpPage() {
   const [email, setEmail] = useState();
   const [role, setRole] = useState();
   const [lastName, setLastName] = useState();
+  console.log(role);
 
   const loading = useSelector((state) => state.users.loading);
   const error = useSelector((state) => state.users.error);
   const message = useSelector((state) => state.users.message);
-
-
 
   const handleChangeName = (e) => {
     setName(e.target.value);

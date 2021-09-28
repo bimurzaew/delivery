@@ -9,15 +9,12 @@ const productSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  category:{
+  category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:"Category"
+    ref: "Category",
   },
-  amount:Number,
-  business:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref:"Business"
-  }
+  amount: Number,
+  thing: String,
 });
 
 const Product = mongoose.model("Product", productSchema);
