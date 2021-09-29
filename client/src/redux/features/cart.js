@@ -63,7 +63,7 @@ export const cartReducer = (state = initialState, action) => {
 export const minusProduct = (id) => {
   return async (dispatch) => {
     const response = await fetch(
-      `http://localhost:7777/cart/minusAmount/${id}`,
+      `/cart/minusAmount/${id}`,
       {
         method: "PATCH",
       }
@@ -77,7 +77,7 @@ export const plusProduct = (id) => {
   return async (dispatch) => {
     //
     const response = await fetch(
-      `http://localhost:7777/cart/plusAmount/${id}`,
+      `/cart/plusAmount/${id}`,
       {
         method: "PATCH",
       }

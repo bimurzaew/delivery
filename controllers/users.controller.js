@@ -5,7 +5,7 @@ const User = require("../models/User.model");
 module.exports.usersController = {
   register: async (req, res) => {
     try {
-      const { login, password, name, email, lastName, role, business } = req.body;
+      const { login, password, name, email, lastName, role } = req.body;
       const hash = await bcrypt.hash(password, Number(process.env.SALT));
 
       if (!lastName) {
@@ -38,7 +38,6 @@ module.exports.usersController = {
         name,
         lastName,
         role,
-        business
       });
 
       res.json("success");

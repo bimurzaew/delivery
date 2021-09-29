@@ -1,7 +1,17 @@
 import * as React from "react";
 import Button from "@material-ui/core/Button";
-import { ButtonGroup, IconButton, Paper, Popover } from "@material-ui/core";
+import {
+  ButtonGroup,
+  Container,
+  IconButton,
+  Paper,
+  Popover,
+  Typography,
+} from "@material-ui/core";
 import { ShoppingCart } from "@material-ui/icons";
+import CancelIcon from "@material-ui/icons/Cancel";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
 import {
   deleteProduct,
   loadCart,
@@ -11,6 +21,60 @@ import {
 import { addOrder } from "../../redux/features/order";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  backCard: {
+    backgroundColor: "#F5F5DC",
+  },
+  Card: {
+    fontSize: 20,
+    fontWeight: "bolder",
+    marginBottom: 10,
+  },
+  CardTwo: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  boxCard: {
+    display: "flex",
+  },
+  ProductName: {
+    fontSize: 20,
+    fontFamily: "Corbel",
+  },
+  remainder: {
+    marginLeft: 50,
+    marginRight: 50,
+  },
+  cardInfo: {
+    width: 500,
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  addBtn: {
+    fontSize: 20,
+    border: "solid blue 1px",
+    borderRadius: 10,
+  },
+  closeBtn: {},
+  removeBtn: {
+    fontSize: 20,
+    border: "solid blue 1px",
+    borderRadius: 10,
+  },
+  trCard: {
+    textAlign: "center",
+  },
+  table: {
+    width: 400,
+  },
+}));
 
 export default function CartModal() {
   const cart = useSelector((state) => state.cart.products);
@@ -23,8 +87,9 @@ export default function CartModal() {
   }, []);
 
 
-  const addProductOrder = (sum) => {
-    dispatch(addOrder(sum));
+
+  const addProductOrder = (cart) => {
+    dispatch(addOrder());
   };
 
   const handleDelete = (id) => {
@@ -45,7 +110,7 @@ export default function CartModal() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const classes = useStyles();
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
@@ -69,44 +134,65 @@ export default function CartModal() {
           horizontal: "left",
         }}
       >
-        <Paper>
-          <div>
-            {sum}
-          </div>
-          {cart.map((item) => {
-            return (
-              <>
-                <div key={item._id}>
-                  <span key={item._id}>{item.product.name} </span>
-                  остаток:
-                  <span>
-                    {item.product.amount
-                      ? item.product.amount - item.amount
-                      : 0}
-                    -
-                  </span>
-                  количество:
-                  <span>
-                    <Button
-                      onClick={() => plus(item._id)}
-                      disabled={item.product.amount === 0}
-                    >
-                      +
-                    </Button>
-                    {item.amount}
-                    <Button onClick={() => minus(item._id)}>-</Button>
-                  </span>
-                  __
-                  <span onClick={() => handleDelete(item._id)}> X</span>
-                </div>
+<Container className={classes.backCard}>
+          <Box className={classes.CardTwo}>Ваш Заказ</Box>
 
-              </>
+          <table className={classes.table}>
+            <thead>
+              <tr className={classes.cardInfo}>
+                <th>#</th>
+                <th>{sum} </th>
+                <th>Товар</th>
+                <th>Кол-во</th>
+                <th>В наличии</th>
+                <th>Цена</th>
+                <th> 
+                  <button onClick={() => addProductOrder(sum)}>
+                    Оформить заказ
+                  </button>   
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+          {cart.map((item,index) => {
+            return (
+                <tr className={classes.trCard}>
+                    <td>{index+1}</td>
+                    <td>
+                      <img src={`../../images/${item.image}`} />
+                    </td>
+                    <td>{item.product.name}</td>
+                    <td>
+                      <Button
+                        onClick={() => plus(item._id)}
+                        disabled={item.product.amount === 0}
+                      >
+                        <AddIcon className={classes.addBtn}></AddIcon>
+                      </Button>
+                      {item.amount}
+                      <Button onClick={() => minus(item._id)}>
+                        <RemoveIcon className={classes.removeBtn}></RemoveIcon>
+                      </Button>
+                    </td>
+                    <td>
+                      {item.product.amount
+                        ? item.product.amount + 1 - item.amount
+                        : 0}
+                    </td>
+                    <th>{item.product.price}</th>
+                    <td>
+                      <ButtonGroup disableElevation variant="contained">
+                        <Box onClick={() => handleDelete(item._id) className={classes.closeBtn}>
+                          <CancelIcon></CancelIcon>
+                        </Box>
+                      </ButtonGroup>
+                    </td>
+                  </tr>
             );
           })}
-          <button onClick={() => addProductOrder(sum)}>
-            Оформить заказ
-          </button>
-        </Paper>
+             </tbody>
+          </table>
+        </Container>
       </Popover>
     </div>
   );

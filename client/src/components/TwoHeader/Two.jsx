@@ -77,22 +77,6 @@ function Two(props) {
             </Grid>
           </Container>
         </Paper>
-        <div>
-          <Grid container>
-            <Grid item>
-              {/*<Typography variant={"h1"}>Еда</Typography>*/}
-              {/*<Typography variant={"h1"}>Продукты</Typography>*/}
-              <Box className={classes.black}>
-                <Typography
-                  className={classes.categories}
-                  variant={"h1"}
-                >
-                  hjf
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
-        </div>
       </div>
     </>
   );

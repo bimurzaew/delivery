@@ -1,11 +1,12 @@
 import React from "react";
-import { AppBar, IconButton, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, IconButton, Toolbar, Typography, Box } from "@material-ui/core";
 import { ShoppingCart } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import CartModal from './CartModal'
 import OrderModal from './OrdersModal'
 import { NavLink } from 'react-router-dom'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  AppbarCardAndAvatar: {
+    display: "flex",
+  }
 }));
 
 function Header(props) {
@@ -34,14 +38,15 @@ function Header(props) {
               Заказы
             </NavLink>
           </Typography>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <CartModal />
-            Карзина
-          </IconButton>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <Avatar />
-            Профиль
-          </IconButton>
+          <Box className={classes.AppbarCardAndAvatar}>
+            <IconButton>
+              <CartModal />
+            </IconButton>
+            <IconButton>
+              <Avatar />
+            </IconButton>
+          </Box>
+
         </Toolbar>
       </AppBar>
     </>
