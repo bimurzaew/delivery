@@ -37,7 +37,7 @@ function ProductGuest() {
   }, [id]);
 
   const getProduct = (id) => {
-    history.push(`/vendor/category/${id}`);
+    history.push(`/product/category/${id}`);
     dispatch(loadProductByCategory(id));
   };
 

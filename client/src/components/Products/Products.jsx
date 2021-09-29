@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme)=>({
   },
 }))
 
-function Products (props) {
+function GetProducts (props) {
   const classes = useStyles()
   const products = useSelector(state => state.product.products);
   const cart = useSelector((state) => state.cart.products);
@@ -66,4 +66,4 @@ function Products (props) {
   });
 }
 
-export default Products
+export default GetProducts

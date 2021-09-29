@@ -13,13 +13,17 @@ module.exports.orderControllers = {
   },
   addOrder: async (req, res) => {
     try {
-      const products = await Cart.find({}, { product: 1 });
+      const products = await Cart.find().populate("product");
 
+      const idProduct = products.map((item) => {
+        return item.product;
+      });
 
-      if (products.length === 0){
-        return false
+      if (products.length === 0) {
+        return false;
       }
-      const order = await Order.create({ product: products });
+      const order = await Order.create({ product: idProduct });
+
       res.json(order);
     } catch (e) {
       console.log(`ошибка в ордере ${e}`);

@@ -21,20 +21,22 @@ export const orderReducer = (state = initialState, action) => {
   }
 };
 
-export const addOrder = () => {
+export const addOrder = (sum) => {
   return async (dispatch) => {
-    const response = await fetch(`http://localhost:7777/order`, {
+    const response = await fetch(`/order`, {
       method: "POST",
     });
     const json = await response.json();
 
-    dispatch({ type: "add/order/fulfilled", payload: json });
+
+    dispatch({ type: "add/order/fulfilled", payload:  json });
   };
 };
 
+
 export const loadOrder = () => {
   return async (dispatch) => {
-    const response = await fetch(`http://localhost:7777/order`);
+    const response = await fetch(`/order`);
     const json = await response.json();
 
     dispatch({ type: "load/order/fulfilled", payload: json });

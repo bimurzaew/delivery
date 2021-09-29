@@ -3,7 +3,9 @@ import { AppBar, IconButton, Toolbar, Typography, Box } from "@material-ui/core"
 import { ShoppingCart } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
-import CartModal from "./CartModal";
+import CartModal from './CartModal'
+import OrderModal from './OrdersModal'
+import { NavLink } from 'react-router-dom'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +33,11 @@ function Header(props) {
           <Typography className={classes.title} variant="h6">
             Delivery
           </Typography>
+          <Typography className={classes.title} variant="h6">
+            <NavLink to={"/orders"}>
+              Заказы
+            </NavLink>
+          </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
             <IconButton>
               <CartModal />
@@ -39,6 +46,7 @@ function Header(props) {
               <Avatar />
             </IconButton>
           </Box>
+
         </Toolbar>
       </AppBar>
     </>
