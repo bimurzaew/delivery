@@ -67,7 +67,7 @@ module.exports.productsController = {
   deleteProduct: async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
-      const product = await Product.findByIdAndDelete(req.params.id);
+      await Product.findByIdAndDelete(req.params.id);
       const products = await Product.find({ user });
       res.json(products);
     } catch (e) {
