@@ -1,11 +1,20 @@
 import React from "react";
-import {Button, Typography} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
 
-
-function Main( ) {
-
+function Main() {
   return (
     <>
+      <Box>
+        <Typography>
+          <a href="/food">
+            Еда
+          </a>
+        </Typography>
+        <Typography>
+          Продукты
+        </Typography>
+      </Box>
     </>
   );
 }
