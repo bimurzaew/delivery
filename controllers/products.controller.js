@@ -82,9 +82,9 @@ module.exports.productsController = {
       res.json(e.toString());
     }
   },
-  getProductById: async (req, res) => {
+  getProductsFor: async (req, res) => {
     try {
-      const product = await Product.findById(req.params.id);
+      const product = await Product.find({thing:'Еда'});
       res.json(product);
     } catch (e) {
       res.json(e.toString());
