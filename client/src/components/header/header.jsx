@@ -4,6 +4,8 @@ import { ShoppingCart } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import CartModal from './CartModal'
+import OrderModal from './OrdersModal'
+import { NavLink } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,8 +29,15 @@ function Header(props) {
           <Typography className={classes.title} variant="h6">
             Delivery
           </Typography>
+          <Typography className={classes.title} variant="h6">
+            <NavLink to={"/orders"}>
+              Заказы
+            </NavLink>
+          </Typography>
+          <IconButton edge="start" color="inherit" aria-label="menu">
             <CartModal />
-            Корзина
+            Карзина
+          </IconButton>
           <IconButton edge="start" color="inherit" aria-label="menu">
             <Avatar />
             Профиль

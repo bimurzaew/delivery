@@ -14,16 +14,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function CartModal() {
   const cart = useSelector((state) => state.cart.products);
+  const sum = useSelector(state => state.cart.sum);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(loadCart());
   }, []);
 
 
-
-
-  const addProductOrder = (cart) => {
-    dispatch(addOrder());
+  const addProductOrder = (sum) => {
+    dispatch(addOrder(sum));
   };
 
   const handleDelete = (id) => {
@@ -50,7 +51,6 @@ export default function CartModal() {
 
   return (
     <div>
-
       <IconButton
         onClick={handleClick}
         edge="start"
@@ -70,35 +70,42 @@ export default function CartModal() {
         }}
       >
         <Paper>
+          <div>
+            {sum}
+          </div>
           {cart.map((item) => {
             return (
-              <div key={item._id}>
-                <span key={item._id}>{item.product.name} </span>
-                остаток:
-                <span>
-                  {item.product.amount
-                    ? item.product.amount + 1 - item.amount
-                    : 0}
-                  -
-                </span>
-                количество:
-                <span>
-                  <Button
-                    onClick={() => plus(item._id)}
-                    disabled={item.product.amount === 0}
-                  >
-                    +
-                  </Button>
-                  {item.amount}
-                  <Button onClick={() => minus(item._id)}>-</Button>
-                </span>
-                __
-                <span onClick={() => handleDelete(item._id)}> X</span>
-              </div>
+              <>
+                <div key={item._id}>
+                  <span key={item._id}>{item.product.name} </span>
+                  остаток:
+                  <span>
+                    {item.product.amount
+                      ? item.product.amount - item.amount
+                      : 0}
+                    -
+                  </span>
+                  количество:
+                  <span>
+                    <Button
+                      onClick={() => plus(item._id)}
+                      disabled={item.product.amount === 0}
+                    >
+                      +
+                    </Button>
+                    {item.amount}
+                    <Button onClick={() => minus(item._id)}>-</Button>
+                  </span>
+                  __
+                  <span onClick={() => handleDelete(item._id)}> X</span>
+                </div>
+
+              </>
             );
           })}
-          <ButtonGroup disableElevation variant="contained">
-          </ButtonGroup>
+          <button onClick={() => addProductOrder(sum)}>
+            Оформить заказ
+          </button>
         </Paper>
       </Popover>
     </div>

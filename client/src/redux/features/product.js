@@ -165,10 +165,9 @@ export const loadProduct = () => {
 export const loadProductByCategory = (id) => {
   return async dispatch => {
     dispatch({type:"load/productByCategory/pending"});
-    const response = await fetch(`http://localhost:7777/vendor/category/${id}`);
+    const response = await fetch(`http://localhost:7777/product/category/${id}`);
     const json = await response.json();
 
-    // console.log(json)
 
     dispatch({type:"load/productByCategory/fulfilled",payload:json})
   }

@@ -2,6 +2,7 @@ const initialState = {
   products: [],
   loading: false,
   error: false,
+  sum:null
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -10,6 +11,7 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.payload,
+        sum: action.payload.reduce((sum,item) => sum + item.product.price,0)
       };
     case "addProduct/cart/fulfilled":
       return {
@@ -30,12 +32,10 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         products: state.products.filter((item) => {
           if (item._id === action.payload._id) {
-            // if (item.amount>0){
             return {
               ...item,
               amount: item.amount++,
             };
-            // }
           }
           return item;
         }),
@@ -83,7 +83,6 @@ export const plusProduct = (id) => {
       }
     );
     const json = await response.json();
-    console.log(json.amount);
 
     dispatch({ type: "plusProduct/cart/fulfilled", payload: json });
   };
@@ -91,18 +90,17 @@ export const plusProduct = (id) => {
 
 export const loadCart = () => {
   return async (dispatch) => {
-    const response = await fetch("http://localhost:7777/cart");
+    const response = await fetch("/cart");
     const json = await response.json();
 
     dispatch({ type: "load/cart/fulfilled", payload: json });
 
-    console.log(json)
   };
 };
 
 export const addProduct = (id) => {
   return async (dispatch) => {
-    const response = await fetch(`http://localhost:7777/cart/add`, {
+    const response = await fetch(`/cart/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -119,7 +117,7 @@ export const addProduct = (id) => {
 
 export const deleteProduct = ({ id }) => {
   return async (dispatch) => {
-    const response = await fetch(`http://localhost:7777/cart/delete/${id}`, {
+    const response = await fetch(`/cart/delete/${id}`, {
       method: "DELETE",
     });
     const json = await response.json();
