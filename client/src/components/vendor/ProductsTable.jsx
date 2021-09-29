@@ -82,7 +82,7 @@ export default function ProductsTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {products.map((item) => (
+                {products?.map((item) => (
                   <TableRow key={item._id}>
                     <TableCell>
                       <CardMedia
