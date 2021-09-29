@@ -95,6 +95,12 @@ export const productReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case "Food/load":
+      return {
+        ...state,
+        products: action.payload,
+        loading: false,
+      };
     case "product/edit/fulfilled":
       return {
         ...state,
@@ -104,6 +110,18 @@ export const productReducer = (state = initialState, action) => {
     default:
       return state;
   }
+};
+
+
+export const loadFood = () => {
+  return async (dispatch) => {
+    fetch("http://localhost:7777/products")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+      dispatch({ type: "Food/load", payload: data });
+    });
+  };
 };
 
 export const addProduct = ({

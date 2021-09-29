@@ -8,6 +8,8 @@ import Products from "./vendor/Products";
 import Header from "./header/header";
 import Two from "./TwoHeader/Two";
 import Main from "./main/main";
+import Foods from './Food';
+import "./App.css"
 
 function App() {
   return (
@@ -28,6 +30,10 @@ function App() {
           <Route path="/vendor">
             <Header />
             <Products />
+          </Route>
+          <Route path="/food">
+            <Header/>
+            <Foods/>
           </Route>
         </Switch>
       </BrowserRouter>
