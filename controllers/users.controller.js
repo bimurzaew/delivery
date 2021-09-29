@@ -89,7 +89,7 @@ module.exports.usersController = {
   },
   getUser: async (req,res) => {
     try {
-      const user = await User.findById(req.user.id).populate('business')
+      const user = await User.findById(req.user.id)
       res.json(user)
     }catch (e) {
       res.json(e.toString())
