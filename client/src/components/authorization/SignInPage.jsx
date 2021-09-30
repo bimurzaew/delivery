@@ -101,7 +101,7 @@ export default function SignInPage() {
 
         .then(() => {
           if (!error) {
-            history.push("/vendor");
+            history.push("/");
           }
         })
         .catch((e) => {});

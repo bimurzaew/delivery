@@ -159,11 +159,11 @@ export default function CartModal() {
                     <td>
                       <img src={`../../images/${item.image}`} />
                     </td>
-                    <td>{item.product.name}</td>
+                    <td>{item?.product?.name}</td>
                     <td>
                       <Button
                         onClick={() => plus(item._id)}
-                        disabled={item.product.amount === 0}
+                        disabled={item?.product?.amount === 0}
                       >
                         <AddIcon className={classes.addBtn}></AddIcon>
                       </Button>
@@ -173,7 +173,7 @@ export default function CartModal() {
                       </Button>
                     </td>
                     <td>
-                      {item.product.amount
+                      {item?.product?.amount
                         ? item.product.amount + 1 - item.amount
                         : 0}
                     </td>
@@ -186,6 +186,7 @@ export default function CartModal() {
                           onClick={() => handleDelete(item._id)}
                           className={classes.closeBtn}
                         >
+
                           <CancelIcon></CancelIcon>
                         </Box>
                       </ButtonGroup>
