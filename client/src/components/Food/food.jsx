@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography';
 function Food({foods}) {
   return (
     <>
-      <img src={foods.image}/>
-      <Typography>{foods.name}</Typography>
+      <img src={foods?.image}/>
+      <Typography>{foods?.name}</Typography>
     </>
   );
 }
