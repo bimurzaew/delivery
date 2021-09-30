@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { loadProduct } from '../../redux/features/product'
-import { Button, Grid, Paper, Typography } from '@material-ui/core'
-import {makeStyles} from '@material-ui/core'
-import { addProduct } from '../../redux/features/cart'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadProduct } from "../../redux/features/product";
+import { Button, Grid, Paper, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+import { addProduct } from "../../redux/features/cart";
 
-const useStyles = makeStyles((theme)=>({
+const useStyles = makeStyles((theme) => ({
   productCard: {
     width: 300,
     cursor: "pointer",
@@ -17,18 +17,18 @@ const useStyles = makeStyles((theme)=>({
   cardImg: {
     width: 100,
   },
-}))
+}));
 
-function GetProducts (props) {
-  const classes = useStyles()
-  const products = useSelector(state => state.product.products);
+function GetProducts(props) {
+  const classes = useStyles();
+  const products = useSelector((state) => state.product.products);
   const cart = useSelector((state) => state.cart.products);
 
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(loadProduct())
-  },[]);
+  useEffect(() => {
+    dispatch(loadProduct());
+  }, []);
 
   const addProductToBox = (id) => {
     dispatch(addProduct(id));
@@ -41,7 +41,11 @@ function GetProducts (props) {
       <Grid item xs={6}>
         <Paper className={classes.productCard}>
           <div className={classes.imgBlock}>
-            <img className={classes.cardImg} src={`../../images/${product.image}`} alt="" />
+            <img
+              className={classes.cardImg}
+              src={`../../images/${product.image}`}
+              alt=""
+            />
           </div>
           <Typography component="p">имя:{product.name}</Typography>
           <Typography component="p">цена:{product.price}</Typography>
@@ -51,19 +55,17 @@ function GetProducts (props) {
             variant="contained"
             disabled={inCart || product.amount === 0}
             onClick={() => addProductToBox(product._id)}
-
           >
             {inCart
               ? "в корзине"
               : product.amount
-                ? "добавить в корзину"
-                : "нет в наличии"}
+              ? "добавить в корзину"
+              : "нет в наличии"}
           </Button>
-
         </Paper>
       </Grid>
     );
   });
 }
 
-export default GetProducts
+export default GetProducts;

@@ -4,13 +4,16 @@ import {
   CardMedia,
   TableBody,
   TableCell,
-  TableRow, Typography,
+  TableRow,
+  Typography,
 } from "@material-ui/core";
 import EditProduct from "./EditProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { deleteProduct } from "../../../redux/features/product";
 import AddProduct from "./AddProduct";
+import Loading from "../../preload/Loading";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(() => ({
   img: {
@@ -25,6 +28,7 @@ function ProductItems(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
+  const deleting = useSelector((state) => state.product.deleting);
 
   const handleDeleteProduct = (id) => {
     dispatch(deleteProduct(id));
@@ -48,9 +52,13 @@ function ProductItems(props) {
           <TableCell align="right">{item.amount}</TableCell>
           <TableCell align="right">{item.price}</TableCell>
           <TableCell align="right">
-            <Button onClick={() => handleDeleteProduct(item._id)}>
-              удалить
-            </Button>
+            {deleting ? (
+              <CircularProgress />
+            ) : (
+              <Button onClick={() => handleDeleteProduct(item._id)}>
+                удалить
+              </Button>
+            )}
             <EditProduct item={item} />
           </TableCell>
         </TableRow>
