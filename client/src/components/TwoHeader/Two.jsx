@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Box,
   Button,
   Container,
   Grid,
@@ -43,7 +42,6 @@ function Two(props) {
   const classes = useStyles();
   return (
     <>
-      <div>
         <Paper
           className={classes.mainFeatures}
           style={{
@@ -51,7 +49,6 @@ function Two(props) {
           }}
         >
           <Container fixed>
-            <div className={classes.overlay} />
             <Grid container>
               <Grid item md={6}>
                 <div className={classes.main}>
@@ -77,7 +74,6 @@ function Two(props) {
             </Grid>
           </Container>
         </Paper>
-      </div>
     </>
   );
 }
