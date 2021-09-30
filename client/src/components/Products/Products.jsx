@@ -41,7 +41,7 @@ function GetProducts (props) {
       <Grid item xs={6}>
         <Paper className={classes.productCard}>
           <div className={classes.imgBlock}>
-            <img className={classes.cardImg} src={`../../../public/images/${product.image}`} alt="" />
+            <img className={classes.cardImg} src={`../../images/${product.image}`} alt="" />
           </div>
           <Typography component="p">имя:{product.name}</Typography>
           <Typography component="p">цена:{product.price}</Typography>

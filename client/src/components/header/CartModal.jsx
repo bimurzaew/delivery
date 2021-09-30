@@ -145,6 +145,7 @@ export default function CartModal() {
         <Container className={classes.backCard}>
           <Box className={classes.CardTwo}>Ваш Заказ {sum}</Box>
 
+
           <table className={classes.table}>
             <thead>
               <tr className={classes.cardInfo}>
@@ -162,28 +163,30 @@ export default function CartModal() {
                   <tr className={classes.trCard}>
                     <td>{index + 1}</td>
                     <td>
-                      <img src={`../../images/${item.image}`} />
+                      <img src={`../../images/${item.image}`}  alt=""/>
                     </td>
 
                     <td>{item.product.name}</td>
+
                     <td>
                       <Button
                         onClick={() => plus(item._id)}
-                        disabled={item.product.amount === 0}
+                        disabled={item?.product?.amount === 0}
                       >
-                        <AddIcon className={classes.addBtn}></AddIcon>
+                        <AddIcon className={classes.addBtn}/>
                       </Button>
                       {item.amount}
                       <Button onClick={() => minus(item._id)}>
-                        <RemoveIcon className={classes.removeBtn}></RemoveIcon>
+                        <RemoveIcon className={classes.removeBtn}/>
                       </Button>
                     </td>
                     <td>
-                      {item.product.amount
+                      {item?.product?.amount
                         ? item.product.amount + 1 - item.amount
                         : 0}
                     </td>
                     <th>{item.product.price + "₽"}</th>
+
                     <td>
                       <ButtonGroup disableElevation variant="contained">
                         <Box
@@ -191,6 +194,8 @@ export default function CartModal() {
                           className={classes.closeBtn}
                         >
                           <CancelIcon></CancelIcon>
+
+                          <CancelIcon/>
                         </Box>
                       </ButtonGroup>
                     </td>

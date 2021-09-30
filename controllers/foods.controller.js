@@ -34,4 +34,21 @@ module.exports.foodController = {
       res.json(e);
     }
   },
+  getFoodForVendor: async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+      const food = await Food.find({ user });
+      res.json(food);
+    } catch (e) {
+      res.json(e.toString());
+    }
+  },
+  deleteProduct: async (req, res) => {
+    try {
+      await Food.findByIdAndDelete(req.params.id);
+      res.status(400);
+    } catch (e) {
+      res.json(e.toString());
+    }
+  },
 };

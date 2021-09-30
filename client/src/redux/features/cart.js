@@ -11,7 +11,7 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.payload,
-        sum: action.payload.reduce((sum,item) => sum + item.product.price,0)
+        // sum: action.payload.reduce((sum,item) => sum + item.product.price,0)
       };
     case "addProduct/cart/fulfilled":
       return {
