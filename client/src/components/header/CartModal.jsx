@@ -157,7 +157,7 @@ export default function CartModal() {
                   <tr className={classes.trCard}>
                     <td>{index + 1}</td>
                     <td>
-                      <img src={`../../images/${item.image}`} />
+                      <img src={`../../images/${item.image}`}  alt=""/>
                     </td>
                     <td>{item?.product?.name}</td>
                     <td>
@@ -165,11 +165,11 @@ export default function CartModal() {
                         onClick={() => plus(item._id)}
                         disabled={item?.product?.amount === 0}
                       >
-                        <AddIcon className={classes.addBtn}></AddIcon>
+                        <AddIcon className={classes.addBtn}/>
                       </Button>
                       {item.amount}
                       <Button onClick={() => minus(item._id)}>
-                        <RemoveIcon className={classes.removeBtn}></RemoveIcon>
+                        <RemoveIcon className={classes.removeBtn}/>
                       </Button>
                     </td>
                     <td>
@@ -187,7 +187,7 @@ export default function CartModal() {
                           className={classes.closeBtn}
                         >
 
-                          <CancelIcon></CancelIcon>
+                          <CancelIcon/>
                         </Box>
                       </ButtonGroup>
                     </td>

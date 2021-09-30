@@ -4,7 +4,7 @@ const Product = require("../models/Product.model");
 module.exports.cartController = {
   getCart: async (req, res) => {
     const data = await Cart.find().populate("product");
-    console.log(data)
+    // console.log(data)
     res.json(data);
   },
   plusAmountCart: async (req, res) => {
