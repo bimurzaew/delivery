@@ -13,13 +13,17 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   Appbar: {
-    background: "cadetblue",
+    background: "#6247aa ",
   },
   title: {
     flexGrow: 1,
   },
   AppbarCardAndAvatar: {
     display: "flex",
+  },
+  Order: {
+    textDecoration: 'none',
+    color: "white"
   }
 }));
 
@@ -34,7 +38,7 @@ function Header(props) {
             Delivery
           </Typography>
           <Typography className={classes.title} variant="h6">
-            <NavLink to={"/orders"}>
+            <NavLink className={classes.Order}  to={"/orders"}>
               Заказы
             </NavLink>
           </Typography>

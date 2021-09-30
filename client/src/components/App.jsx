@@ -25,15 +25,6 @@ function App() {
           <Route path={"/orders"}>
             <OrdersModal/>
           </Route>
-          <Route exact path="/">
-
-
-            <Main />
-
-            <Header />
-            <Two />
-            <Main />
-          </Route>
           <Route path="/signIn">
             <SignInPage />
           </Route>
@@ -50,10 +41,15 @@ function App() {
             <Header />
             <Products />
           </Route>
-          <Route path="/food">
-            <Header/>
-            <Foods/>
+          <Route path="/">
+            <Header />
+            <Two />
+            <Main />
           </Route>
+          {/*<Route path="/food">*/}
+          {/*  <Header/>*/}
+          {/*  <Foods/>*/}
+          {/*</Route>*/}
         </Switch>
       </BrowserRouter>
     </Provider>

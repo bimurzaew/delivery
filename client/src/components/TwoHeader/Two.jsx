@@ -30,12 +30,12 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     backgroundOverlay: "rgba(0,0,0,.3",
   },
-  categories: {
-    fontSize: 30,
-    color: "#ff0000",
-  },
+
   black:{
 backgroundColor: 'red'
+  },
+  text: {
+    color: 'white',
   }
 }));
 
@@ -47,15 +47,14 @@ function Two(props) {
         <Paper
           className={classes.mainFeatures}
           style={{
-            backgroundImage: `url(https://source.unsplash.com/random)`,
+            backgroundImage: `url(https://cdn5.vedomosti.ru/image/2021/4h/yyl6c/original-19b5.jpg)`,
           }}
         >
           <Container fixed>
-            <div className={classes.overlay} />
             <Grid container>
               <Grid item md={6}>
                 <div className={classes.main}>
-                  <Typography
+                  <Typography style={{color: 'white'}}
                     variant="h5"
                     component="h1"
                     color="inherit"
@@ -63,13 +62,12 @@ function Two(props) {
                   >
                     Какойто текст
                   </Typography>
-                  <Typography color="inherit" paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Autem earum labore nisi perspiciatis quaerat saepe unde
-                    voluptates. Cum doloribus, earum exercitationem illum
-                    quisquam quod saepe sequi. Atque dolorum nam rerum!
-                  </Typography>
-                  <Button variant="contained" color="secondary">
+                  <h5 style={{color: 'white'}}>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Autem earum labore nisi perspiciatis quaerat saepe unde
+                      voluptates. Cum doloribus, earum exercitationem illum
+                      quisquam quod saepe sequi. Atque dolorum nam rerum!
+                  </h5>
+                  <Button style={{backgroundColor: '#7251b5'}} variant="contained" color="secondary">
                     Learn more
                   </Button>
                 </div>
