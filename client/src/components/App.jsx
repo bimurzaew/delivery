@@ -18,6 +18,7 @@ import { Container } from "@material-ui/core";
 function App() {
   return (
     <Provider store={store}>
+<<<<<<< HEAD
       <Container maxWidth="xl">
         <BrowserRouter>
           <Header />
@@ -55,6 +56,53 @@ function App() {
           </Switch>
         </BrowserRouter>
       </Container>
+=======
+      <BrowserRouter>
+        <Header />
+        <Switch>
+          <Route path={"/orders"}>
+            <Header />
+            <OrdersModal/>
+          </Route>
+
+          <Route exact path="/">
+            <Main />
+            <Header />
+            <Two />
+            <Main />
+          </Route>
+          <Route path="/signIn">
+            <SignInPage />
+          </Route>
+          <Route path="/signUp">
+            <SignUpPage />
+          </Route>
+          <Route path="/product/category">
+            <ProductGuest />
+          </Route>
+          <Route path="/product/category/:id">
+            <ProductsByCategory />
+          </Route>
+          <Route path="/vendor">
+            <Header />
+            <Products />
+          </Route>
+          <Route path="/">
+            <Header />
+            <Two />
+            <Main />
+
+          <Route path="/food">
+            <Header />
+            <Foods/>
+          </Route>
+          {/*<Route path="/food">*/}
+          {/*  <Header/>*/}
+          {/*  <Foods/>*/}
+          {/*</Route>*/}
+        </Switch>
+      </BrowserRouter>
+>>>>>>> main
     </Provider>
   );
 }
