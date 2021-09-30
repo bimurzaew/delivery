@@ -78,15 +78,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CartModal() {
   const cart = useSelector((state) => state.cart.products);
-  const sum = useSelector(state => state.cart.sum);
+  const sum = useSelector((state) => state.cart.sum);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(loadCart());
   }, []);
-
-
 
   const addProductOrder = (cart) => {
     dispatch(addOrder());
@@ -134,7 +132,7 @@ export default function CartModal() {
           horizontal: "left",
         }}
       >
-<Container className={classes.backCard}>
+        <Container className={classes.backCard}>
           <Box className={classes.CardTwo}>Ваш Заказ</Box>
 
           <table className={classes.table}>
@@ -146,18 +144,18 @@ export default function CartModal() {
                 <th>Кол-во</th>
                 <th>В наличии</th>
                 <th>Цена</th>
-                <th> 
+                <th>
                   <button onClick={() => addProductOrder(sum)}>
                     Оформить заказ
-                  </button>   
+                  </button>
                 </th>
               </tr>
             </thead>
             <tbody>
-          {cart.map((item,index) => {
-            return (
-                <tr className={classes.trCard}>
-                    <td>{index+1}</td>
+              {cart.map((item, index) => {
+                return (
+                  <tr className={classes.trCard}>
+                    <td>{index + 1}</td>
                     <td>
                       <img src={`../../images/${item.image}`} />
                     </td>
@@ -179,18 +177,23 @@ export default function CartModal() {
                         ? item.product.amount + 1 - item.amount
                         : 0}
                     </td>
+
                     <th>{item.product.price}</th>
+
                     <td>
                       <ButtonGroup disableElevation variant="contained">
-                        <Box onClick={() => handleDelete(item._id) className={classes.closeBtn}>
+                        <Box
+                          onClick={() => handleDelete(item._id)}
+                          className={classes.closeBtn}
+                        >
                           <CancelIcon></CancelIcon>
                         </Box>
                       </ButtonGroup>
                     </td>
                   </tr>
-            );
-          })}
-             </tbody>
+                );
+              })}
+            </tbody>
           </table>
         </Container>
       </Popover>

@@ -11,6 +11,14 @@ module.exports.orderControllers = {
       console.log(`ошибка в ордере ${e}`);
     }
   },
+  getOrderOne: async (req, res) => {
+    try {
+      const data = await Order.findById(req.params.id).populate("product");
+      res.json(data);
+    } catch (e) {
+      console.log(`ошибка при получении одного ${e.toString()}`);
+    }
+  },
   addOrder: async (req, res) => {
     try {
       const products = await Cart.find().populate("product");
