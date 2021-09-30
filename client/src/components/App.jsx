@@ -28,6 +28,7 @@ function App() {
             <Header />
             <OrdersModal/>
           </Route>
+
           <Route exact path="/">
             <Main />
             <Header />
@@ -50,10 +51,19 @@ function App() {
             <Header />
             <Products />
           </Route>
+          <Route path="/">
+            <Header />
+            <Two />
+            <Main />
+
           <Route path="/food">
             <Header />
             <Foods/>
           </Route>
+          {/*<Route path="/food">*/}
+          {/*  <Header/>*/}
+          {/*  <Foods/>*/}
+          {/*</Route>*/}
         </Switch>
       </BrowserRouter>
     </Provider>

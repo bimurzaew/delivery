@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   Appbar: {
-    background: "cadetblue",
+    background: "#6247aa ",
   },
   title: {
     flexGrow: 1,
@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
   AppbarCardAndAvatar: {
     display: "flex",
   },
+  Order: {
+    textDecoration: 'none',
+    color: "white"
+  }
 }));
 
 function Header(props) {
@@ -41,6 +45,27 @@ function Header(props) {
   }, []);
   return (
     <>
+      <AppBar className={classes.Appbar} position="fixed">
+        <Toolbar>
+          <Typography className={classes.title} variant="h6">
+            Delivery
+          </Typography>
+          <Typography className={classes.title} variant="h6">
+            <NavLink className={classes.Order}  to={"/orders"}>
+              Заказы
+            </NavLink>
+          </Typography>
+          <Box className={classes.AppbarCardAndAvatar}>
+            <IconButton>
+              <CartModal />
+            </IconButton>
+            <IconButton>
+              <Avatar />
+            </IconButton>
+          </Box>
+
+        </Toolbar>
+      </AppBar>
       {user?.role === "vendor" && token ? (
         <VendorHeader />
       ) : user?.role === "courier" && token ? (

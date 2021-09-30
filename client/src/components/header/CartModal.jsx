@@ -72,8 +72,18 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   table: {
-    width: 400,
+
   },
+  tfoot: {
+    width: 500,
+    marginBottom: 10,
+    textAlign: "center",
+    fontWeight: "bold"
+  },
+  footBtn: {
+    margin: "15px 0",
+    backgroundColor: "#7251b5"
+  }
 }));
 
 export default function CartModal() {
@@ -133,22 +143,18 @@ export default function CartModal() {
         }}
       >
         <Container className={classes.backCard}>
-          <Box className={classes.CardTwo}>Ваш Заказ</Box>
+          <Box className={classes.CardTwo}>Ваш Заказ {sum}</Box>
+
 
           <table className={classes.table}>
             <thead>
               <tr className={classes.cardInfo}>
                 <th>#</th>
-                <th>{sum} </th>
+                <th></th>
                 <th>Товар</th>
                 <th>Кол-во</th>
                 <th>В наличии</th>
                 <th>Цена</th>
-                <th>
-                  <button onClick={() => addProductOrder(sum)}>
-                    Оформить заказ
-                  </button>
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -159,7 +165,9 @@ export default function CartModal() {
                     <td>
                       <img src={`../../images/${item.image}`}  alt=""/>
                     </td>
-                    <td>{item?.product?.name}</td>
+
+                    <td>{item.product.name}</td>
+
                     <td>
                       <Button
                         onClick={() => plus(item._id)}
@@ -177,8 +185,7 @@ export default function CartModal() {
                         ? item.product.amount + 1 - item.amount
                         : 0}
                     </td>
-
-                    <th>{item.product.price}</th>
+                    <th>{item.product.price + "₽"}</th>
 
                     <td>
                       <ButtonGroup disableElevation variant="contained">
@@ -186,6 +193,7 @@ export default function CartModal() {
                           onClick={() => handleDelete(item._id)}
                           className={classes.closeBtn}
                         >
+                          <CancelIcon></CancelIcon>
 
                           <CancelIcon/>
                         </Box>
@@ -194,6 +202,13 @@ export default function CartModal() {
                   </tr>
                 );
               })}
+            <tr className={classes.tfoot}>
+              <td colSpan={3}><Button className={classes.footBtn} variant="contained" color="secondary" onClick={() => addProductOrder(sum)}>Оформить заказ</Button></td>
+              <td></td>
+              <td><Typography>Итоговая цена:</Typography></td>
+              <td>{sum + "₽"}</td>
+              <td></td>
+            </tr>
             </tbody>
           </table>
         </Container>
