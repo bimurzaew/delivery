@@ -2,7 +2,7 @@ const initialState = {
   products: [],
   loading: false,
   error: false,
-  sum:null
+  sum: [],
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -11,7 +11,7 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.payload,
-        // sum: action.payload.reduce((sum,item) => sum + item.product.price,0)
+        sum: state.products.reduce((sum, item) => sum+item.product.price * item.amount,0),
       };
     case "addProduct/cart/fulfilled":
       return {
@@ -30,35 +30,45 @@ export const cartReducer = (state = initialState, action) => {
     case "plusProduct/cart/fulfilled":
       return {
         ...state,
-        products: state.products.filter((item) => {
+        products: state.products.map((item) => {
           if (item._id === action.payload._id) {
             return {
               ...item,
-              amount: item.amount++,
+              amount: item.amount+1,
             };
           }
           return item;
         }),
+        sum: state.products.reduce((sum, item)=>{
+          return (item.product.price + sum)*item.amount
+        },0),
       };
     case "minusProduct/cart/fulfilled":
       return {
         ...state,
-        products: state.products.filter((item) => {
+        products: state.products.map((item) => {
           if (item._id === action.payload._id) {
-            // if (item.amount>0){
             return {
               ...item,
-              amount: item.amount--,
+              amount: item.amount-1,
             };
-            // }
           }
           return item;
         }),
+        sum: state.products.reduce((sum, item)=>{
+          return (item.product.price - sum)*item.amount
+        },0),
       };
+    case "clean/cart/fulfilled":
+      return {
+        ...state,
+        products: action.payload
+      }
     default:
       return state;
   }
 };
+
 
 export const minusProduct = (id) => {
   return async (dispatch) => {
@@ -84,6 +94,7 @@ export const plusProduct = (id) => {
     );
     const json = await response.json();
 
+
     dispatch({ type: "plusProduct/cart/fulfilled", payload: json });
   };
 };
@@ -93,8 +104,9 @@ export const loadCart = () => {
     const response = await fetch("/cart");
     const json = await response.json();
 
-    dispatch({ type: "load/cart/fulfilled", payload: json });
 
+
+    dispatch({ type: "load/cart/fulfilled", payload: json });
   };
 };
 
@@ -125,3 +137,13 @@ export const deleteProduct = ({ id }) => {
     dispatch({ type: "deleteProduct/cart/fulfilled", payload: { json, id } });
   };
 };
+
+export const cleanCart = () => {
+  return async dispatch => {
+    const response = await fetch("/cart/delete",{
+      method:"POST"
+    });
+    const json = await response.json();
+    dispatch({type:"clean/cart/fulfilled",payload:json})
+  }
+}

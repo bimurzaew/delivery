@@ -30,8 +30,6 @@ function OrdersModal(props) {
         </thead>
         <tbody>
           {orders.map((item, index) => {
-            console.log(item);
-
             return (
               <tr key={item._id}>
                 <td>{index + 1}</td>
@@ -39,9 +37,11 @@ function OrdersModal(props) {
                   <NavLink to={`/order/${item._id}`}>{item._id}</NavLink>
                 </td>
                 <td>{item.products.length}</td>
-                {/*<td>{item.product.reduce((sum, item) => {*/}
-                {/*  return sum + item.price*/}
-                {/*}, 0)}</td>*/}
+                <td>
+                  {item.products.reduce((sum, item) => {
+                    return sum + item.product.price * item.amount;
+                  }, 0)}
+                </td>
                 <td>статус</td>
                 <td>
                   <Button variant="contained">принять</Button>

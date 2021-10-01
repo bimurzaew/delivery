@@ -13,11 +13,12 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import {
+  cleanCart,
   deleteProduct,
   loadCart,
   minusProduct,
   plusProduct,
-} from "../../redux/features/cart";
+} from '../../redux/features/cart'
 import { addOrder } from "../../redux/features/order";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -98,6 +99,7 @@ export default function CartModal() {
 
   const addProductOrder = (cart) => {
     dispatch(addOrder());
+    dispatch(cleanCart())
   };
 
   const handleDelete = (id) => {
@@ -193,8 +195,6 @@ export default function CartModal() {
                           onClick={() => handleDelete(item._id)}
                           className={classes.closeBtn}
                         >
-                          <CancelIcon></CancelIcon>
-
                           <CancelIcon/>
                         </Box>
                       </ButtonGroup>

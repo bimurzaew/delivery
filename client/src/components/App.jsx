@@ -55,7 +55,7 @@ function App() {
             <Header />
             <Two />
             <Main />
-
+          </Route>
           <Route path="/food">
             <Header />
             <Foods/>
