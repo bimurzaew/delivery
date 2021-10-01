@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Avatar: {
     width: 100,
+  },
   red:{
     width:10,
     height:10,
