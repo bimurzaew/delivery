@@ -34,8 +34,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-
-
 function Main() {
   const classes = useStyles();
   return (
@@ -47,6 +45,7 @@ function Main() {
             Еда
           </NavLink>
           <NavLink className={classes.Product} to="/product/category">
+          <NavLink className={classes.Product} to="/food">
             Продукты
           </NavLink>
         </Box>
@@ -54,6 +53,7 @@ function Main() {
       <Route path="/food">
         <Food/>
       </Route>
+
     </>
   );
 }

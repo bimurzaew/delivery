@@ -23,6 +23,7 @@ import { addProduct } from "../../../redux/features/product";
 import { getCategories } from "../../../redux/features/categories";
 import { getUser } from "../../../redux/features/users";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuDialogContent-root": {
@@ -123,9 +124,10 @@ export default function AddProduct() {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        добавить товар
-      </Button>
+      <MenuItem variant="outlined" onClick={handleClickOpen}>
+        <AddShoppingCartIcon />
+        Добавить продукт
+      </MenuItem>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"

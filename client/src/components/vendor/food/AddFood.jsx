@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogTitle,
   FormControlLabel,
-  IconButton,
+  IconButton, MenuItem,
   styled,
   TextField,
 } from "@material-ui/core";
@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {  useState } from "react";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import { addFood } from "../../../redux/features/food";
+import KitchenIcon from "@material-ui/icons/Kitchen";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuDialogContent-root": {
@@ -97,9 +98,10 @@ export default function AddFood() {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        добавить еду
-      </Button>
+      <MenuItem variant="outlined" onClick={handleClickOpen}>
+        <KitchenIcon />
+        Добавить еду
+      </MenuItem>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"

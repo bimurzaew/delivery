@@ -4,7 +4,7 @@ const Product = require("../models/Product.model");
 module.exports.cartController = {
   getCart: async (req, res) => {
     const data = await Cart.find().populate("product");
-    console.log(data)
+    // console.log(data)
     res.json(data);
   },
   plusAmountCart: async (req, res) => {
@@ -52,11 +52,10 @@ module.exports.cartController = {
       const box = await Cart.create({ product, amount });
 
       const find = await Cart.findById(box.id).populate("product");
-      const productEdit = await Product.findByIdAndUpdate(find.product.id, {
-        amount: find.product.amount - 1,
-      });
+      // const productEdit = await Product.findByIdAndUpdate(find.product.id, {
+      //   amount: find.product.amount - 1,
+      // });
 
-      console.log(productEdit);
       res.json(find);
     } catch (e) {
       console.log(`ошибка при добавлении в корзину ${e}`);
@@ -75,4 +74,14 @@ module.exports.cartController = {
 
     res.json("ok");
   },
+  deleteCart:async (req, res) => {
+    try {
+      await Cart.deleteMany();
+      const cart = await Cart.create([]);
+
+      return res.json(cart)
+    }catch (e) {
+      return res.json("ошибка")
+    }
+  }
 };

@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Avatar: {
     width: 100,
+
   }
 }));
 
@@ -56,17 +57,20 @@ function Header(props) {
           </Typography>
           <Typography className={classes.title} variant="h6">
             <NavLink className={classes.Order} to={"/orders"}>
+
               Заказы
             </NavLink>
           </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
               <CartModal/>
+
             <IconButton>
               <Avatar />
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
+
 
       {user?.role === "vendor" && token ? (
         <VendorHeader />

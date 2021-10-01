@@ -11,6 +11,8 @@ import ProductGuest from "./Products/Index";
 import ProductsByCategory from "./Products/ProductsByCategory";
 import OrdersModal from "./header/OrdersModal";
 import Main from "./main/main";
+
+import Foods from "./Food";
 import "./App.css";
 
 function App() {
@@ -20,7 +22,15 @@ function App() {
         <Switch>
           <Route path={"/orders"}>
             <Header />
-            <OrdersModal />
+
+            <OrdersModal/>
+          </Route>
+
+          <Route exact path="/">
+            <Main />
+            <Header />
+            <Two />
+            <Main />
           </Route>
           <Route path="/signIn">
             <SignInPage />
@@ -39,10 +49,20 @@ function App() {
             <Products />
           </Route>
           <Route path="/">
+
             <Header />
             <Two />
             <Main />
           </Route>
+          <Route path="/food">
+            <Header />
+            <Two />
+            <Main />
+          </Route>
+          {/*<Route path="/food">*/}
+          {/*  <Header/>*/}
+          {/*  <Foods/>*/}
+          {/*</Route>*/}
         </Switch>
       </BrowserRouter>
     </Provider>
