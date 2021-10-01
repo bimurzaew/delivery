@@ -11,8 +11,6 @@ import ProductGuest from "./Products/Index";
 import ProductsByCategory from "./Products/ProductsByCategory";
 import OrdersModal from "./header/OrdersModal";
 import Main from "./main/main";
-
-import Foods from "./Food";
 import "./App.css";
 
 function App() {
