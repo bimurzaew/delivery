@@ -29,9 +29,14 @@ const useStyles = makeStyles((theme) => ({
   AppbarCardAndAvatar: {
     display: "flex",
   },
+
   Order: {
-    textDecoration: 'none',
-    color: "white"
+    textDecoration: "none",
+    color: "white",
+  },
+  Avatar: {
+    width: 100,
+
   }
 }));
 
@@ -51,21 +56,22 @@ function Header(props) {
             Delivery
           </Typography>
           <Typography className={classes.title} variant="h6">
-            <NavLink className={classes.Order}  to={"/orders"}>
+            <NavLink className={classes.Order} to={"/orders"}>
+
               Заказы
             </NavLink>
           </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
-            <IconButton>
-              <CartModal />
-            </IconButton>
+              <CartModal/>
+
             <IconButton>
               <Avatar />
             </IconButton>
           </Box>
-
         </Toolbar>
       </AppBar>
+
+
       {user?.role === "vendor" && token ? (
         <VendorHeader />
       ) : user?.role === "courier" && token ? (

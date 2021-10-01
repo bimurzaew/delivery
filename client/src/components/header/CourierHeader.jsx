@@ -10,6 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
+import CartModal from './CartModal';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
     AppbarCardAndAvatar: {
         display: "flex",
     },
+    Order: {
+        textDecoration: "none",
+        color: "white",
+    },
 }));
 
 function CourierHeader(props) {
@@ -34,13 +39,17 @@ function CourierHeader(props) {
             <AppBar className={classes.Appbar} position="fixed">
                 <Toolbar>
                     <Typography className={classes.title} variant="h6">
-                        <NavLink to={"/"}>Delivery</NavLink>
+                        Delivery
+                    </Typography>
+                    <Typography className={classes.title} variant="h6">
+                        <NavLink className={classes.Order} to={"/orders"}>
+                            Заказы
+                        </NavLink>
                     </Typography>
                     <Box className={classes.AppbarCardAndAvatar}>
+                        <CartModal/>
                         <IconButton>
-                            <Link href="/orders">
-                                <Avatar />
-                            </Link>
+                            <Avatar />
                         </IconButton>
                     </Box>
                 </Toolbar>

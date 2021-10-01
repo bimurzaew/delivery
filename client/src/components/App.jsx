@@ -11,6 +11,7 @@ import ProductGuest from "./Products/Index";
 import ProductsByCategory from "./Products/ProductsByCategory";
 import OrdersModal from "./header/OrdersModal";
 import Main from "./main/main";
+
 import Foods from "./Food";
 import "./App.css";
 
@@ -18,10 +19,10 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Header />
         <Switch>
           <Route path={"/orders"}>
             <Header />
+
             <OrdersModal/>
           </Route>
 
@@ -48,13 +49,15 @@ function App() {
             <Products />
           </Route>
           <Route path="/">
+
             <Header />
             <Two />
             <Main />
           </Route>
           <Route path="/food">
             <Header />
-            <Foods/>
+            <Two />
+            <Main />
           </Route>
           {/*<Route path="/food">*/}
           {/*  <Header/>*/}
