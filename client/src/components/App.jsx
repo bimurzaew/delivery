@@ -7,16 +7,12 @@ import SignUpPage from "./authorization/SignUpPage";
 import Products from "./vendor/product/Products";
 import Header from "./header/header";
 import Two from "./TwoHeader/Two";
-import ProductGuest from './Products/Index'
-import ProductsByCategory from './Products/ProductsByCategory'
-import OrdersModal from './header/OrdersModal'
+import ProductGuest from "./Products/Index";
+import ProductsByCategory from "./Products/ProductsByCategory";
+import OrdersModal from "./header/OrdersModal";
 import Main from "./main/main";
-import Foods from './Food';
-import "./App.css"
-import VendorHeader from "./header/VendorHeader";
-import CourierHeader from "./header/CourierHeader";
-import ClientHeader from "./header/ClientHeader";
-
+import Foods from "./Food";
+import "./App.css";
 
 function App() {
   return (
@@ -55,7 +51,7 @@ function App() {
             <Header />
             <Two />
             <Main />
-
+          </Route>
           <Route path="/food">
             <Header />
             <Foods/>
