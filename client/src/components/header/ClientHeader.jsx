@@ -27,6 +27,12 @@ const useStyles = makeStyles((theme) => ({
   AppbarCardAndAvatar: {
     display: "flex",
   },
+  red:{
+    width:10,
+    height:10,
+    backgroundColor:'red',
+    color:'white'
+  }
 }));
 
 function ClientHeader(props) {
@@ -40,6 +46,7 @@ function ClientHeader(props) {
           </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
             <IconButton>
+              <div className={classes.red}>1</div>
               <CartModal />
             </IconButton>
             <IconButton>
