@@ -3,8 +3,8 @@ const initialState = {
   loading: false,
   message: null,
   error: false,
-  deleting:false,
-  editing:false
+  deleting: [],
+  editing: false,
 };
 
 export const productReducer = (state = initialState, action) => {
@@ -56,19 +56,18 @@ export const productReducer = (state = initialState, action) => {
     case "vendor/delete/pending":
       return {
         ...state,
-        deleting: true,
+        deleting: action.payload,
       };
     case "vendor/delete/rejected":
       return {
         ...state,
-        deleting: false,
         error: action.payload.error,
       };
     case "vendor/delete/fulfilled":
       return {
         ...state,
-        deleting: false,
-        products: action.payload,
+        deleting: [],
+        products: [...state.products],
       };
     case "load/productByCategory/pending":
       return {
@@ -164,7 +163,7 @@ export const getProductsForUser = () => {
 };
 export const deleteProduct = (id) => {
   return async (dispatch, getState) => {
-    dispatch({ type: "vendor/delete/pending" });
+    dispatch({ type: "vendor/delete/pending", payload: id });
     const state = getState();
     const response = await fetch(`/product/${id}/delete`, {
       method: "DELETE",

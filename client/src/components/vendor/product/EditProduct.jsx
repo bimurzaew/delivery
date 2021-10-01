@@ -85,13 +85,10 @@ export default function EditProduct({ item }) {
     dispatch(editProduct({ file: file[0], id, ...productData }));
     setOpen(false);
   };
-
   const handleChangeFile = (e) => setFile(e.target.files);
-
   const handleChangeData = (e) => {
     setProductData({ ...productData, [e.target.name]: [e.target.value] });
   };
-
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -163,7 +160,7 @@ export default function EditProduct({ item }) {
                   fullWidth
                   margin="normal"
                   label="цена"
-                  name='price'
+                  name="price"
                   value={productData.price}
                   onChange={handleChangeData}
                 />

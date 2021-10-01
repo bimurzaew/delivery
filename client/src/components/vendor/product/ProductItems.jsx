@@ -12,8 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { deleteProduct } from "../../../redux/features/product";
 import AddProduct from "./AddProduct";
-import Loading from "../../preload/Loading";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import CustomizedMenus from "./ButtonsAdd";
+import ButtonsAdd from "./ButtonsAdd";
 
 const useStyles = makeStyles(() => ({
   img: {
@@ -35,7 +36,6 @@ function ProductItems(props) {
   };
   return (
     <TableBody>
-      <Typography>Продукты</Typography>
       {products?.map((item) => (
         <TableRow key={item._id}>
           <TableCell>
@@ -52,7 +52,7 @@ function ProductItems(props) {
           <TableCell align="right">{item.amount}</TableCell>
           <TableCell align="right">{item.price}</TableCell>
           <TableCell align="right">
-            {deleting ? (
+            {deleting === item._id ? (
               <CircularProgress />
             ) : (
               <Button onClick={() => handleDeleteProduct(item._id)}>
@@ -63,7 +63,6 @@ function ProductItems(props) {
           </TableCell>
         </TableRow>
       ))}
-      <AddProduct />
     </TableBody>
   );
 }
