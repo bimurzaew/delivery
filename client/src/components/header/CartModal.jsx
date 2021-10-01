@@ -145,7 +145,11 @@ export default function CartModal() {
         }}
       >
         <Container className={classes.backCard}>
+
           <Box className={classes.CardTwo}>Ваш Заказ {sum}</Box>
+
+          <Box className={classes.CardTwo}>Ваш Заказ</Box>
+
 
 
           <table className={classes.table}>
@@ -157,6 +161,14 @@ export default function CartModal() {
                 <th>Кол-во</th>
                 <th>В наличии</th>
                 <th>Цена</th>
+
+                <th>
+                  <button onClick={() => addProductOrder(sum)}>
+                    Оформить заказ
+                  </button>
+                </th>
+
+
               </tr>
             </thead>
             <tbody>
@@ -168,7 +180,11 @@ export default function CartModal() {
                       <img src={`../../images/${item.image}`}  alt=""/>
                     </td>
 
+
                     <td>{item.product.name}</td>
+
+                    <td>{item?.product?.name}</td>
+
 
                     <td>
                       <Button
@@ -187,7 +203,13 @@ export default function CartModal() {
                         ? item.product.amount + 1 - item.amount
                         : 0}
                     </td>
+
                     <th>{item.product.price + "₽"}</th>
+
+
+                    <th>{item.product.price}</th>
+
+
 
                     <td>
                       <ButtonGroup disableElevation variant="contained">
@@ -195,6 +217,7 @@ export default function CartModal() {
                           onClick={() => handleDelete(item._id)}
                           className={classes.closeBtn}
                         >
+
                           <CancelIcon/>
                         </Box>
                       </ButtonGroup>
@@ -202,6 +225,7 @@ export default function CartModal() {
                   </tr>
                 );
               })}
+
             <tr className={classes.tfoot}>
               <td colSpan={3}><Button className={classes.footBtn} variant="contained" color="secondary" onClick={() => addProductOrder(sum)}>Оформить заказ</Button></td>
               <td></td>
@@ -209,6 +233,7 @@ export default function CartModal() {
               <td>{sum + "₽"}</td>
               <td></td>
             </tr>
+
             </tbody>
           </table>
         </Container>

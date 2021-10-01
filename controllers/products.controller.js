@@ -35,15 +35,10 @@ module.exports.productsController = {
   editProduct: async (req, res) => {
     try {
       const { name, price, desc } = req.body;
-      const product = await Product.findById(req.params.id);
-      await Product.findByIdAndUpdate(product.id, {
-        $set: { ...req.body },
-      });
-      res.json(product);
       const { image } = req.files;
       if (!image) {
         const newFileName = `${Math.floor(Math.random() * 10000)}${image.name}`;
-        const products = await Product.findByIdAndUpdate(req.params.id, {
+        const product = await Product.findByIdAndUpdate(req.params.id, {
           $set: { ...req.body, image: newFileName },
         });
         res.json(product);
@@ -53,7 +48,7 @@ module.exports.productsController = {
           if (err) {
             res.json(err.toString());
           } else {
-            await Product.findByIdAndUpdate(req.params.id, {
+            const product = await Product.findByIdAndUpdate(req.params.id, {
               $set: { ...req.body, image: newFileName },
             });
             res.json(product);
@@ -66,10 +61,8 @@ module.exports.productsController = {
   },
   deleteProduct: async (req, res) => {
     try {
-      const user = await User.findById(req.user.id);
-      await Product.findByIdAndDelete(req.params.id);
-      const products = await Product.find({ user });
-      res.json(products);
+     const product =  await Product.findByIdAndDelete(req.params.id);
+      res.json(product);
     } catch (e) {
       res.json(e.toString());
     }
@@ -84,7 +77,7 @@ module.exports.productsController = {
   },
   getProductsFor: async (req, res) => {
     try {
-      const product = await Product.find({thing:'Еда'});
+      const product = await Product.find({ thing: "Еда" });
       res.json(product);
     } catch (e) {
       res.json(e.toString());

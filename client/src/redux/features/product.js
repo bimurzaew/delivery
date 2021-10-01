@@ -3,6 +3,8 @@ const initialState = {
   loading: false,
   message: null,
   error: false,
+  deleting: [],
+  editing: false,
 };
 
 export const productReducer = (state = initialState, action) => {
@@ -54,20 +56,18 @@ export const productReducer = (state = initialState, action) => {
     case "vendor/delete/pending":
       return {
         ...state,
-        loading: true,
+        deleting: action.payload,
       };
     case "vendor/delete/rejected":
       return {
         ...state,
-        loading: false,
         error: action.payload.error,
       };
     case "vendor/delete/fulfilled":
       return {
         ...state,
-        loading: false,
-        message: action.payload,
-        products: action.payload,
+        deleting: [],
+        products: [...state.products],
       };
     case "load/productByCategory/pending":
       return {
@@ -87,41 +87,23 @@ export const productReducer = (state = initialState, action) => {
     case "product/edit/pending":
       return {
         ...state,
-        loading: true,
+        editing: true,
       };
     case "product/edit/rejected":
       return {
         ...state,
-        loading: false,
+        editing: false,
         error: action.payload,
-      };
-    case "Food/load":
-      return {
-        ...state,
-        products: action.payload,
-        loading: false,
       };
     case "product/edit/fulfilled":
       return {
         ...state,
-        loading: false,
+        editing: false,
         products: [...state.products, action.payload],
       };
     default:
       return state;
   }
-};
-
-
-export const loadFood = () => {
-  return async (dispatch) => {
-    fetch("http://localhost:7777/products")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
-      dispatch({ type: "Food/load", payload: data });
-    });
-  };
 };
 
 export const addProduct = ({
@@ -144,6 +126,7 @@ export const addProduct = ({
     formData.append("category", category);
     formData.append("amount", amount);
     formData.append("thing", thing);
+
     const response = await fetch("/product", {
       method: "POST",
       headers: {
@@ -151,7 +134,9 @@ export const addProduct = ({
       },
       body: formData,
     });
+
     const json = await response.json();
+
     if (json.error) {
       dispatch({ type: "vendor/add/rejected", payload: json });
     } else {
@@ -178,7 +163,7 @@ export const getProductsForUser = () => {
 };
 export const deleteProduct = (id) => {
   return async (dispatch, getState) => {
-    dispatch({ type: "vendor/delete/pending" });
+    dispatch({ type: "vendor/delete/pending", payload: id });
     const state = getState();
     const response = await fetch(`/product/${id}/delete`, {
       method: "DELETE",
@@ -206,16 +191,16 @@ export const loadProduct = () => {
 };
 
 export const loadProductByCategory = (id) => {
-  
-  return async dispatch => {
-    dispatch({type:"load/productByCategory/pending"});
-    const response = await fetch(`http://localhost:7777/product/category/${id}`);
+  return async (dispatch) => {
+    dispatch({ type: "load/productByCategory/pending" });
+    const response = await fetch(
+      `http://localhost:7777/product/category/${id}`
+    );
     const json = await response.json();
 
-
-    dispatch({type:"load/productByCategory/fulfilled",payload:json})
-  }
-}
+    dispatch({ type: "load/productByCategory/fulfilled", payload: json });
+  };
+};
 export const editProduct = ({
   id,
   file,

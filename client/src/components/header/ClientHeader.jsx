@@ -19,13 +19,21 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   Appbar: {
-    background: "cadetblue",
+    background: "#6247aa ",
   },
   title: {
     flexGrow: 1,
   },
   AppbarCardAndAvatar: {
     display: "flex",
+  },
+
+  Order: {
+    textDecoration: "none",
+    color: "white",
+  },
+  Avatar: {
+    width: 100,
   },
   red:{
     width:10,
@@ -42,7 +50,7 @@ function ClientHeader(props) {
       <AppBar className={classes.Appbar} position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6">
-            <NavLink to={"/"}>Delivery</NavLink>
+            Delivery
           </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
             <IconButton>
@@ -50,9 +58,7 @@ function ClientHeader(props) {
               <CartModal />
             </IconButton>
             <IconButton>
-              <Link href="/signIn">
-                <Avatar />
-              </Link>
+              <Avatar />
             </IconButton>
           </Box>
         </Toolbar>

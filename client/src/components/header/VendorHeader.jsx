@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   Appbar: {
-    background: "cadetblue",
+    background: "#6247aa ",
   },
   title: {
     flexGrow: 1,
@@ -24,6 +24,15 @@ const useStyles = makeStyles((theme) => ({
   AppbarCardAndAvatar: {
     display: "flex",
   },
+
+  Order: {
+    textDecoration: "none",
+    color: "white",
+  },
+  Delivery:{
+    textDecoration: "none",
+    color: "white",
+  }
 }));
 
 function VendorHeader(props) {
@@ -34,13 +43,15 @@ function VendorHeader(props) {
       <AppBar className={classes.Appbar} position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6">
-            <NavLink to={"/"}>Delivery</NavLink>
+            <NavLink className={classes.Delivery} to="/">
+              Delivery
+            </NavLink>
+          </Typography>
+          <Typography className={classes.title} variant="h6">
           </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
             <IconButton>
-              <Link href="/vendor">
-                <Avatar />
-              </Link>
+              <NavLink to="/vendor"><Avatar /></NavLink>
             </IconButton>
           </Box>
         </Toolbar>
