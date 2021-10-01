@@ -94,6 +94,18 @@ module.exports.usersController = {
     }catch (e) {
       res.json(e.toString())
     }
+  },
+  addOrderToUser: async (req, res) => {
+    try {
+      const user = await User.findByIdAndUpdate(req.params.id,{
+        order:req.body.order
+      });
+
+      return res.json(user)
+
+    }catch (e) {
+      return res.json(e.toString())
+    }
   }
 };
 

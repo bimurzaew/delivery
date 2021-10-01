@@ -7,8 +7,13 @@ import { NavLink } from "react-router-dom";
 
 function OrdersModal(props) {
   const orders = useSelector((state) => state.order.orders);
-
+  const  user  = useSelector((state) => state.users.user);
+  console.log(user)
   const dispatch = useDispatch();
+
+  const addOrderToCourier = (id) => {
+
+  }
 
   useEffect(() => {
     dispatch(loadOrder());
@@ -43,7 +48,7 @@ function OrdersModal(props) {
                   }, 0)}
                 </td>
                 <td>статус</td>
-                <td>
+                <td onClick={()=> addOrderToCourier(item._id)}>
                   <Button variant="contained">принять</Button>
                 </td>
               </tr>

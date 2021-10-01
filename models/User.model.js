@@ -10,6 +10,10 @@ const userSchema = mongoose.Schema({
   business:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"Business"
+  },
+  order:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"Order"
   }
 });
 
