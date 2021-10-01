@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React  from "react";
 import {
   AppBar,
   IconButton,
@@ -9,12 +9,10 @@ import {
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import CartModal from "./CartModal";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../redux/features/users";
-import VendorHeader from "./VendorHeader";
-import CourierHeader from "./CourierHeader";
-import ClientHeader from "./ClientHeader";
+import {NavLink} from "react-router-dom";
+import Link from "@material-ui/core/Link";
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,14 +37,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Header(props) {
+function ClientHeader(props) {
   const classes = useStyles();
-  const user = useSelector((state) => state.users.user);
-  const token = useSelector((state) => state.users.token);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
   return (
     <>
       <AppBar className={classes.Appbar} position="fixed">
@@ -54,29 +46,18 @@ function Header(props) {
           <Typography className={classes.title} variant="h6">
             Delivery
           </Typography>
-          <Typography className={classes.title} variant="h6">
-            <NavLink className={classes.Order} to={"/orders"}>
-              Заказы
-            </NavLink>
-          </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
+            <IconButton>
               <CartModal/>
+            </IconButton>
             <IconButton>
               <Avatar />
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
-
-      {user?.role === "vendor" && token ? (
-        <VendorHeader />
-      ) : user?.role === "courier" && token ? (
-        <CourierHeader />
-      ) : (
-        <ClientHeader />
-      )}
     </>
   );
 }
 
-export default Header;
+export default ClientHeader;

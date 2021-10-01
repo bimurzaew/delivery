@@ -3,6 +3,7 @@ import { Toolbar } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from '@material-ui/core/Button'
 import { loadOrder } from '../../redux/features/order'
+import { NavLink } from 'react-router-dom'
 
 function OrdersModal (props) {
   const orders = useSelector((state) => state.order.orders);
@@ -32,10 +33,12 @@ function OrdersModal (props) {
           orders.map((item,index) => {
             return(
               <tr key={item._id}>
-
-
                 <td>{index+1}</td>
-                <td>{item._id}</td>
+                <td>
+                  <NavLink to={`/order/${item._id}`}>
+                    {item._id}
+                  </NavLink>
+                </td>
                 <td>{item.product.length}</td>
                 <td>{item.product.reduce((sum, item) => {
                   return sum + item.price

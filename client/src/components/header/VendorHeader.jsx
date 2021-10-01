@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   AppBar,
   IconButton,
@@ -8,13 +8,8 @@ import {
 } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
-import CartModal from "./CartModal";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../redux/features/users";
-import VendorHeader from "./VendorHeader";
-import CourierHeader from "./CourierHeader";
-import ClientHeader from "./ClientHeader";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,49 +29,35 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "white",
   },
-  Avatar: {
-    width: 100,
+  Delivery:{
+    textDecoration: "none",
+    color: "white",
   }
 }));
 
-function Header(props) {
+function VendorHeader(props) {
   const classes = useStyles();
-  const user = useSelector((state) => state.users.user);
-  const token = useSelector((state) => state.users.token);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
+
   return (
     <>
       <AppBar className={classes.Appbar} position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6">
-            Delivery
-          </Typography>
-          <Typography className={classes.title} variant="h6">
-            <NavLink className={classes.Order} to={"/orders"}>
-              Заказы
+            <NavLink className={classes.Delivery} to="/">
+              Delivery
             </NavLink>
           </Typography>
+          <Typography className={classes.title} variant="h6">
+          </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
-              <CartModal/>
             <IconButton>
-              <Avatar />
+              <NavLink to="/vendor"><Avatar /></NavLink>
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
-
-      {user?.role === "vendor" && token ? (
-        <VendorHeader />
-      ) : user?.role === "courier" && token ? (
-        <CourierHeader />
-      ) : (
-        <ClientHeader />
-      )}
     </>
   );
 }
 
-export default Header;
+export default VendorHeader;

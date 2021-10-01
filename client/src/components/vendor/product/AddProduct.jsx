@@ -2,26 +2,27 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import {
   Box,
-  Card,
-  CardMedia,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
   FormControlLabel,
+  FormLabel,
   IconButton,
   MenuItem,
+  Radio,
+  RadioGroup,
   styled,
   TextField,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getCategories } from "../../redux/features/categories";
-import { getUser } from "../../redux/features/users";
+import { addProduct } from "../../../redux/features/product";
+import { getCategories } from "../../../redux/features/categories";
+import { getUser } from "../../../redux/features/users";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
-import { editProduct } from "../../redux/features/product";
-import { Image } from "@material-ui/icons";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuDialogContent-root": {
@@ -65,31 +66,36 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function EditProduct({ item }) {
-  // const message = useSelector((state) => state.product.message);
+export default function AddProduct() {
+  const message = useSelector((state) => state.product.message);
   const categories = useSelector((state) => state.categories.catalog);
-  // const user = useSelector((state) => state.users.user);
+  const user = useSelector((state) => state.users.user);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const [file, setFile] = useState(item.file);
-  const [name, setName] = useState(item.name);
-  const [price, setPrice] = useState(item.price);
-  const [desc, setDesc] = useState(item.desc);
-  const [category, setCategory] = useState(item.category);
-  const [amount, setAmount] = useState(item.amount);
+  const [file, setFile] = useState();
+  const [name, setName] = useState();
+  const [price, setPrice] = useState();
+  const [desc, setDesc] = useState();
+  const [category, setCategory] = useState();
+  const [amount, setAmount] = useState();
+  const [thing, setThing] = useState();
 
   useEffect(() => {
     dispatch(getCategories());
   }, []);
-  // useEffect(() => {
-  //   dispatch(getUser());
-  // }, []);
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
 
-  const handleSendReq = (id) => {
-    dispatch(editProduct({ file: file[0], id, name, price, desc, category }));
+
+  const handleSendReq = (e) => {
+    e.preventDefault();
+    dispatch(
+      addProduct({ file: file[0], name, price, desc, category, amount })
+    );
     setOpen(false);
   };
-  const handleChangeFile = (e) => {
+  const handleFile = (e) => {
     setFile(e.target.files);
   };
   const handleChangeName = (e) => {
@@ -117,7 +123,9 @@ export default function EditProduct({ item }) {
 
   return (
     <>
-      <Button onClick={handleClickOpen}>Изменить</Button>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        добавить товар
+      </Button>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -127,7 +135,7 @@ export default function EditProduct({ item }) {
           id="customized-dialog-title"
           onClose={handleClose}
         >
-          Изменение товара
+          Добавление товара
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Box>
@@ -140,8 +148,8 @@ export default function EditProduct({ item }) {
                   style={{ display: "none" }}
                 />
               }
-              onChange={handleChangeFile}
-              label={<img src={`../../images/${item.image}`} alt="" />}
+              onChange={handleFile}
+              label={<AddAPhotoIcon />}
             />
           </Box>
           <Box>
@@ -150,9 +158,8 @@ export default function EditProduct({ item }) {
               fullWidth
               margin="normal"
               label="название товара"
-              value={name}
               onChange={handleChangeName}
-            />
+            ></TextField>
           </Box>
           <Box>
             <TextField
@@ -177,9 +184,8 @@ export default function EditProduct({ item }) {
               fullWidth
               margin="normal"
               label="цена"
-              value={price}
               onChange={handleChangePrice}
-            />
+            ></TextField>
           </Box>
           <Box>
             <TextField
@@ -187,9 +193,8 @@ export default function EditProduct({ item }) {
               fullWidth
               margin="normal"
               label="описание"
-              value={desc}
               onChange={handleChangeDesc}
-            />
+            ></TextField>
           </Box>
           <Box>
             <TextField
@@ -197,19 +202,12 @@ export default function EditProduct({ item }) {
               fullWidth
               margin="normal"
               label="количество"
-              value={amount}
               onChange={handleChangeAmount}
             ></TextField>
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button
-            autoFocus
-            onClick={() => {
-              console.log(item._id)
-              handleSendReq(item._id);
-            }}
-          >
+          <Button autoFocus onClick={handleSendReq}>
             Сохранить
           </Button>
         </DialogActions>

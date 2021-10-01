@@ -19,9 +19,9 @@ import { useEffect } from "react";
 import {
   deleteProduct,
   getProductsForUser,
-} from "../../redux/features/product";
+} from "../../../redux/features/product";
 import { makeStyles } from "@material-ui/core/styles";
-import LoadingModal from "../preload/Loading";
+import LoadingModal from "../../preload/Loading";
 
 
 const useStyles = makeStyles({

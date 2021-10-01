@@ -33,16 +33,20 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+
+
+
 function Main() {
   const classes = useStyles();
   return (
     <>
+
       <Box className={classes.footAndProductBox}>
         <Box className={classes.footBox}>
           <NavLink className={classes.foot} to="/food">
             Еда
           </NavLink>
-          <NavLink className={classes.Product} to="/food">
+          <NavLink className={classes.Product} to="/product/category">
             Продукты
           </NavLink>
         </Box>
