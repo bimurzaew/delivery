@@ -8,6 +8,8 @@ import {addProduct} from "../../../redux/features/product";
 import AddProduct from "./AddProduct";
 import AddFood from "../food/AddFood";
 import {addFood} from "../../../redux/features/food";
+import {Fab} from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -65,15 +67,12 @@ export default function ButtonsAdd() {
   return (
     <div>
       <Button
-        id="demo-customized-button"
-        aria-controls="demo-customized-menu"
-        aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
-        variant="contained"
-        disableElevation
         onClick={handleClick}
       >
-        <AddBoxIcon />
+          <Fab color="primary" aria-label="add">
+              <AddIcon />
+          </Fab>
       </Button>
       <StyledMenu
         id="demo-customized-menu"

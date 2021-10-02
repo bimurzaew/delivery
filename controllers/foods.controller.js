@@ -45,8 +45,8 @@ module.exports.foodController = {
   },
   deleteProduct: async (req, res) => {
     try {
-      await Food.findByIdAndDelete(req.params.id);
-      res.status(400);
+     const food = await Food.findByIdAndDelete(req.params.id);
+      res.json(food);
     } catch (e) {
       res.json(e.toString());
     }

@@ -1,7 +1,7 @@
 const initialState = {
   loading: false,
   error: false,
-  catalog:[]
+  catalog: [],
 };
 
 export const categoriesReducer = (state = initialState, action) => {
@@ -33,7 +33,6 @@ export const getCategories = () => {
     dispatch({ type: "categories/load/pending" });
     const response = await fetch("/category");
     const json = await response.json();
-
     if (json.error) {
       dispatch({ type: "categories/load/rejected", payload: json });
     } else {

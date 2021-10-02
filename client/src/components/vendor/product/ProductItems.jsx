@@ -5,16 +5,12 @@ import {
   TableBody,
   TableCell,
   TableRow,
-  Typography,
 } from "@material-ui/core";
 import EditProduct from "./EditProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { deleteProduct } from "../../../redux/features/product";
-import AddProduct from "./AddProduct";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import CustomizedMenus from "./ButtonsAdd";
-import ButtonsAdd from "./ButtonsAdd";
 
 const useStyles = makeStyles(() => ({
   img: {
