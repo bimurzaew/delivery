@@ -83,10 +83,10 @@ export default function ButtonsAdd() {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={addProduct} disableRipple>
+        <MenuItem onClick={addProduct}>
           <AddProduct />
         </MenuItem>
-        <MenuItem onClick={addFood} disableRipple>
+        <MenuItem onClick={addFood}>
           <AddFood />
         </MenuItem>
       </StyledMenu>
