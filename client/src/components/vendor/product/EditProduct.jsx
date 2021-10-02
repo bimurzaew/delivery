@@ -2,8 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import {
   Box,
-  Card,
-  CardMedia,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -19,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getCategories } from "../../../redux/features/categories";
 import { editProduct } from "../../../redux/features/product";
+import Loading from "../../preload/Loading";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuDialogContent-root": {
@@ -63,58 +63,40 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function EditProduct({ item }) {
-  // const message = useSelector((state) => state.product.message);
   const categories = useSelector((state) => state.categories.catalog);
-  // const user = useSelector((state) => state.users.user);
+  const editing = useSelector((state) => state.product.editing);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const [file, setFile] = useState(item.file);
-  const [name, setName] = useState(item.name);
-  const [price, setPrice] = useState(item.price);
-  const [desc, setDesc] = useState(item.desc);
-  const [category, setCategory] = useState(item.category);
-  const [amount, setAmount] = useState(item.amount);
 
-  useEffect(() => {
-    dispatch(getCategories());
-  }, []);
-  // useEffect(() => {
-  //   dispatch(getUser());
-  // }, []);
+  const [productData, setProductData] = useState({
+    name: item.name,
+    price: item.price,
+    desc: item.desc,
+    category: item.category?._id,
+    amount: item.amount,
+  });
+
+  console.log(productData.category);
 
   const handleSendReq = (id) => {
-    dispatch(editProduct({ file: file[0], id, name, price, desc, category }));
+    dispatch(editProduct({ file, id, ...productData }));
     setOpen(false);
   };
-  const handleChangeFile = (e) => {
-    setFile(e.target.files);
+  const handleChangeFile = (e) => setFile(e.target.files);
+  const handleChangeData = (e) => {
+    setProductData({ ...productData, [e.target.name]: [e.target.value] });
   };
-  const handleChangeName = (e) => {
-    setName(e.target.value);
-  };
-  const handleChangeDesc = (e) => {
-    setDesc(e.target.value);
-  };
-  const handleChangePrice = (e) => {
-    setPrice(e.target.value);
-  };
-  const handleChangeCategory = (e) => {
-    setCategory(e.target.value);
-  };
-  const handleChangeAmount = (e) => {
-    setAmount(e.target.value);
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <>
-      <Button onClick={handleClickOpen}>Изменить</Button>
+      {editing === item._id ? (
+        <CircularProgress />
+      ) : (
+        <Button onClick={handleClickOpen}>Изменить</Button>
+      )}
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -146,17 +128,19 @@ export default function EditProduct({ item }) {
               variant="outlined"
               fullWidth
               margin="normal"
+              name="name"
               label="название товара"
-              value={name}
-              onChange={handleChangeName}
+              value={productData.name}
+              onChange={handleChangeData}
             />
           </Box>
           <Box>
             <TextField
               id="standard-select-currency"
               select
-              value={category}
-              onChange={handleChangeCategory}
+              name="category"
+              value={productData.category}
+              onChange={handleChangeData}
               helperText="Выберите категорию товара"
               variant="standard"
               fullWidth
@@ -174,8 +158,9 @@ export default function EditProduct({ item }) {
               fullWidth
               margin="normal"
               label="цена"
-              value={price}
-              onChange={handleChangePrice}
+              name="price"
+              value={productData.price}
+              onChange={handleChangeData}
             />
           </Box>
           <Box>
@@ -184,8 +169,9 @@ export default function EditProduct({ item }) {
               fullWidth
               margin="normal"
               label="описание"
-              value={desc}
-              onChange={handleChangeDesc}
+              name="desc"
+              value={productData.desc}
+              onChange={handleChangeData}
             />
           </Box>
           <Box>
@@ -194,18 +180,16 @@ export default function EditProduct({ item }) {
               fullWidth
               margin="normal"
               label="количество"
-              value={amount}
-              onChange={handleChangeAmount}
-            ></TextField>
+              name="amount"
+              value={productData.amount}
+              onChange={handleChangeData}
+            />
           </Box>
         </DialogContent>
         <DialogActions>
           <Button
             autoFocus
-            onClick={() => {
-              console.log(item._id)
-              handleSendReq(item._id);
-            }}
+            onClick={() => handleSendReq(item._id)}
           >
             Сохранить
           </Button>

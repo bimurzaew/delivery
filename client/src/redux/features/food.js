@@ -3,15 +3,10 @@ const initialState = {
   loading: false,
   message: null,
   error: false,
+  deleting: [],
 };
 export const foodReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "Food/load":
-      return {
-        ...state,
-        products: action.payload,
-        loading: false,
-      };
     case "food/add/pending":
       return {
         ...state,
@@ -42,12 +37,13 @@ export const foodReducer = (state = initialState, action) => {
     case "food/load/fulfilled":
       return {
         ...state,
+        loading: false,
         products: action.payload,
       };
     case "food/delete/pending":
       return {
         ...state,
-        loading: true,
+        deleting: action.payload,
       };
     case "food/delete/rejected":
       return {
@@ -58,7 +54,14 @@ export const foodReducer = (state = initialState, action) => {
     case "food/delete/fulfilled":
       return {
         ...state,
-        products:[...state.products]
+        products: [
+          ...state.products.filter((item) => {
+            if (item._id !== action.payload._id) {
+              return item;
+            }
+          }),
+        ],
+        deleting: [],
       };
     default:
       return state;
@@ -82,7 +85,7 @@ export const addFood = ({ name, file, price, desc }) => {
     formData.append("name", name);
     formData.append("desc", desc);
     formData.append("price", price);
-    const response = await fetch("food", {
+    const response = await fetch("/food", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${state.users.token}`,
@@ -102,7 +105,7 @@ export const getFood = () => {
   return async (dispatch, getState) => {
     dispatch({ type: "food/load/pending" });
     const state = getState();
-    const response = await fetch("food/vendor", {
+    const response = await fetch("/food/vendor", {
       headers: {
         Authorization: `Bearer ${state.users.token}`,
       },
@@ -118,7 +121,7 @@ export const getFood = () => {
 
 export const deleteFood = (id) => {
   return async (dispatch, getState) => {
-    dispatch({ type: "food/delete/pending" });
+    dispatch({ type: "food/delete/pending", payload: id });
     const state = getState();
     const response = await fetch(`/food/${id}`, {
       method: "DELETE",

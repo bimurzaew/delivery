@@ -34,6 +34,12 @@ const useStyles = makeStyles((theme) => ({
   },
   Avatar: {
     width: 100,
+  },
+  red:{
+    width:10,
+    height:10,
+    backgroundColor:'red',
+    color:'white'
   }
 }));
 
@@ -48,7 +54,8 @@ function ClientHeader(props) {
           </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
             <IconButton>
-              <CartModal/>
+              <div className={classes.red}>1</div>
+              <CartModal />
             </IconButton>
             <IconButton>
               <Avatar />

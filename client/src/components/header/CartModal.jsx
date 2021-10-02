@@ -13,11 +13,12 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import {
+  cleanCart,
   deleteProduct,
   loadCart,
   minusProduct,
   plusProduct,
-} from "../../redux/features/cart";
+} from '../../redux/features/cart'
 import { addOrder } from "../../redux/features/order";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -96,6 +97,7 @@ export default function CartModal() {
 
   const addProductOrder = (cart) => {
     dispatch(addOrder());
+    dispatch(cleanCart())
   };
 
   const handleDelete = (id) => {
@@ -145,6 +147,7 @@ export default function CartModal() {
 
           <Box className={classes.CardTwo}>Ваш Заказ</Box>
 
+
           <table className={classes.table}>
             <thead>
               <tr className={classes.cardInfo}>
@@ -154,6 +157,15 @@ export default function CartModal() {
                 <th>Кол-во</th>
                 <th>В наличии</th>
                 <th>Цена</th>
+
+
+                <th>
+                  <button onClick={() => addProductOrder(sum)}>
+                    Оформить заказ
+                  </button>
+                </th>
+
+
               </tr>
             </thead>
             <tbody>
@@ -162,10 +174,12 @@ export default function CartModal() {
                   <tr className={classes.trCard}>
                     <td>{index + 1}</td>
                     <td>
-                      <img src={`../../images/${item.image}`} />
+                      <img src={`../../images/${item.image}`}  alt=""/>
                     </td>
 
-                    <td>{item.product.name}</td>
+
+                    <td>{item?.product?.name}</td>
+
 
                     <td>
                       {" "}
@@ -173,11 +187,11 @@ export default function CartModal() {
                         onClick={() => plus(item._id)}
                         disabled={item?.product?.amount === 0}
                       >
-                        <AddIcon className={classes.addBtn}></AddIcon>
+                        <AddIcon className={classes.addBtn}/>
                       </Button>
                       {item.amount}
                       <Button onClick={() => minus(item._id)}>
-                        <RemoveIcon className={classes.removeBtn}></RemoveIcon>
+                        <RemoveIcon className={classes.removeBtn}/>
                       </Button>
                     </td>
 
@@ -189,13 +203,16 @@ export default function CartModal() {
 
                     <th>{item.product.price + "₽"}</th>
 
+
                     <td>
                       <ButtonGroup disableElevation variant="contained">
                         <Box
                           onClick={() => handleDelete(item._id)}
                           className={classes.closeBtn}
                         >
-                          <CancelIcon></CancelIcon>
+
+
+                          <CancelIcon/>
                         </Box>
                       </ButtonGroup>
                     </td>

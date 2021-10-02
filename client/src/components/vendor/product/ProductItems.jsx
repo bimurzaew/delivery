@@ -4,13 +4,13 @@ import {
   CardMedia,
   TableBody,
   TableCell,
-  TableRow, Typography,
+  TableRow,
 } from "@material-ui/core";
 import EditProduct from "./EditProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { deleteProduct } from "../../../redux/features/product";
-import AddProduct from "./AddProduct";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(() => ({
   img: {
@@ -25,13 +25,13 @@ function ProductItems(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
+  const deleting = useSelector((state) => state.product.deleting);
 
   const handleDeleteProduct = (id) => {
     dispatch(deleteProduct(id));
   };
   return (
     <TableBody>
-      <Typography>Продукты</Typography>
       {products?.map((item) => (
         <TableRow key={item._id}>
           <TableCell>
@@ -48,14 +48,17 @@ function ProductItems(props) {
           <TableCell align="right">{item.amount}</TableCell>
           <TableCell align="right">{item.price}</TableCell>
           <TableCell align="right">
-            <Button onClick={() => handleDeleteProduct(item._id)}>
-              удалить
-            </Button>
+            {deleting === item._id ? (
+              <CircularProgress />
+            ) : (
+              <Button onClick={() => handleDeleteProduct(item._id)}>
+                удалить
+              </Button>
+            )}
             <EditProduct item={item} />
           </TableCell>
         </TableRow>
       ))}
-      <AddProduct />
     </TableBody>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadProduct } from "../../redux/features/product";
-import { Button } from "@material-ui/core";
+
+import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { addProduct } from "../../redux/features/cart";
 
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     fontFamily: "Corbel"
   }
+
 }));
 
 function GetProducts(props) {
@@ -69,25 +71,33 @@ function GetProducts(props) {
     const inCart = cart.find((item) => item.product._id === product._id);
 
     return (
-      <div className={classes.productDiv}>
-        <img className={classes.cardImg} src={`../../images/${product.image}`} alt=""
-        />
-        <div className={classes.productName}>{product.name}</div>
-        <div className={classes.descProduct}>{product.desc}</div>
-        <div className={classes.productPrice}>{product.price + "₽"}</div>
-        <Button
-          className={classes.productBtn}
-          variant="contained"
-          disabled={inCart || product.amount === 0}
-          onClick={() => addProductToBox(product._id)}
-        >
-          {inCart
-            ? "в корзине"
-            : product.amount
-            ? "добавить в корзину"
-            : "нет в наличии"}
-        </Button>
-      </div>
+
+      <Grid item xs={6}>
+        <Paper className={classes.productCard}>
+          <div className={classes.imgBlock}>
+            <img
+              className={classes.cardImg}
+              src={`../../images/${product.image}`}
+              alt=""
+            />
+          </div>
+          <Typography component="p">имя:{product.name}</Typography>
+          <Typography component="p">цена:{product.price}</Typography>
+          <Typography component="p">описание:{product.desc}</Typography>
+          <Typography component="p">кол-во:{product.amount}</Typography>
+          <Button
+            variant="contained"
+            disabled={inCart || product.amount === 0}
+            onClick={() => addProductToBox(product._id)}
+          >
+            {inCart
+              ? "в корзине"
+              : product.amount
+              ? "добавить в корзину"
+              : "нет в наличии"}
+          </Button>
+        </Paper>
+      </Grid>
     );
   });
 }

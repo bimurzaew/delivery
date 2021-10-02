@@ -3,6 +3,8 @@ const initialState = {
   loading: false,
   message: null,
   error: false,
+  deleting: [],
+  editing: [],
 };
 
 export const productReducer = (state = initialState, action) => {
@@ -54,20 +56,24 @@ export const productReducer = (state = initialState, action) => {
     case "vendor/delete/pending":
       return {
         ...state,
-        loading: true,
+        deleting: action.payload,
       };
     case "vendor/delete/rejected":
       return {
         ...state,
-        loading: false,
         error: action.payload.error,
       };
     case "vendor/delete/fulfilled":
       return {
         ...state,
-        loading: false,
-        message: action.payload,
-        products: action.payload,
+        deleting: [],
+        products: [
+          ...state.products.filter((item) => {
+            if (item._id !== action.payload._id) {
+              return item;
+            }
+          }),
+        ],
       };
     case "load/productByCategory/pending":
       return {
@@ -87,41 +93,28 @@ export const productReducer = (state = initialState, action) => {
     case "product/edit/pending":
       return {
         ...state,
-        loading: true,
+        editing: action.payload,
       };
     case "product/edit/rejected":
       return {
         ...state,
-        loading: false,
+        editing: false,
         error: action.payload,
-      };
-    case "Food/load":
-      return {
-        ...state,
-        products: action.payload,
-        loading: false,
       };
     case "product/edit/fulfilled":
       return {
         ...state,
-        loading: false,
-        products: [...state.products, action.payload],
+        editing: [],
+        products: state.products.map(product => {
+          if(product._id === action.payload._id) {
+            return action.payload
+          }
+          return product
+        }),
       };
     default:
       return state;
   }
-};
-
-
-export const loadFood = () => {
-  return async (dispatch) => {
-    fetch("http://localhost:7777/products")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
-      dispatch({ type: "Food/load", payload: data });
-    });
-  };
 };
 
 export const addProduct = ({
@@ -144,6 +137,7 @@ export const addProduct = ({
     formData.append("category", category);
     formData.append("amount", amount);
     formData.append("thing", thing);
+
     const response = await fetch("/product", {
       method: "POST",
       headers: {
@@ -151,7 +145,9 @@ export const addProduct = ({
       },
       body: formData,
     });
+
     const json = await response.json();
+
     if (json.error) {
       dispatch({ type: "vendor/add/rejected", payload: json });
     } else {
@@ -178,7 +174,7 @@ export const getProductsForUser = () => {
 };
 export const deleteProduct = (id) => {
   return async (dispatch, getState) => {
-    dispatch({ type: "vendor/delete/pending" });
+    dispatch({ type: "vendor/delete/pending", payload: id });
     const state = getState();
     const response = await fetch(`/product/${id}/delete`, {
       method: "DELETE",
@@ -206,16 +202,16 @@ export const loadProduct = () => {
 };
 
 export const loadProductByCategory = (id) => {
-  
-  return async dispatch => {
-    dispatch({type:"load/productByCategory/pending"});
-    const response = await fetch(`http://localhost:7777/product/category/${id}`);
+  return async (dispatch) => {
+    dispatch({ type: "load/productByCategory/pending" });
+    const response = await fetch(
+      `http://localhost:7777/product/category/${id}`
+    );
     const json = await response.json();
 
-
-    dispatch({type:"load/productByCategory/fulfilled",payload:json})
-  }
-}
+    dispatch({ type: "load/productByCategory/fulfilled", payload: json });
+  };
+};
 export const editProduct = ({
   id,
   file,
@@ -226,10 +222,14 @@ export const editProduct = ({
   amount,
 }) => {
   return async (dispatch, getState) => {
-    dispatch({ type: "product/edit/pending" });
+    dispatch({ type: "product/edit/pending", payload: id });
+
     const state = getState();
     const formData = new FormData();
-    formData.append("image", file);
+
+    if(file) {
+      formData.append("image", file[0]);
+    }
     formData.append("name", name);
     formData.append("desc", desc);
     formData.append("price", price);
@@ -242,7 +242,7 @@ export const editProduct = ({
       },
       body: formData,
     });
-    const json = response.json();
+    const json = await response.json();
     if (json.error) {
       dispatch({ type: "product/edit/rejected", payload: json });
     } else {

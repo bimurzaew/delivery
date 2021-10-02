@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  Box,
   Paper,
   Table,
   TableCell,
@@ -7,6 +8,7 @@ import {
   TableHead,
   TableRow,
   Toolbar,
+  Typography,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -18,6 +20,7 @@ import { getCategories } from "../../../redux/features/categories";
 import { makeStyles } from "@material-ui/core/styles";
 import Loading from "../../preload/Loading";
 import ProductItems from "./ProductItems";
+import ButtonsAdd from "./ButtonsAdd";
 
 const useStyles = makeStyles(() => ({
   img: {
@@ -25,6 +28,9 @@ const useStyles = makeStyles(() => ({
   },
   cont: {
     marginTop: 15,
+  },
+  text: {
+    textAlign: "center",
   },
 }));
 
@@ -49,7 +55,9 @@ export default function ProductsTable() {
         <Loading />
       ) : (
         <>
-          <Toolbar />
+          <Typography variant="h4" className={classes.text}>
+            Продукты
+          </Typography>
           <TableContainer className={classes.cont} component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
               <TableHead>

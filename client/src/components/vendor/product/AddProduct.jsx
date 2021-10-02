@@ -6,13 +6,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   FormControlLabel,
-  FormLabel,
   IconButton,
   MenuItem,
-  Radio,
-  RadioGroup,
   styled,
   TextField,
 } from "@material-ui/core";
@@ -23,6 +19,8 @@ import { addProduct } from "../../../redux/features/product";
 import { getCategories } from "../../../redux/features/categories";
 import { getUser } from "../../../redux/features/users";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import { makeStyles } from "@material-ui/core/styles";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuDialogContent-root": {
@@ -32,6 +30,13 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }));
+
+const useStyles = makeStyles({
+  cont: {
+    width: "300px",
+    textAlign: "center",
+  },
+});
 
 function CloseIcon() {
   return null;
@@ -67,6 +72,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function AddProduct() {
+  const classes = useStyles();
   const message = useSelector((state) => state.product.message);
   const categories = useSelector((state) => state.categories.catalog);
   const user = useSelector((state) => state.users.user);
@@ -78,7 +84,13 @@ export default function AddProduct() {
   const [desc, setDesc] = useState();
   const [category, setCategory] = useState();
   const [amount, setAmount] = useState();
-  const [thing, setThing] = useState();
+  const [productData, setProductData] = useState({
+    name,
+    price,
+    desc,
+    category,
+    amount,
+  });
 
   useEffect(() => {
     dispatch(getCategories());
@@ -86,7 +98,6 @@ export default function AddProduct() {
   useEffect(() => {
     dispatch(getUser());
   }, []);
-
 
   const handleSendReq = (e) => {
     e.preventDefault();
@@ -97,6 +108,9 @@ export default function AddProduct() {
   };
   const handleFile = (e) => {
     setFile(e.target.files);
+  };
+  const handleChangeData = (e) => {
+    setProductData({ ...productData, [e.target.value]: [e.target.name] });
   };
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -123,9 +137,10 @@ export default function AddProduct() {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        добавить товар
-      </Button>
+      <MenuItem variant="outlined" onClick={handleClickOpen}>
+        <AddShoppingCartIcon />
+        Добавить продукт
+      </MenuItem>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -138,7 +153,7 @@ export default function AddProduct() {
           Добавление товара
         </BootstrapDialogTitle>
         <DialogContent dividers>
-          <Box>
+          <Box className={classes.cont}>
             <FormControlLabel
               sx={{ mr: -1 }}
               control={
@@ -158,6 +173,7 @@ export default function AddProduct() {
               fullWidth
               margin="normal"
               label="название товара"
+              name="name"
               onChange={handleChangeName}
             ></TextField>
           </Box>
