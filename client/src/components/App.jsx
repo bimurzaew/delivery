@@ -12,6 +12,7 @@ import ProductsByCategory from "./Products/ProductsByCategory";
 import OrdersModal from "./header/OrdersModal";
 import Main from "./main/main";
 import "./App.css";
+import Footer from './footer/footer';
 
 function App() {
   return (
@@ -29,7 +30,9 @@ function App() {
             <SignUpPage />
           </Route>
           <Route path="/product/category">
+            <Header/>
             <ProductGuest />
+            <Footer/>
           </Route>
           <Route path="/product/category/:id">
             <ProductsByCategory />
