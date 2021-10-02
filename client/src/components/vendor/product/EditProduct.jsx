@@ -73,16 +73,14 @@ export default function EditProduct({ item }) {
     name: item.name,
     price: item.price,
     desc: item.desc,
-    category: item.category,
+    category: item.category?._id,
     amount: item.amount,
   });
 
-  useEffect(() => {
-    dispatch(getCategories());
-  }, []);
+  console.log(productData.category);
 
   const handleSendReq = (id) => {
-    dispatch(editProduct({ file: file[0], id, ...productData }));
+    dispatch(editProduct({ file, id, ...productData }));
     setOpen(false);
   };
   const handleChangeFile = (e) => setFile(e.target.files);
@@ -94,113 +92,109 @@ export default function EditProduct({ item }) {
 
   return (
     <>
-      {editing ? (
-        <Loading />
+      {editing === item._id ? (
+        <CircularProgress />
       ) : (
-        <>
-          <Button onClick={handleClickOpen}>Изменить</Button>
-          <BootstrapDialog
-            onClose={handleClose}
-            aria-labelledby="customized-dialog-title"
-            open={open}
-          >
-            <BootstrapDialogTitle
-              id="customized-dialog-title"
-              onClose={handleClose}
-            >
-              Изменение товара
-            </BootstrapDialogTitle>
-            <DialogContent dividers>
-              <Box>
-                <FormControlLabel
-                  sx={{ mr: -1 }}
-                  control={
-                    <input
-                      type="file"
-                      accept="image/*"
-                      style={{ display: "none" }}
-                    />
-                  }
-                  onChange={handleChangeFile}
-                  label={<img src={`../../images/${item.image}`} alt="" />}
-                />
-              </Box>
-              <Box>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  name="name"
-                  label="название товара"
-                  value={productData.name}
-                  onChange={handleChangeData}
-                />
-              </Box>
-              <Box>
-                <TextField
-                  id="standard-select-currency"
-                  select
-                  name="category"
-                  value={productData.category}
-                  onChange={handleChangeData}
-                  helperText="Выберите категорию товара"
-                  variant="standard"
-                  fullWidth
-                >
-                  {categories?.map((option) => (
-                    <MenuItem key={option._id} value={option._id}>
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Box>
-              <Box>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  label="цена"
-                  name="price"
-                  value={productData.price}
-                  onChange={handleChangeData}
-                />
-              </Box>
-              <Box>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  label="описание"
-                  name="desc"
-                  value={productData.desc}
-                  onChange={handleChangeData}
-                />
-              </Box>
-              <Box>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  label="количество"
-                  name="amount"
-                  value={productData.amount}
-                  onChange={handleChangeData}
-                />
-              </Box>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                autoFocus
-                onClick={() => {
-                  handleSendReq(item._id);
-                }}
-              >
-                Сохранить
-              </Button>
-            </DialogActions>
-          </BootstrapDialog>
-        </>
+        <Button onClick={handleClickOpen}>Изменить</Button>
       )}
+      <BootstrapDialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        <BootstrapDialogTitle
+          id="customized-dialog-title"
+          onClose={handleClose}
+        >
+          Изменение товара
+        </BootstrapDialogTitle>
+        <DialogContent dividers>
+          <Box>
+            <FormControlLabel
+              sx={{ mr: -1 }}
+              control={
+                <input
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                />
+              }
+              onChange={handleChangeFile}
+              label={<img src={`../../images/${item.image}`} alt="" />}
+            />
+          </Box>
+          <Box>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              name="name"
+              label="название товара"
+              value={productData.name}
+              onChange={handleChangeData}
+            />
+          </Box>
+          <Box>
+            <TextField
+              id="standard-select-currency"
+              select
+              name="category"
+              value={productData.category}
+              onChange={handleChangeData}
+              helperText="Выберите категорию товара"
+              variant="standard"
+              fullWidth
+            >
+              {categories?.map((option) => (
+                <MenuItem key={option._id} value={option._id}>
+                  {option.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+          <Box>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              label="цена"
+              name="price"
+              value={productData.price}
+              onChange={handleChangeData}
+            />
+          </Box>
+          <Box>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              label="описание"
+              name="desc"
+              value={productData.desc}
+              onChange={handleChangeData}
+            />
+          </Box>
+          <Box>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              label="количество"
+              name="amount"
+              value={productData.amount}
+              onChange={handleChangeData}
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            autoFocus
+            onClick={() => handleSendReq(item._id)}
+          >
+            Сохранить
+          </Button>
+        </DialogActions>
+      </BootstrapDialog>
     </>
   );
 }

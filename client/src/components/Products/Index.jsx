@@ -34,7 +34,7 @@ function ProductGuest() {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, [id]);
+  }, []);
 
   const getProduct = (id) => {
     history.push(`/product/category/${id}`);

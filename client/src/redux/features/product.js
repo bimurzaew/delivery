@@ -4,7 +4,7 @@ const initialState = {
   message: null,
   error: false,
   deleting: [],
-  editing: false,
+  editing: [],
 };
 
 export const productReducer = (state = initialState, action) => {
@@ -67,7 +67,13 @@ export const productReducer = (state = initialState, action) => {
       return {
         ...state,
         deleting: [],
-        products: [...state.products],
+        products: [
+          ...state.products.filter((item) => {
+            if (item._id !== action.payload._id) {
+              return item;
+            }
+          }),
+        ],
       };
     case "load/productByCategory/pending":
       return {
@@ -87,7 +93,7 @@ export const productReducer = (state = initialState, action) => {
     case "product/edit/pending":
       return {
         ...state,
-        editing: true,
+        editing: action.payload,
       };
     case "product/edit/rejected":
       return {
@@ -98,8 +104,13 @@ export const productReducer = (state = initialState, action) => {
     case "product/edit/fulfilled":
       return {
         ...state,
-        editing: false,
-        products: [...state.products, action.payload],
+        editing: [],
+        products: state.products.map(product => {
+          if(product._id === action.payload._id) {
+            return action.payload
+          }
+          return product
+        }),
       };
     default:
       return state;
@@ -211,10 +222,14 @@ export const editProduct = ({
   amount,
 }) => {
   return async (dispatch, getState) => {
-    dispatch({ type: "product/edit/pending" });
+    dispatch({ type: "product/edit/pending", payload: id });
+
     const state = getState();
     const formData = new FormData();
-    formData.append("image", file);
+
+    if(file) {
+      formData.append("image", file[0]);
+    }
     formData.append("name", name);
     formData.append("desc", desc);
     formData.append("price", price);
@@ -227,7 +242,7 @@ export const editProduct = ({
       },
       body: formData,
     });
-    const json = response.json();
+    const json = await response.json();
     if (json.error) {
       dispatch({ type: "product/edit/rejected", payload: json });
     } else {
