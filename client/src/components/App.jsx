@@ -43,6 +43,8 @@ function App() {
             <Footer/>
           </Route>
           <Route path="/product/category/:id">
+            <Header />
+            <Two />
             <ProductsByCategory />
           </Route>
           <Route path="/vendor">
@@ -50,7 +52,6 @@ function App() {
             <Products />
           </Route>
           <Route path="/">
-
             <Header />
             <Two />
             <Main />
@@ -60,10 +61,6 @@ function App() {
             <Two />
             <Main />
           </Route>
-          {/*<Route path="/food">*/}
-          {/*  <Header/>*/}
-          {/*  <Foods/>*/}
-          {/*</Route>*/}
         </Switch>
       </BrowserRouter>
     </Provider>

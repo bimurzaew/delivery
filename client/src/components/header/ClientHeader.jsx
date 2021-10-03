@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import {
   AppBar,
   IconButton,
@@ -9,10 +9,9 @@ import {
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import CartModal from "./CartModal";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
-
-
+import Person from "../Person";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,11 +34,18 @@ const useStyles = makeStyles((theme) => ({
   Avatar: {
     width: 100,
   },
-  red:{
-    width:10,
-    height:10,
-    backgroundColor:'red',
-    color:'white'
+  red: {
+    width: 10,
+    height: 10,
+    backgroundColor: "red",
+    color: "white",
+  },
+  link:{
+    textDecoration:"none",
+    color:"white"
+  },
+  cart:{
+    fontSize:20
   }
 }));
 
@@ -50,15 +56,14 @@ function ClientHeader(props) {
       <AppBar className={classes.Appbar} position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6">
-            Delivery
+            <Link className={classes.link} href="/">Intocode rulet</Link>
           </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
-            <IconButton>
-              <div className={classes.red}>1</div>
+            <IconButton className={classes.cart}>
               <CartModal />
             </IconButton>
             <IconButton>
-              <Avatar />
+              <Person />
             </IconButton>
           </Box>
         </Toolbar>

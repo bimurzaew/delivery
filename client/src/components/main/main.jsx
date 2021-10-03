@@ -44,8 +44,7 @@ function Main() {
           <NavLink className={classes.foot} to="/food">
             Еда
           </NavLink>
-          <NavLink className={classes.Product} to="/product/category"></NavLink>
-          <NavLink className={classes.Product} to="/food">
+          <NavLink className={classes.Product} to="/product/category">
             Продукты
           </NavLink>
         </Box>
