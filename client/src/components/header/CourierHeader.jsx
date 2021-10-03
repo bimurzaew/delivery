@@ -10,6 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
 import CartModal from './CartModal';
+import ModalPage from '../order/ModalPage'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,6 +44,7 @@ function CourierHeader(props) {
                         </NavLink>
                     </Typography>
                     <Box className={classes.AppbarCardAndAvatar}>
+                        <ModalPage/>
                         <IconButton>
                                 <Avatar />
                         </IconButton>

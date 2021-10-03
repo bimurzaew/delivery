@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
+const Order = require("../models/Order");
 
 module.exports.usersController = {
   register: async (req, res) => {
@@ -61,7 +62,7 @@ module.exports.usersController = {
       }
 
       if (role !== candidate.role) {
-        res.json({error:`хьом вац ${role}`})
+        res.json({ error: `хьом вац ${role}` });
       }
 
       if (!candidate) {
@@ -87,13 +88,23 @@ module.exports.usersController = {
       res.status(401).json(e.toString());
     }
   },
-  getUser: async (req,res) => {
+  getUser: async (req, res) => {
     try {
-      const user = await User.findById(req.user.id)
-      res.json(user)
-    }catch (e) {
-      res.json(e.toString())
+      const user = await User.findById(req.user.id);
+      res.json(user);
+    } catch (e) {
+      res.json(e.toString());
     }
-  }
-};
+  },
+  addOrderToUser: async (req, res) => {
+    try {
+      const data = await Order.findByIdAndUpdate(req.params.id, {
+        courier: req.user.id,
+      });
 
+      return res.json(data);
+    } catch (e) {
+      return res.json(e.toString());
+    }
+  },
+};

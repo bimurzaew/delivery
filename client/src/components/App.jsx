@@ -9,9 +9,10 @@ import Header from "./header/header";
 import Two from "./TwoHeader/Two";
 import ProductGuest from "./Products/Index";
 import ProductsByCategory from "./Products/ProductsByCategory";
-import OrdersModal from "./header/OrdersModal";
+import Orders from "./order/Orders";
 import Main from "./main/main";
 import "./App.css";
+import CourierPage from './CuorierPage/CourierPage'
 import Footer from './footer/footer';
 
 function App() {
@@ -19,12 +20,14 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route path={"/orders"}>
+          <Route exact path={"/orders"}>
             <Header />
-
-            <OrdersModal/>
+            <Orders/>
           </Route>
-
+          <Route path="/orders/courier">
+            <Header />
+            <CourierPage/>
+          </Route>
           <Route exact path="/">
             <Main />
             <Header />
@@ -61,6 +64,7 @@ function App() {
             <Two />
             <Main />
           </Route>
+
         </Switch>
       </BrowserRouter>
     </Provider>

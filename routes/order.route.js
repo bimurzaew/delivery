@@ -7,5 +7,6 @@ const router = Router();
 router.get("/order", orderControllers.getOrder);
 router.get("/order/:id", orderControllers.getOrderOne);
 router.post("/order", orderControllers.addOrder);
+router.get("/order/courier", orderControllers.getOrderByCourier);
 
 module.exports = router;
