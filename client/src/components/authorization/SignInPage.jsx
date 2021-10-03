@@ -98,14 +98,12 @@ export default function SignInPage() {
 
   const handleSubmit = () => {
     dispatch(auth({ password, login, role }))
-
-        .then(() => {
-          if (!error) {
-            history.push("/");
-          }
-        })
-        .catch((e) => {});
-
+      .then(() => {
+        if (!error) {
+          history.push("/");
+        }
+      })
+      .catch((e) => {});
   };
 
   return (
@@ -142,57 +140,56 @@ export default function SignInPage() {
               name="email"
               autoComplete="email"
               autoFocus
+            />
+            <TextField
+              onChange={handleChangePassword}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Пароль"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            {/*<TextField*/}
+            {/*  id="standard-select-currency"*/}
+            {/*  select*/}
+            {/*  value={role}*/}
+            {/*  onChange={handleChangeRole}*/}
+            {/*  helperText="Выберите роль"*/}
+            {/*  variant="standard"*/}
+            {/*>*/}
+            {/*  {currencies.map((option) => (*/}
+            {/*    <MenuItem key={option.value} value={option.value}>*/}
+            {/*      {option.label}*/}
+            {/*    </MenuItem>*/}
+            {/*  ))}*/}
+            {/*</TextField>*/}
 
-          />
-          <TextField
-            onChange={handleChangePassword}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Пароль"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <TextField
-            id="standard-select-currency"
-            select
-            value={role}
-            onChange={handleChangeRole}
-            helperText="Выберите роль"
-            variant="standard"
-          >
-            {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          <Button
-            onClick={handleSubmit}
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            войти
-          </Button>
-          <Grid container>
-            <Grid item>
-              <Link href="/signUp" variant="body2">
-                {"Нет аккаунта? Зарегистрироваться"}
-              </Link>
+            <Button
+              onClick={handleSubmit}
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              войти
+            </Button>
+            <Grid container>
+              <Grid item>
+                <Link href="/signUp" variant="body2">
+                  {"Нет аккаунта? Зарегистрироваться"}
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-          <Box mt={5}>
-            <Copyright />
-          </Box>
-        </form>
-      </div>
+            <Box mt={5}>
+              <Copyright />
+            </Box>
+          </form>
+        </div>
+      </Grid>
     </Grid>
-</Grid>
-);
+  );
 }

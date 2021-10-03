@@ -6,11 +6,9 @@ import {
   Typography,
   Box,
 } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
-import Person from "../Person";
+import Person from "./Person";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Appbar: {
     background: "#6247aa ",
+    height:"80px"
   },
   title: {
     flexGrow: 1,
@@ -30,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "white",
   },
-  Delivery:{
+  Delivery: {
     textDecoration: "none",
     color: "white",
-  }
+  },
 }));
 
 function VendorHeader(props) {
@@ -45,7 +44,7 @@ function VendorHeader(props) {
         <Toolbar>
           <Typography className={classes.title} variant="h6">
             <NavLink className={classes.Delivery} to="/">
-              Delivery
+              Intocode rulet
             </NavLink>
           </Typography>
           <Typography className={classes.title} variant="h6">

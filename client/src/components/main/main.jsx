@@ -1,8 +1,8 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
-import { NavLink, Route } from 'react-router-dom';
-import Food from '../Food/index';
+import { NavLink, Route } from "react-router-dom";
+import Food from "../Food/index";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -14,12 +14,12 @@ const useStyles = makeStyles(() => ({
     margin: "0 auto",
     textAlign: "center",
     backgroundColor: "#7251b5",
-    borderRadius: 20
+    borderRadius: 20,
   },
   foot: {
     fontSize: 40,
     textDecoration: "none",
-    color: 'white'
+    color: "white",
   },
   footBox: {
     display: "flex",
@@ -29,31 +29,23 @@ const useStyles = makeStyles(() => ({
     fontSize: 40,
     textDecoration: "none",
     marginLeft: 50,
-    color: 'white'
+    color: "white",
   },
 }));
-
 
 function Main() {
   const classes = useStyles();
   return (
-    <>
-
-      <Box className={classes.footAndProductBox}>
-        <Box className={classes.footBox}>
-          <NavLink className={classes.foot} to="/food">
-            Еда
-          </NavLink>
-          <NavLink className={classes.Product} to="/product/category">
-            Продукты
-          </NavLink>
-        </Box>
+    <Box className={classes.footAndProductBox}>
+      <Box className={classes.footBox}>
+        <NavLink className={classes.foot} to="/">
+          Еда
+        </NavLink>
+        <NavLink className={classes.Product} to="/product/category">
+          Продукты
+        </NavLink>
       </Box>
-      <Route path="/food">
-        <Food/>
-      </Route>
-
-    </>
+    </Box>
   );
 }
 export default Main;

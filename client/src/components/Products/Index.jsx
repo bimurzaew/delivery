@@ -8,7 +8,7 @@ import { getCategories } from "../../redux/features/categories";
 import { loadProductByCategory } from "../../redux/features/product";
 import { NavLink, Route, useHistory, useParams } from "react-router-dom";
 import Products from "./Products";
-import Food from '../Food';
+import Food from "../Food";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,10 +27,10 @@ const useStyles = makeStyles((theme) => ({
   },
   categoryName: {
     justifyContent: "space-between",
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 20,
-    fontWeight: 'bold',
-    fontFamily: "Corbel"
+    fontWeight: "bold",
+    fontFamily: "Corbel",
   },
   categoryLink: {
     textDecoration: "none",
@@ -41,18 +41,17 @@ const useStyles = makeStyles((theme) => ({
     borderTopLeftRadius: 20,
     width: 230,
     height: 160,
-
   },
   categoryInfo: {
     borderRadius: 20,
-    border: "3px solid #7251b5"
+    border: "3px solid #7251b5",
   },
   category: {
     display: "flex",
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     margin: "0 auto",
     marginBottom: 20,
-  }
+  },
 }));
 
 function ProductGuest() {
@@ -90,15 +89,11 @@ function ProductGuest() {
                   >
                     <div className={classes.categoryName}>{item.name}</div>
                   </NavLink>
-
                 </div>
               );
             })}
           </div>
-
           <Grid item xs={7}>
-
-
             <Grid container justifyContent={"space-between"}>
               <Products />
             </Grid>

@@ -5,6 +5,7 @@ import {
   Toolbar,
   Typography,
   Box,
+  CircularProgress,
 } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -49,32 +50,49 @@ function Header(props) {
   }, []);
   return (
     <>
-      <AppBar className={classes.Appbar} position="fixed">
-        <Toolbar>
-          <Typography className={classes.title} variant="h6">
-            Phantomil Food
-          </Typography>
-          <Typography className={classes.title} variant="h6">
-            <NavLink className={classes.Order} to={"/orders"}>
-              Заказы
-            </NavLink>
-          </Typography>
-          <Box className={classes.AppbarCardAndAvatar}>
-            <CartModal />
-            <IconButton>
-              <Avatar />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
 
-      {user?.role === "vendor" && token ? (
-        <VendorHeader />
-      ) : user?.role === "courier" && token ? (
-        <CourierHeader />
-      ) : (
-        <ClientHeader />
-      )}
+        <>
+          {!token ? <ClientHeader /> : ""}
+          {user?.role === "vendor" ? <VendorHeader /> : ''}
+          {user?.role === "courier" ? <CourierHeader /> : ""}
+        </>
+
+      {/*<AppBar className={classes.Appbar} position="fixed">*/}
+      {/*  <Toolbar>*/}
+      {/*    <Typography className={classes.title} variant="h6">*/}
+      {/*      Phantomil Food*/}
+      {/*    </Typography>*/}
+      {/*    <Typography className={classes.title} variant="h6">*/}
+      {/*      <NavLink className={classes.Order} to={"/orders"}>*/}
+      {/*        Заказы*/}
+      {/*      </NavLink>*/}
+      {/*    </Typography>*/}
+      {/*    <Box className={classes.AppbarCardAndAvatar}>*/}
+      {/*      <CartModal />*/}
+      {/*      <IconButton>*/}
+      {/*        <Avatar />*/}
+      {/*      </IconButton>*/}
+      {/*    </Box>*/}
+      {/*  </Toolbar>*/}
+      {/*</AppBar>*/}
+
+      {/*{!token ? (*/}
+      {/*  <ClientHeader />*/}
+      {/*) : role === "vendor" ? (*/}
+      {/*  <VendorHeader />*/}
+      {/*) : role === "courier" ? (*/}
+      {/*  <CourierHeader />*/}
+      {/*) : (*/}
+      {/*  ""*/}
+      {/*)}*/}
+
+      {/*{user?.role === "vendor" && token ? (*/}
+      {/*  <VendorHeader />*/}
+      {/*) : user?.role === "courier" && token ? (*/}
+      {/*  <CourierHeader />*/}
+      {/*) : (*/}
+      {/*  <ClientHeader />*/}
+      {/*)}*/}
     </>
   );
 }

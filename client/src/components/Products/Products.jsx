@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     fontFamily: "Corbel",
     fontWeight: "bold",
-    fontSize:20,
+    fontSize: 20,
   },
   productDiv: {
     width: 200,
@@ -44,11 +44,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
   },
   productPrice: {
-    fontSize:20,
-    fontWeight: 'bold',
-    fontFamily: "Corbel"
-  }
-
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Corbel",
+  },
 }));
 
 function GetProducts(props) {
@@ -67,14 +66,12 @@ function GetProducts(props) {
   };
 
   return products.map((product) => {
-    console.log(product.image);
     const inCart = cart.find((item) => item.product._id === product._id);
 
     return (
-
       <Grid item xs={6}>
         <Paper className={classes.productCard}>
-          <div className={classes.imgBlock}>
+          <div>
             <img
               className={classes.cardImg}
               src={`../../images/${product.image}`}

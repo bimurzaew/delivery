@@ -6,7 +6,6 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import ShopIcon from "@material-ui/icons/Shop";
 import AppleIcon from "@material-ui/icons/Apple";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -14,13 +13,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   footerBox: {
-    width: 1230,
     height: 80,
     display: "flex",
     margin: "0 auto",
     backgroundColor: "#6247aa",
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
     alignItems: "center",
   },
   footerInfo: {

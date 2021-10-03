@@ -70,9 +70,14 @@ export const foodReducer = (state = initialState, action) => {
 
 export const loadFood = () => {
   return async (dispatch) => {
-    const response = await fetch("http://localhost:7777/food");
+    dispatch({ type: "food/load/pending" });
+    const response = await fetch("/food");
     const json = await response.json();
-    dispatch({ type: "Food/load", payload: json });
+    if (json.error) {
+      dispatch({ type: "food/load/rejected", payload: json });
+    } else {
+      dispatch({ type: "food/load/fulfilled", payload: json });
+    }
   };
 };
 

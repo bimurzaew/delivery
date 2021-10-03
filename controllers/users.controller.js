@@ -48,7 +48,7 @@ module.exports.usersController = {
   },
   login: async (req, res) => {
     try {
-      const { login, password, role } = req.body;
+      const { login, password } = req.body;
       const candidate = await User.findOne({ login });
 
       if (login.length === 0) {
@@ -57,13 +57,13 @@ module.exports.usersController = {
       if (password.length === 0) {
         res.status(401).json({ error: "необходимо ввести пароль" });
       }
-      if (role.length === 0) {
-        res.status(401).json({ error: "дог ойле йокх ю хьа" });
-      }
+      // if (role.length === 0) {
+      //   res.status(401).json({ error: "дог ойле йокх ю хьа" });
+      // }
 
-      if (role !== candidate.role) {
-        res.json({ error: `хьом вац ${role}` });
-      }
+      // if (role !== candidate.role) {
+      //   res.json({ error: `хьом вац ${role}` });
+      // }
 
       if (!candidate) {
         res.status(401).json({ error: "неверный логин" });
@@ -77,13 +77,13 @@ module.exports.usersController = {
 
       const payload = {
         id: candidate._id,
+        role: candidate.role,
       };
 
       const token = jwt.sign(payload, process.env.SECRET_JWT, {
         expiresIn: "24h",
       });
-
-      res.json({ token });
+      res.json({ token, payload});
     } catch (e) {
       res.status(401).json(e.toString());
     }

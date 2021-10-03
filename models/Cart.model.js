@@ -5,8 +5,11 @@ const cartSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
-
-  amount: Number
+  amount: Number,
+  food:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"Food"
+  }
 });
 
 const Cart = mongoose.model("Cart", cartSchema);
