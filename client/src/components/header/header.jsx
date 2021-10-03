@@ -63,7 +63,6 @@ function Header(props) {
           </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
               <CartModal/>
-
             <IconButton>
               <Avatar />
             </IconButton>

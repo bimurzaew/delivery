@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import CartModal from './CartModal';
+import ModalPage from '../order/ModalPage'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,9 +49,8 @@ function CourierHeader(props) {
                     </Typography>
                     <Box className={classes.AppbarCardAndAvatar}>
                         <CartModal/>
-                        <IconButton>
-                            <Avatar />
-                        </IconButton>
+                        <ModalPage/>
+
                     </Box>
                 </Toolbar>
             </AppBar>

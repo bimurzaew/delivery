@@ -11,10 +11,10 @@ const userSchema = mongoose.Schema({
     type:mongoose.Schema.Types.ObjectId,
     ref:"Business"
   },
-  order:{
+  order:[{
     type: mongoose.Schema.Types.ObjectId,
     ref:"Order"
-  }
+  }]
 });
 
 const User = mongoose.model("User", userSchema);

@@ -6,7 +6,7 @@ const initialState = {
   role: null,
 };
 
-export const usersReducer = (state = initialState, action) => {
+export const users = (state = initialState, action) => {
   switch (action.type) {
     case "user/signup/pending":
       return {
@@ -127,9 +127,3 @@ export const getUser = () => {
     }
   };
 };
-
-export const addOrder = () => {
-  return async dispatch => {
-    const response = await fetch(`/user`)
-  }
-}
