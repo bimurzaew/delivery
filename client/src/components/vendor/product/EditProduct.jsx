@@ -15,10 +15,9 @@ import {
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { getCategories } from "../../../redux/features/categories";
+import { useState } from "react";
 import { editProduct } from "../../../redux/features/product";
-import Loading from "../../preload/Loading";
+import {makeStyles} from "@material-ui/core/styles";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuDialogContent-root": {
@@ -28,6 +27,16 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }));
+
+const useStyles = makeStyles({
+  img:{
+    width:"300px",
+    borderRadius:"80px"
+  },
+  imgBox:{
+    margin:0
+  }
+})
 
 function CloseIcon() {
   return null;
@@ -63,6 +72,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function EditProduct({ item }) {
+  const classes = useStyles()
   const categories = useSelector((state) => state.categories.catalog);
   const editing = useSelector((state) => state.product.editing);
   const [open, setOpen] = useState(false);
@@ -111,16 +121,17 @@ export default function EditProduct({ item }) {
         <DialogContent dividers>
           <Box>
             <FormControlLabel
+                className={classes.imgBox}
               sx={{ mr: -1 }}
               control={
                 <input
                   type="file"
                   accept="image/*"
-                  style={{ display: "none" }}
+                  style={{ display: "none", }}
                 />
               }
               onChange={handleChangeFile}
-              label={<img src={`../../images/${item.image}`} alt="" />}
+              label={<img className={classes.img} src={`../../images/${item.image}`} alt="" />}
             />
           </Box>
           <Box>

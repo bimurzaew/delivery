@@ -3,7 +3,7 @@ const initialState = {
   error: null,
   token: localStorage.getItem("token"),
   user: null,
-  role: null,
+  role: localStorage.getItem("role"),
 };
 
 export const users = (state = initialState, action) => {

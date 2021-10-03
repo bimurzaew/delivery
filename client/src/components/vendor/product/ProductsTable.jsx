@@ -65,8 +65,8 @@ export default function ProductsTable() {
                   <TableCell></TableCell>
                   <TableCell>Название продукта</TableCell>
                   <TableCell align="right">категория</TableCell>
-                  <TableCell align="right">цена</TableCell>
                   <TableCell align="right">количество</TableCell>
+                  <TableCell align="right">цена</TableCell>
                   <TableCell align="right">действия</TableCell>
                 </TableRow>
               </TableHead>

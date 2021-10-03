@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { deleteFood, getFood } from "../../../redux/features/food";
 import {getCategories} from "../../../redux/features/categories";
+import EditFood from "./EditFood";
 
 const useStyles = makeStyles(() => ({
   img: {
@@ -62,7 +63,7 @@ function ProductItems(props) {
                   удалить
                 </Button>
               )}
-              <EditProduct item={item} />
+              <EditFood item={item} />
             </TableCell>
           </TableRow>
         ))}
