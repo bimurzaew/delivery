@@ -7,7 +7,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Toolbar, Typography,
+  Toolbar,
+  Typography,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -28,9 +29,9 @@ const useStyles = makeStyles(() => ({
   cont: {
     marginTop: 15,
   },
-  text:{
-    textAlign:"center",
-  }
+  text: {
+    textAlign: "center",
+  },
 }));
 
 export default function ProductsTable() {
@@ -54,7 +55,9 @@ export default function ProductsTable() {
         <Loading />
       ) : (
         <>
-            <Typography variant='h4' className={classes.text}>Продукты</Typography>
+          <Typography variant="h4" className={classes.text}>
+            Продукты
+          </Typography>
           <TableContainer className={classes.cont} component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
               <TableHead>
@@ -62,8 +65,8 @@ export default function ProductsTable() {
                   <TableCell></TableCell>
                   <TableCell>Название продукта</TableCell>
                   <TableCell align="right">категория</TableCell>
-                  <TableCell align="right">цена</TableCell>
                   <TableCell align="right">количество</TableCell>
+                  <TableCell align="right">цена</TableCell>
                   <TableCell align="right">действия</TableCell>
                 </TableRow>
               </TableHead>

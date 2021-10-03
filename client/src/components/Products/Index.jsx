@@ -6,12 +6,13 @@ import Button from "@material-ui/core/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../redux/features/categories";
 import { loadProductByCategory } from "../../redux/features/product";
-import { useHistory, useParams } from "react-router-dom";
+import { NavLink, Route, useHistory, useParams } from "react-router-dom";
 import Products from "./Products";
+import Food from '../Food';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    margin: "auto",
+    margin: "15px auto 0",
   },
   productCard: {
     width: 300,
@@ -24,6 +25,34 @@ const useStyles = makeStyles((theme) => ({
   cardImg: {
     width: 100,
   },
+  categoryName: {
+    justifyContent: "space-between",
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontFamily: "Corbel"
+  },
+  categoryLink: {
+    textDecoration: "none",
+    color: "black",
+  },
+  categoryImage: {
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    width: 230,
+    height: 160,
+
+  },
+  categoryInfo: {
+    borderRadius: 20,
+    border: "3px solid #7251b5"
+  },
+  category: {
+    display: "flex",
+    justifyContent: 'space-between',
+    margin: "0 auto",
+    marginBottom: 20,
+  }
 }));
 
 function ProductGuest() {
@@ -34,7 +63,7 @@ function ProductGuest() {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, [id]);
+  }, []);
 
   const getProduct = (id) => {
     history.push(`/product/category/${id}`);
@@ -48,31 +77,30 @@ function ProductGuest() {
 
       <Container>
         <Box className={classes.container}>
-          <Grid container justifyContent={"space-between"}>
-            <Grid item xs={4}>
-              <b>Все категории</b>
-              {catalog.map((item) => {
-                return (
-                  <p key={item._id}>
-                    <Button
-                      key={item._id}
-                      onClick={() => getProduct(item._id)}
-                      variant="contained"
-                    >
-                      {item.name}
-                    </Button>
-                  </p>
-                );
-              })}
-            </Grid>
-            <Grid item xs={7}>
-              <h4>
-                <b>Имя категории</b>
-              </h4>
+          <div className={classes.category}>
+            {catalog.map((item) => {
+              return (
+                <div className={classes.categoryInfo}>
+                  <img className={classes.categoryImage} src={item.img} />
+                  <NavLink
+                    key={item._id}
+                    className={classes.categoryLink}
+                    to={`/product/category/${item._id}`}
+                    variant="contained"
+                  >
+                    <div className={classes.categoryName}>{item.name}</div>
+                  </NavLink>
 
-              <Grid container justifyContent={"space-between"}>
-                <Products />
-              </Grid>
+                </div>
+              );
+            })}
+          </div>
+
+          <Grid item xs={7}>
+
+
+            <Grid container justifyContent={"space-between"}>
+              <Products />
             </Grid>
           </Grid>
         </Box>

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import {
   Button,
   CardMedia,
+  CircularProgress,
   TableBody,
   TableCell,
   TableRow,
@@ -10,6 +11,8 @@ import EditProduct from "../product/EditProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { deleteFood, getFood } from "../../../redux/features/food";
+import {getCategories} from "../../../redux/features/categories";
+import EditFood from "./EditFood";
 
 const useStyles = makeStyles(() => ({
   img: {
@@ -24,12 +27,17 @@ function ProductItems(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const food = useSelector((state) => state.food.products);
+  const deleting = useSelector((state) => state.food.deleting);
 
   const handleDeleteProduct = (id) => {
     dispatch(deleteFood(id));
   };
   useEffect(() => {
     dispatch(getFood());
+  }, []);
+
+  useEffect(() => {
+    dispatch(getCategories());
   }, []);
   return (
     <>
@@ -48,10 +56,14 @@ function ProductItems(props) {
             </TableCell>
             <TableCell align="right">{item.price}</TableCell>
             <TableCell align="right">
-              <Button onClick={() => handleDeleteProduct(item._id)}>
-                удалить
-              </Button>
-              <EditProduct item={item} />
+              {deleting === item._id ? (
+                <CircularProgress />
+              ) : (
+                <Button onClick={() => handleDeleteProduct(item._id)}>
+                  удалить
+                </Button>
+              )}
+              <EditFood item={item} />
             </TableCell>
           </TableRow>
         ))}

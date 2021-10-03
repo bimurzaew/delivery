@@ -1,15 +1,17 @@
 import React from "react";
 import ProductsTable from "./ProductsTable";
 import FoodTable from "../food/FoodTable";
-import {Toolbar, Typography} from "@material-ui/core";
+import { Toolbar } from "@material-ui/core";
+import Personal from "../Personal";
 
 function Products() {
-
   return (
     <>
-        <Toolbar />
-        <ProductsTable />
-        <FoodTable />
+          <Toolbar />
+          <Personal />
+          <Toolbar />
+          <ProductsTable />
+          <FoodTable />
     </>
   );
 }

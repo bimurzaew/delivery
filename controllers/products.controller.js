@@ -5,7 +5,6 @@ const User = require("../models/User.model");
 module.exports.productsController = {
   addProduct: async (req, res) => {
     try {
-      const user = await User.findById(req.user.id);
       const { name, price, desc, category, amount, thing } = req.body;
 
       const { image } = req.files;
@@ -22,7 +21,7 @@ module.exports.productsController = {
             amount,
             image: newFileName,
             category,
-            user,
+            user: req.user.id,
             thing,
           });
           res.json(product);
@@ -34,13 +33,12 @@ module.exports.productsController = {
   },
   editProduct: async (req, res) => {
     try {
-      const { name, price, desc } = req.body;
-      const { image } = req.files;
+      const image = req.files?.image;
+
       if (!image) {
-        const newFileName = `${Math.floor(Math.random() * 10000)}${image.name}`;
         const product = await Product.findByIdAndUpdate(req.params.id, {
-          $set: { ...req.body, image: newFileName },
-        });
+          $set: { ...req.body },
+        }, { new: true});
         res.json(product);
       } else {
         const newFileName = `${Math.floor(Math.random() * 10000)}${image.name}`;
@@ -48,10 +46,15 @@ module.exports.productsController = {
           if (err) {
             res.json(err.toString());
           } else {
-            const product = await Product.findByIdAndUpdate(req.params.id, {
-              $set: { ...req.body, image: newFileName },
-            });
+            const product = await Product.findByIdAndUpdate(
+              req.params.id,
+              {
+                $set: { ...req.body, image: newFileName },
+              },
+              { new: true }
+            );
             res.json(product);
+            console.log(product);
           }
         });
       }
@@ -61,8 +64,9 @@ module.exports.productsController = {
   },
   deleteProduct: async (req, res) => {
     try {
-     const product =  await Product.findByIdAndDelete(req.params.id);
+      const product = await Product.findByIdAndDelete(req.params.id);
       res.json(product);
+      console.log(product);
     } catch (e) {
       res.json(e.toString());
     }

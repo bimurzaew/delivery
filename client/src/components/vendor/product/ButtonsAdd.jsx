@@ -8,6 +8,8 @@ import {addProduct} from "../../../redux/features/product";
 import AddProduct from "./AddProduct";
 import AddFood from "../food/AddFood";
 import {addFood} from "../../../redux/features/food";
+import {Fab} from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -27,10 +29,6 @@ const StyledMenu = styled((props) => (
     borderRadius: 6,
     marginTop: theme.spacing(1),
     minWidth: 180,
-    color:
-      theme.palette.mode === "light"
-        ? "rgb(55, 65, 81)"
-        : theme.palette.grey[300],
     boxShadow:
       "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
     "& .MuiMenu-list": {
@@ -65,15 +63,12 @@ export default function ButtonsAdd() {
   return (
     <div>
       <Button
-        id="demo-customized-button"
-        aria-controls="demo-customized-menu"
-        aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
-        variant="contained"
-        disableElevation
         onClick={handleClick}
       >
-        <AddBoxIcon />
+          <Fab color="primary" aria-label="add">
+              <AddIcon />
+          </Fab>
       </Button>
       <StyledMenu
         id="demo-customized-menu"
@@ -84,10 +79,10 @@ export default function ButtonsAdd() {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={addProduct} disableRipple>
+        <MenuItem onClick={addProduct}>
           <AddProduct />
         </MenuItem>
-        <MenuItem onClick={addFood} disableRipple>
+        <MenuItem onClick={addFood}>
           <AddFood />
         </MenuItem>
       </StyledMenu>

@@ -1,31 +1,35 @@
 import * as React from "react";
 import {
   Box,
+  Container,
   Paper,
   Table,
   TableCell,
   TableContainer,
   TableHead,
-  TableRow, Toolbar,
+  TableRow,
+  Toolbar,
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import FoodItems from "./FoodItems";
 import ButtonsAdd from "../product/ButtonsAdd";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(() => ({
   img: {
     width: 100,
   },
-  textBlock:{
-    marginBottom:30
+  textBlock: {
+    marginBottom: 30,
   },
-  text:{
-    textAlign:'center',
+  text: {
+    textAlign: "center",
   },
-  buttons:{
-    textAlign:'right'
-  }
+  buttons: {
+    textAlign: "center",
+    marginBottom: "50px",
+  },
 }));
 
 export default function FoodTable() {
@@ -34,7 +38,9 @@ export default function FoodTable() {
     <>
       <Toolbar />
       <Box className={classes.textBlock}>
-        <Typography variant='h4' className={classes.text}>Еда</Typography>
+        <Typography variant="h4" className={classes.text}>
+          Еда
+        </Typography>
       </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="caption table">
@@ -50,9 +56,9 @@ export default function FoodTable() {
         </Table>
       </TableContainer>
       <Toolbar />
-      <Box className={classes.buttons}>
+      <Container className={classes.buttons}>
         <ButtonsAdd />
-      </Box>
+      </Container>
     </>
   );
 }

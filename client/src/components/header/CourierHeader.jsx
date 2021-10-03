@@ -9,16 +9,12 @@ import {
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
 import CartModal from './CartModal';
 import ModalPage from '../order/ModalPage'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-    },
-    Appbar: {
-        background: "cadetblue",
     },
     title: {
         flexGrow: 1,
@@ -37,20 +33,21 @@ function CourierHeader(props) {
 
     return (
         <>
-            <AppBar className={classes.Appbar} position="fixed">
+            <AppBar position="fixed">
                 <Toolbar>
                     <Typography className={classes.title} variant="h6">
-                        Delivery
+                        <NavLink to='/'>Delivery</NavLink>
                     </Typography>
                     <Typography className={classes.title} variant="h6">
-                        <NavLink className={classes.Order} to={"/orders"}>
+                        <NavLink className={classes.Order} to="/orders">
                             Заказы
                         </NavLink>
                     </Typography>
                     <Box className={classes.AppbarCardAndAvatar}>
-                        <CartModal/>
                         <ModalPage/>
-
+                        <IconButton>
+                                <Avatar />
+                        </IconButton>
                     </Box>
                 </Toolbar>
             </AppBar>

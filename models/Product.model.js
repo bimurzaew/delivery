@@ -14,7 +14,6 @@ const productSchema = mongoose.Schema({
     ref: "Category",
   },
   amount: Number,
-  thing: String,
 });
 
 const Product = mongoose.model("Product", productSchema);

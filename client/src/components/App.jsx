@@ -13,6 +13,7 @@ import Orders from "./order/Orders";
 import Main from "./main/main";
 import "./App.css";
 import CourierPage from './CuorierPage/CourierPage'
+import Footer from './footer/footer';
 
 function App() {
   return (
@@ -40,9 +41,13 @@ function App() {
             <SignUpPage />
           </Route>
           <Route path="/product/category">
+            <Header/>
             <ProductGuest />
+            <Footer/>
           </Route>
           <Route path="/product/category/:id">
+            <Header />
+            <Two />
             <ProductsByCategory />
           </Route>
           <Route path="/vendor">
@@ -50,7 +55,6 @@ function App() {
             <Products />
           </Route>
           <Route path="/">
-
             <Header />
             <Two />
             <Main />
@@ -61,10 +65,6 @@ function App() {
             <Main />
           </Route>
 
-          {/*<Route path="/food">*/}
-          {/*  <Header/>*/}
-          {/*  <Foods/>*/}
-          {/*</Route>*/}
         </Switch>
       </BrowserRouter>
     </Provider>
