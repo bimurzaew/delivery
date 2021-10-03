@@ -58,6 +58,12 @@ export const users = (state = initialState, action) => {
         loading: false,
         user: action.payload,
       };
+    case "user/logOut/fulfilled":
+      return {
+        ...state,
+        token: null,
+        role: null,
+      };
     default:
       return state;
   }
@@ -106,7 +112,7 @@ export const auth = ({ login, password, role }) => {
       dispatch({ type: "user/signIn/fulfilled", payload: json });
     }
     localStorage.setItem("token", json.token);
-    localStorage.setItem("role", role);
+    localStorage.setItem("role", json.payload.role);
   };
 };
 
@@ -127,3 +133,10 @@ export const getUser = () => {
     }
   };
 };
+
+export const logOut = () => {
+  return async (dispatch) => {
+    dispatch({type:"user/logOut/fulfilled"})
+    localStorage.clear()
+  }
+}

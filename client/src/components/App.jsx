@@ -12,27 +12,29 @@ import ProductsByCategory from "./Products/ProductsByCategory";
 import Orders from "./order/Orders";
 import Main from "./main/main";
 import "./App.css";
-import CourierPage from './CuorierPage/CourierPage'
-import Footer from './footer/footer';
+import CourierPage from "./CuorierPage/CourierPage";
+import Footer from "./footer/footer";
+import Foods from "./Food";
 
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route exact path={"/orders"}>
-            <Header />
-            <Orders/>
-          </Route>
-          <Route path="/orders/courier">
-            <Header />
-            <CourierPage/>
-          </Route>
           <Route exact path="/">
-            <Main />
             <Header />
             <Two />
             <Main />
+            <Foods />
+            <Footer />
+          </Route>
+          <Route path="/orders">
+            <Header />
+            <Orders />
+          </Route>
+          <Route path="/orders/courier">
+            <Header />
+            <CourierPage />
           </Route>
           <Route path="/signIn">
             <SignInPage />
@@ -41,9 +43,11 @@ function App() {
             <SignUpPage />
           </Route>
           <Route path="/product/category">
-            <Header/>
+            <Header />
+            <Two />
+            <Main />
             <ProductGuest />
-            <Footer/>
+            <Footer />
           </Route>
           <Route path="/product/category/:id">
             <Header />
@@ -53,18 +57,14 @@ function App() {
           <Route path="/vendor">
             <Header />
             <Products />
+            <Footer />
           </Route>
-          <Route path="/">
-            <Header />
-            <Two />
-            <Main />
-          </Route>
-          <Route path="/food">
-            <Header />
-            <Two />
-            <Main />
-          </Route>
-
+          {/*<Route path="/food">*/}
+          {/*  <Header />*/}
+          {/*  <Two />*/}
+          {/*  <Main />*/}
+          {/*  <Foods />*/}
+          {/*</Route>*/}
         </Switch>
       </BrowserRouter>
     </Provider>
