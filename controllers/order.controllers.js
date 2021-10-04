@@ -1,3 +1,4 @@
+const nodemailer = require("nodemailer")
 const Order = require("../models/Order");
 const Cart = require("../models/Cart.model");
 const User = require("../models/User.model");
@@ -16,10 +17,10 @@ module.exports.orderControllers = {
   },
   getOrderOne: async (req, res) => {
     try {
-      const data = await Order.findById(req.params.id).populate("product");
+      const data = await Order.findById(req.params.id).populate("products.product");
       res.json(data);
     } catch (e) {
-      console.log(`ошибка при получении одного ${e.toString()}`);
+      console.log(`ошибка при получении одного ordera ${e.toString()}`);
     }
   },
   addOrder: async (req, res) => {
@@ -29,7 +30,7 @@ module.exports.orderControllers = {
       if (products.length === 0) {
         return false; // correct it
       }
-      const order = await Order.create({ products });
+      const order = await Order.create({ products , email:req.body.email });
 
       return res.json(order);
     } catch (e) {
@@ -39,11 +40,43 @@ module.exports.orderControllers = {
   getOrderByCourier: async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
-      const data = await Order.find({ courier:user});
+      const data = await Order.find({ courier:user}).populate("products.product");
 
       return res.json(data);
     } catch (e) {
       return res.json(e.toString());
+    }
+  },
+  completeOrder:async(req, res) => {
+    try {
+      const orderEmail = await Order.findById(req.params.id)
+      const transporter = await nodemailer.createTransport({
+        host: "smtp.mail.ru",
+        port: 465,
+        secure: true,
+        auth: {
+          user: "Dukvaha10@mail.ru",
+          pass: "773mLDPhKLpQYr34yw9Z",
+        },
+      });
+
+      await transporter.sendMail({
+        from: "Dukvaha10@mail.ru",
+        to: orderEmail.email,
+        subject: "Даар дукх",
+        text: `заказ готов иди забирай`,
+        html: `<h1>Хьо ву ма бох мец.</h1>
+               <h2>Дада хьа кхаьчча яум</h2>`,
+      });
+
+      await Order.findByIdAndRemove(req.params.id);
+
+      const order = await Order.create([]);
+
+
+      res.json(order)
+    }catch (e) {
+      res.json(`ошибка при удалении ордера ${e.toString()}`)
     }
   },
 };

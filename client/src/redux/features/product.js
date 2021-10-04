@@ -105,11 +105,11 @@ export const productReducer = (state = initialState, action) => {
       return {
         ...state,
         editing: [],
-        products: state.products.map(product => {
-          if(product._id === action.payload._id) {
-            return action.payload
+        products: state.products.map((product) => {
+          if (product._id === action.payload._id) {
+            return action.payload;
           }
-          return product
+          return product;
         }),
       };
     default:
@@ -204,10 +204,9 @@ export const loadProduct = () => {
 export const loadProductByCategory = (id) => {
   return async (dispatch) => {
     dispatch({ type: "load/productByCategory/pending" });
-    const response = await fetch(
-      `http://localhost:7777/product/category/${id}`
-    );
+    const response = await fetch(`/product/category/${id}`);
     const json = await response.json();
+
 
     dispatch({ type: "load/productByCategory/fulfilled", payload: json });
   };
@@ -227,7 +226,7 @@ export const editProduct = ({
     const state = getState();
     const formData = new FormData();
 
-    if(file) {
+    if (file) {
       formData.append("image", file[0]);
     }
     formData.append("name", name);

@@ -18,12 +18,14 @@ import {
   loadCart,
   minusProduct,
   plusProduct,
-} from '../../redux/features/cart'
+} from "../../redux/features/cart";
 import { addOrder } from "../../redux/features/order";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
+import ModalEmail from "./ModalEmail";
+import Loading from './Loading'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +65,9 @@ const useStyles = makeStyles((theme) => ({
     border: "solid blue 1px",
     borderRadius: 10,
   },
-  closeBtn: {},
+  closeBtn: {
+    cursor:"pointer"
+  },
   removeBtn: {
     fontSize: 20,
     border: "solid blue 1px",
@@ -79,14 +83,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     fontWeight: "bold",
   },
-  footBtn: {
-    margin: "15px 0",
-    backgroundColor: "#7251b5",
-  },
 }));
 
 export default function CartModal() {
   const cart = useSelector((state) => state.cart.products);
+  const loading = useSelector((state) => state.cart.loading);
   const sum = useSelector((state) => state.cart.sum);
 
   const dispatch = useDispatch();
@@ -94,11 +95,6 @@ export default function CartModal() {
   useEffect(() => {
     dispatch(loadCart());
   }, []);
-
-  const addProductOrder = (cart) => {
-    dispatch(addOrder());
-    dispatch(cleanCart())
-  };
 
   const handleDelete = (id) => {
     dispatch(deleteProduct({ id }));
@@ -147,96 +143,73 @@ export default function CartModal() {
 
           <Box className={classes.CardTwo}>Ваш Заказ</Box>
 
-
           <table className={classes.table}>
             <thead>
               <tr className={classes.cardInfo}>
                 <th>#</th>
-                <th></th>
+                <th />
                 <th>Товар</th>
                 <th>Кол-во</th>
                 <th>В наличии</th>
                 <th>Цена</th>
-
-
-                <th>
-                  <button onClick={() => addProductOrder(sum)}>
-                    Оформить заказ
-                  </button>
-                </th>
-
-
               </tr>
             </thead>
             <tbody>
-              {cart.map((item, index) => {
+              {
+                loading
+                ? <Loading/>:
+                cart.map((item, index) => {
                 return (
-                  <tr className={classes.trCard}>
-                    <td>{index + 1}</td>
-                    <td>
-                      <img src={`../../images/${item.image}`}  alt=""/>
-                    </td>
 
-
-                    <td>{item?.product?.name}</td>
-
-
-                    <td>
-                      {" "}
-                      <Button
-                        onClick={() => plus(item._id)}
-                        disabled={item?.product?.amount === 0}
-                      >
-                        <AddIcon className={classes.addBtn}/>
-                      </Button>
-                      {item.amount}
-                      <Button onClick={() => minus(item._id)}>
-                        <RemoveIcon className={classes.removeBtn}/>
-                      </Button>
-                    </td>
-
-                    <td>
-                      {item?.product?.amount
-                        ? item.product.amount + 1 - item.amount
-                        : 0}
-                    </td>
-
-                    <th>{item.product.price + "₽"}</th>
-
-
-                    <td>
-                      <ButtonGroup disableElevation variant="contained">
-                        <Box
-                          onClick={() => handleDelete(item._id)}
-                          className={classes.closeBtn}
+                    <tr className={classes.trCard}>
+                      <td>{index + 1}</td>
+                      <td>
+                        <img src={`../../images/${item.image}`} alt="" />
+                      </td>
+                      <td>{item?.product?.name}</td>
+                      <td>
+                        {" "}
+                        <Button
+                          onClick={() => plus(item._id)}
+                          disabled={item?.product?.amount === 0}
                         >
+                          <AddIcon className={classes.addBtn} />
+                        </Button>
+                        {item.amount}
+                        <Button onClick={() => minus(item._id)}>
+                          <RemoveIcon className={classes.removeBtn} />
+                        </Button>
+                      </td>
+                      <td>
+                        {item?.product?.amount
+                          ? item.product.amount + 1 - item.amount
+                          : 0}
+                      </td>
+                      <th>{item.product.price + "₽"}</th>
+                      <td>
+                        <ButtonGroup disableElevation variant="contained">
+                          <Box
+                            onClick={() => handleDelete(item._id)}
+                            className={classes.closeBtn}
+                          >
+                            <CancelIcon />
+                          </Box>
+                        </ButtonGroup>
+                      </td>
+                    </tr>
 
-
-                          <CancelIcon/>
-                        </Box>
-                      </ButtonGroup>
-                    </td>
-                  </tr>
                 );
               })}
-
               <tr className={classes.tfoot}>
                 <td colSpan={3}>
-                  <Button
-                    className={classes.footBtn}
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => addProductOrder(sum)}
-                  >
-                    Оформить заказ
-                  </Button>
+                  <ModalEmail />
                 </td>
-                <td></td>
+                <td />
                 <td>
                   <Typography>Итоговая цена:</Typography>
                 </td>
                 <td>{sum + "₽"}</td>
-                <td></td>
+                <td />
               </tr>
             </tbody>
           </table>

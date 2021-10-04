@@ -12,8 +12,10 @@ import ProductsByCategory from "./Products/ProductsByCategory";
 import Orders from "./order/Orders";
 import Main from "./main/main";
 import "./App.css";
-import CourierPage from './CuorierPage/CourierPage'
+import CourierPage from './CourierPage/CourierPage'
 import Footer from './footer/footer';
+import CourierHeader from './header/CourierHeader'
+import OrdersToUser from './order/OrdersToUser'
 
 function App() {
   return (
@@ -21,12 +23,16 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path={"/orders"}>
-            <Header />
+            <CourierHeader />
             <Orders/>
           </Route>
           <Route path="/orders/courier">
-            <Header />
+            <CourierHeader />
             <CourierPage/>
+          </Route>
+          <Route path="/orders/toUser">
+            <CourierHeader />
+            <OrdersToUser/>
           </Route>
           <Route exact path="/">
             <Main />
@@ -47,7 +53,6 @@ function App() {
           </Route>
           <Route path="/product/category/:id">
             <Header />
-            <Two />
             <ProductsByCategory />
           </Route>
           <Route path="/vendor">

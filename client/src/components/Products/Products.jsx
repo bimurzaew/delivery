@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadProduct } from "../../redux/features/product";
 
-import { Button, Grid, Paper, Typography } from "@material-ui/core";
+import { Button, Grid, Paper, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from "@material-ui/core";
 import { addProduct } from "../../redux/features/cart";
 
@@ -10,18 +10,22 @@ const useStyles = makeStyles((theme) => ({
   productCard: {
     width: 300,
     cursor: "pointer",
+    margin: "auto",
+    borderRadius: 10,
+    padding: 30,
   },
-
+  imgBlock: {
+    textAlign: "center",
+  },
   cardImg: {
-    width: 194,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    maxWidth: "100%",
+    height: 200,
   },
   productName: {
     textAlign: "center",
     fontFamily: "Corbel",
     fontWeight: "bold",
-    fontSize:20,
+    fontSize: 20,
   },
   productDiv: {
     width: 200,
@@ -31,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     border: "3px solid #7251b5",
   },
   productBtn: {
+    textAlign: "center",
     backgroundColor: "#7251b5",
     borderTopRightRadius: 5,
     borderTopLeftRadius: 5,
@@ -43,12 +48,14 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Corbel",
     fontWeight: "bold",
   },
+  btn:{
+    marginTop:5
+  },
   productPrice: {
-    fontSize:20,
-    fontWeight: 'bold',
-    fontFamily: "Corbel"
-  }
-
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Corbel",
+  },
 }));
 
 function GetProducts(props) {
@@ -67,12 +74,10 @@ function GetProducts(props) {
   };
 
   return products.map((product) => {
-    console.log(product.image);
     const inCart = cart.find((item) => item.product._id === product._id);
 
     return (
-
-      <Grid item xs={6}>
+      <Grid item xs={4}>
         <Paper className={classes.productCard}>
           <div className={classes.imgBlock}>
             <img
@@ -81,14 +86,18 @@ function GetProducts(props) {
               alt=""
             />
           </div>
-          <Typography component="p">имя:{product.name}</Typography>
-          <Typography component="p">цена:{product.price}</Typography>
-          <Typography component="p">описание:{product.desc}</Typography>
-          <Typography component="p">кол-во:{product.amount}</Typography>
+          <Typography component="p"><b>имя</b>:{product.name}</Typography>
+          <Typography component="p"><b>цена</b>:{product.price}</Typography>
+          <Typography component="p"><b>описание</b>:{product.desc}</Typography>
+          <Typography component="p"><b>кол-во</b>:{product.amount}</Typography>
           <Button
+            className={classes.btn}
             variant="contained"
             disabled={inCart || product.amount === 0}
             onClick={() => addProductToBox(product._id)}
+            color={
+              inCart ? "default" : product.amount ? "primary" : "secondary"
+            }
           >
             {inCart
               ? "в корзине"
@@ -97,6 +106,7 @@ function GetProducts(props) {
               : "нет в наличии"}
           </Button>
         </Paper>
+        <Toolbar/>
       </Grid>
     );
   });

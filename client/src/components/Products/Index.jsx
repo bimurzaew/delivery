@@ -9,6 +9,7 @@ import { loadProductByCategory } from "../../redux/features/product";
 import { NavLink, Route, useHistory, useParams } from "react-router-dom";
 import Products from "./Products";
 import Food from '../Food';
+import ProductsByCategory from './ProductsByCategory'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -81,28 +82,28 @@ function ProductGuest() {
             {catalog.map((item) => {
               return (
                 <div className={classes.categoryInfo}>
-                  <img className={classes.categoryImage} src={item.img} />
+                  <img className={classes.categoryImage} src={item.img}  alt=""/>
                   <NavLink
                     key={item._id}
                     className={classes.categoryLink}
                     to={`/product/category/${item._id}`}
                     variant="contained"
                   >
-                    <div className={classes.categoryName}>{item.name}</div>
+                    <div
+                      className={classes.categoryName}
+                      onClick={()=>getProduct(item._id)}
+                    >
+                      {item.name}
+                    </div>
                   </NavLink>
 
                 </div>
               );
             })}
           </div>
-
-          <Grid item xs={7}>
-
-
-            <Grid container justifyContent={"space-between"}>
-              <Products />
+            <Grid container spacing={5} justifyContent={"space-between"}>
+                  <Products />
             </Grid>
-          </Grid>
         </Box>
       </Container>
     </>

@@ -4,9 +4,10 @@ const {orderControllers} = require("../controllers/order.controllers");
 
 const router = Router();
 
-router.get("/order", orderControllers.getOrder);
-router.get("/order/:id", orderControllers.getOrderOne);
+router.get("/order",authMiddleware, orderControllers.getOrder);
+// router.get("/order/:id",authMiddleware, orderControllers.getOrderOne);
 router.post("/order", orderControllers.addOrder);
-router.get("/order/courier", orderControllers.getOrderByCourier);
+router.get("/order/courier",authMiddleware, orderControllers.getOrderByCourier);
+router.delete("/order/:id",authMiddleware, orderControllers.completeOrder);
 
 module.exports = router;
