@@ -15,6 +15,7 @@ const orderSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Courier",
   },
+  email:String
 });
 
 const Order = mongoose.model("Order", orderSchema);

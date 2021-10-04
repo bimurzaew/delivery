@@ -12,8 +12,11 @@ import ProductsByCategory from "./Products/ProductsByCategory";
 import Orders from "./order/Orders";
 import Main from "./main/main";
 import "./App.css";
-import CourierPage from "./CuorierPage/CourierPage";
-import Footer from "./footer/footer";
+import CourierPage from './CourierPage/CourierPage'
+import Footer from './footer/footer';
+import CourierHeader from './header/CourierHeader'
+import OrdersToUser from './order/OrdersToUser'
+
 import Foods from "./Food";
 
 function App() {
@@ -21,6 +24,19 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
+          <Route exact path={"/orders"}>
+            <CourierHeader />
+            <Orders/>
+          </Route>
+          <Route path="/orders/courier">
+            <CourierHeader />
+            <CourierPage/>
+          </Route>
+          <Route path="/orders/toUser">
+            <CourierHeader />
+            <OrdersToUser/>
+          </Route>
+         
           <Route exact path="/">
             <Header />
             <Two />
@@ -28,14 +44,8 @@ function App() {
             <Foods />
             <Footer />
           </Route>
-          <Route path="/orders">
-            <Header />
-            <Orders />
-          </Route>
-          <Route path="/orders/courier">
-            <Header />
-            <CourierPage />
-          </Route>
+          
+          
           <Route path="/signIn">
             <SignInPage />
           </Route>
@@ -51,7 +61,6 @@ function App() {
           </Route>
           <Route path="/product/category/:id">
             <Header />
-            <Two />
             <ProductsByCategory />
           </Route>
           <Route path="/vendor">
@@ -59,12 +68,7 @@ function App() {
             <Products />
             <Footer />
           </Route>
-          {/*<Route path="/food">*/}
-          {/*  <Header />*/}
-          {/*  <Two />*/}
-          {/*  <Main />*/}
-          {/*  <Foods />*/}
-          {/*</Route>*/}
+          
         </Switch>
       </BrowserRouter>
     </Provider>

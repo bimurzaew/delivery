@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme)=>({
   }
 }))
 
-function Order({ item, index }) {
+function Order({ item, index, user }) {
   const classes = useStyles()
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.users.user);
+
 
   const buttonName = () => {
-    if (item.courier === user._id){
+    if (item.courier === user?._id){
       return "заказ принят"
     }
 
@@ -35,7 +35,7 @@ function Order({ item, index }) {
   }
 
   const orderStatus = () => {
-    if (item.courier === user._id){
+    if (item?.courier === user?._id){
       return (
         <span className={classes.green}>
            Вы приняли этот заказ
@@ -61,7 +61,6 @@ function Order({ item, index }) {
     dispatch(addOrderToUser(id));
   };
 
-  console.log(item)
 
   return (
     <tr key={item._id}>

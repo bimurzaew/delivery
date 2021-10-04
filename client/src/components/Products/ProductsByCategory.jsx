@@ -1,7 +1,8 @@
 import React from "react";
 import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux'
 import { loadProductByCategory } from "../../redux/features/product";
+import Loading from '../header/Loading'
 
 const useStyles = makeStyles((theme) => ({
   productCard: {
@@ -18,26 +19,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProductsByCategory({ getProduct }) {
+  const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
-  getProduct(loadProductByCategory());
-
+  const loading = useSelector((state) => state.product.products);
+  dispatch(loadProductByCategory())
 
   const classes = useStyles();
-  return products.map((item) => {
-    return (
-      <Grid item xs={6}>
-        <Paper className={classes.productCard}>
-          <div className={classes.imgBlock}>
-            <img className={classes.cardImg} src={`../../../public/images/${item.image}`} alt="" />
-          </div>
-          <Typography component="p">имя:{item.name}</Typography>
-          <Typography component="p">цена:{item.price}</Typography>
-          <Typography component="p">описание:{item.desc}</Typography>
-          <Typography component="p">кол-во:{item.amount}</Typography>
-        </Paper>
-      </Grid>
-    );
-  });
+  return (
+    loading
+    ? <Loading/>:
+      products.map((item) => {
+        return (
+          <Grid item xs={6}>
+            <Paper className={classes.productCard}>
+              <div className={classes.imgBlock}>
+                <img className={classes.cardImg} src={`../../../public/images/${item.image}`} alt="" />
+              </div>
+              <Typography component="p">имя:{item.name}</Typography>
+              <Typography component="p">цена:{item.price}</Typography>
+              <Typography component="p">описание:{item.desc}</Typography>
+              <Typography component="p">кол-во:{item.amount}</Typography>
+            </Paper>
+          </Grid>
+        );
+      })
+  )
 }
 
 export default ProductsByCategory;
