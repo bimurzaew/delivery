@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Container,
-  Grid,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import {Button, Container, Grid, Paper, Toolbar, Typography} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,49 +24,47 @@ const useStyles = makeStyles((theme) => ({
     backgroundOverlay: "rgba(0,0,0,.3",
   },
 
-  black:{
-backgroundColor: 'red'
+  black: {
+    backgroundColor: "red",
   },
   text: {
-    color: 'white',
-  }
+    color: "white",
+  },
 }));
 
 function Two(props) {
   const classes = useStyles();
   return (
     <>
-        <Paper
-          className={classes.mainFeatures}
-          style={{
-            backgroundImage: `url(https://cdn5.vedomosti.ru/image/2021/4h/yyl6c/original-19b5.jpg)`,
-          }}
-        >
-          <Container fixed>
-            <Grid container>
-              <Grid item md={6}>
-                <div className={classes.main}>
-                  <Typography style={{color: 'white'}}
-                    variant="h5"
-                    component="h1"
-                    color="inherit"
-                    gutterBottom
-                  >
-                    Какойто текст
-                  </Typography>
-                  <h5 style={{color: 'white'}}>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Autem earum labore nisi perspiciatis quaerat saepe unde
-                      voluptates. Cum doloribus, earum exercitationem illum
-                      quisquam quod saepe sequi. Atque dolorum nam rerum!
-                  </h5>
-                  <Button style={{backgroundColor: '#7251b5'}} variant="contained" color="secondary">
-                    Learn more
-                  </Button>
-                </div>
-              </Grid>
+      <Paper
+        className={classes.mainFeatures}
+        style={{
+          backgroundImage: `url(https://cdn5.vedomosti.ru/image/2021/4h/yyl6c/original-19b5.jpg)`,
+        }}
+      >
+        <Container fixed>
+          <Grid container>
+            <Grid item md={6}>
+              <div className={classes.main}>
+                <Toolbar />
+                <h5 style={{ color: "white" }}>
+                  Не обязательно, но желательно, чтобы еда приносила
+                  удовольствие. Но без фанатизма. Как говорил Ахьмад, плохие
+                  люди живут для того, чтобы есть и пить, добропорядочные люди
+                  едят и пьют для того, чтобы жить. Поэтому очень важно
+                  относится к тому, что мы едим с большой ответственностью. Еда
+                  ― основа нашей жизни, и это нельзя игнорировать. Но некоторые
+                  именно этим и занимаются. Не в том плане, что они отказываются
+                  от еды, а в том, что они едят что попало. Тут очень кстати
+                  придется высказывание Людвига Фейербаха: Человек есть то, что
+                  он ест. Но и другие цитаты о еде не менее поучительны.
+                </h5>
+                <span style={{color : 'white',marginLeft:"300px", fontSize:"20px"}}>(С) шич Ахьмад</span>
+              </div>
             </Grid>
-          </Container>
-        </Paper>
+          </Grid>
+        </Container>
+      </Paper>
     </>
   );
 }

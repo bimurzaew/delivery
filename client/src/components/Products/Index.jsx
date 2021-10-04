@@ -11,6 +11,7 @@ import Products from "./Products";
 import Food from '../Food';
 import ProductsByCategory from './ProductsByCategory'
 
+
 const useStyles = makeStyles((theme) => ({
   container: {
     margin: "15px auto 0",
@@ -28,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
   },
   categoryName: {
     justifyContent: "space-between",
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 20,
-    fontWeight: 'bold',
-    fontFamily: "Corbel"
+    fontWeight: "bold",
+    fontFamily: "Corbel",
   },
   categoryLink: {
     textDecoration: "none",
@@ -42,18 +43,17 @@ const useStyles = makeStyles((theme) => ({
     borderTopLeftRadius: 20,
     width: 230,
     height: 160,
-
   },
   categoryInfo: {
     borderRadius: 20,
-    border: "3px solid #7251b5"
+    border: "3px solid #7251b5",
   },
   category: {
     display: "flex",
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     margin: "0 auto",
     marginBottom: 20,
-  }
+  },
 }));
 
 function ProductGuest() {
@@ -96,13 +96,13 @@ function ProductGuest() {
                       {item.name}
                     </div>
                   </NavLink>
-
                 </div>
               );
             })}
           </div>
             <Grid container spacing={5} justifyContent={"space-between"}>
                   <Products />
+
             </Grid>
         </Box>
       </Container>

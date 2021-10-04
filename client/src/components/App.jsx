@@ -17,6 +17,8 @@ import Footer from './footer/footer';
 import CourierHeader from './header/CourierHeader'
 import OrdersToUser from './order/OrdersToUser'
 
+import Foods from "./Food";
+
 function App() {
   return (
     <Provider store={store}>
@@ -34,12 +36,16 @@ function App() {
             <CourierHeader />
             <OrdersToUser/>
           </Route>
+         
           <Route exact path="/">
-            <Main />
             <Header />
             <Two />
             <Main />
+            <Foods />
+            <Footer />
           </Route>
+          
+          
           <Route path="/signIn">
             <SignInPage />
           </Route>
@@ -47,9 +53,11 @@ function App() {
             <SignUpPage />
           </Route>
           <Route path="/product/category">
-            <Header/>
+            <Header />
+            <Two />
+            <Main />
             <ProductGuest />
-            <Footer/>
+            <Footer />
           </Route>
           <Route path="/product/category/:id">
             <Header />
@@ -58,18 +66,9 @@ function App() {
           <Route path="/vendor">
             <Header />
             <Products />
+            <Footer />
           </Route>
-          <Route path="/">
-            <Header />
-            <Two />
-            <Main />
-          </Route>
-          <Route path="/food">
-            <Header />
-            <Two />
-            <Main />
-          </Route>
-
+          
         </Switch>
       </BrowserRouter>
     </Provider>

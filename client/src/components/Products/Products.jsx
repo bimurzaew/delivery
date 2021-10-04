@@ -78,8 +78,9 @@ function GetProducts(props) {
 
     return (
       <Grid item xs={4}>
+
         <Paper className={classes.productCard}>
-          <div className={classes.imgBlock}>
+          <div>
             <img
               className={classes.cardImg}
               src={`../../images/${product.image}`}

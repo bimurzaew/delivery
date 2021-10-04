@@ -6,9 +6,10 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { Avatar, Link } from "@material-ui/core";
 import CallMadeIcon from "@material-ui/icons/CallMade";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Typography from "@material-ui/core/Typography";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
+import { logOut } from "../../redux/features/users";
 
 const useStyles = makeStyles({
   text: {
@@ -25,11 +26,11 @@ export default function Person() {
   const token = useSelector((state) => state.users.token);
   const role = useSelector((state) => state.users.role);
   const user = useSelector((state) => state.users.user);
-  const history = useHistory();
+  const dispatch = useDispatch();
 
-  const logOut = () => {
+  const handleLogOut = () => {
+    dispatch(logOut());
     localStorage.clear();
-    history.push("/");
   };
   return (
     <PopupState variant="popover" popupId="demo-popup-menu">
@@ -52,7 +53,7 @@ export default function Person() {
                   variant="h6"
                   onClick={popupState.close}
                 >
-                  {user.name}
+                  {user?.name}
                 </Typography>
                 <hr />
                 <MenuItem onClick={popupState.close}>
@@ -61,7 +62,31 @@ export default function Person() {
                   </Link>
                 </MenuItem>
                 <MenuItem onClick={popupState.close}>
-                  <Button onClick={logOut}>Выйти</Button>
+                  <Button onClick={handleLogOut}>Выйти</Button>
+                </MenuItem>
+              </>
+            ) : token && role === "courier" ? (
+              <>
+                <Typography
+                  className={classes.text}
+                  variant="h6"
+                  onClick={popupState.close}
+                >
+                  {user?.name}
+                </Typography>
+                <hr />
+                <MenuItem onClick={popupState.close}>
+                  <Link className={classes.nav} href="/orders/courier">
+                    Мой кабинет
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={popupState.close}>
+                  <Link href="/orders/toUser">мои заказы</Link>
+                </MenuItem>
+                <MenuItem onClick={popupState.close}>
+                  <Button variant="h6" onClick={handleLogOut}>
+                    Выйти
+                  </Button>
                 </MenuItem>
               </>
             ) : (
