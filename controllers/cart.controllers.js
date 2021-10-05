@@ -61,16 +61,16 @@ module.exports.cartController = {
       console.log(`ошибка при добавлении в корзину ${e}`);
     }
   },
-  // addFoodToCart: async (req, res) => {
-  //   try {
-  //     const { food } = req.body;
-  //     const box = await Cart.create({ food });
-  //     const find = await Cart.findById(box.id).populate("food");
-  //     res.json(find);
-  //   } catch (e) {
-  //     res.json(e.toString());
-  //   }
-  // },
+  addFoodToCart: async (req, res) => {
+    try {
+      const { food } = req.body;
+      const box = await Cart.create({ food });
+      const find = await Cart.findById(box.id).populate("food");
+      res.json(find);
+    } catch (e) {
+      res.json(e.toString());
+    }
+  },
 
   deleteProductFromCart: async (req, res) => {
     const amount = await Cart.findById(req.params.id).populate("product");

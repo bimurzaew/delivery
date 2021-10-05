@@ -4,7 +4,6 @@ import {
   ButtonGroup,
   Container,
   IconButton,
-  Paper,
   Popover,
   Typography,
 } from "@material-ui/core";
@@ -13,13 +12,11 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import {
-  cleanCart,
   deleteProduct,
   loadCart,
   minusProduct,
   plusProduct,
 } from "../../redux/features/cart";
-import { addOrder } from "../../redux/features/order";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
@@ -139,7 +136,7 @@ export default function CartModal() {
         }}
       >
         <Container className={classes.backCard}>
-          <Box className={classes.CardTwo}>Ваш Заказ {sum}</Box>
+
 
           <Box className={classes.CardTwo}>Ваш Заказ</Box>
 
@@ -185,7 +182,7 @@ export default function CartModal() {
                           ? item.product.amount + 1 - item.amount
                           : 0}
                       </td>
-                      <th>{item.product.price + "₽"}</th>
+                      <th>{item?.product?.price + "₽"}</th>
                       <td>
                         <ButtonGroup disableElevation variant="contained">
                           <Box
