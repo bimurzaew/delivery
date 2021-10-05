@@ -11,7 +11,7 @@
 ![gif](https://github.com/bimurzaew/delivery/blob/main/client/public/telegram-cloud-document-2-5395408238734742632_(1).gif)
 ![gif](https://github.com/bimurzaew/delivery/blob/main/client/public/telegram-cloud-document-2-5395408238734742644_(1).gif)
 ___
-### Проект разработан на стеке MERN
+### Проект разработан на стеке MERN (MongoDB, Express, React, Node)
 #### В функционал проекта входит:
 
 *Регистрация как для продавца так и для курьера*
