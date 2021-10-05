@@ -9,6 +9,6 @@ router.post("/cart/add", cartController.addProductToCart);
 router.delete("/cart/delete/:id", cartController.deleteProductFromCart);
 router.patch("/cart/plusAmount/:id", cartController.plusAmountCart);
 router.patch("/cart/minusAmount/:id", cartController.minusAmountCart);
-// router.post("/cart/add/food", cartController.addFoodToCart);
+router.post("/cart/add/food", cartController.addFoodToCart);
 
 module.exports = router;

@@ -1,24 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addFood, loadFood } from "../../redux/features/food";
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Container,
-  Fab,
-  Grid,
-  IconButton,
-} from "@material-ui/core";
+import { loadFood } from "../../redux/features/food";
+import { Card, CardActions, CardContent, Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import CardMedia from "@material-ui/core/CardMedia";
-import { NavLink } from "react-router-dom";
+import { addFoodToCart } from "../../redux/features/cart";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,9 +54,9 @@ function Foods() {
     dispatch(loadFood());
   }, []);
 
-  // const handleAddFood = (id) => {
-  //   dispatch(addFood(id));
-  // };
+  const handleAddFood = (id) => {
+    dispatch(addFoodToCart(id));
+  };
 
   return (
     <Grid container xs={15} className={classes.foodBox}>
@@ -96,9 +83,9 @@ function Foods() {
                 <Button
                   variant="contained"
                   color="secondary"
-                  // onClick={() => {
-                  //   handleAddFood(item._id);
-                  // }}
+                  onClick={() => {
+                    handleAddFood(item._id);
+                  }}
                 >
                   В корзину
                 </Button>

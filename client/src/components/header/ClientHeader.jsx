@@ -57,7 +57,7 @@ function ClientHeader(props) {
       <AppBar className={classes.Appbar} position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6">
-            <Link className={classes.link} href="/">Intocode rulet</Link>
+            <Link className={classes.link} href="/">Delicious</Link>
           </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
             <IconButton className={classes.cart}>

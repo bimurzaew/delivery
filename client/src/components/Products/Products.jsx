@@ -74,7 +74,7 @@ function GetProducts(props) {
   };
 
   return products.map((product) => {
-    const inCart = cart.find((item) => item.product._id === product._id);
+    const inCart = cart.find((item) => item.product?._id === product._id);
 
     return (
       <Grid item xs={4}>

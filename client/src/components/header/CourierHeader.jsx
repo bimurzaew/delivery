@@ -34,7 +34,7 @@ function CourierHeader(props) {
         <Toolbar>
           <Typography className={classes.title} variant="h6">
             <Link className={classes.text} href="/">
-              Intocode rulet
+              Delicious
             </Link>
           </Typography>
           <Typography className={classes.title} variant="h6">
