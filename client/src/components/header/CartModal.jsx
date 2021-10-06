@@ -185,7 +185,7 @@ export default function CartModal() {
                           ? item.product.amount + 1 - item.amount
                           : 0}
                       </td>
-                      <th>{item.product.price + "₽"}</th>
+                      {/*<th>{item.product.price + "₽"}</th>*/}
                       <td>
                         <ButtonGroup disableElevation variant="contained">
                           <Box
