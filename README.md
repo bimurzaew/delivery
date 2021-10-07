@@ -47,7 +47,7 @@ ___
 
 #### Команда разработчиков:
 
- [<img alt="Yahkha" src="https://img.shields.io/badge/-Yahkha-black?style=for-the-badge&logo=&logoColor=red" />](https://github.com/bimurzaew)
+ [<img alt="Ali" src="https://img.shields.io/badge/-Ali-black?style=for-the-badge&logo=&logoColor=red" />](https://github.com/bimurzaew)
  [<img alt="Dukvakha" src="https://img.shields.io/badge/-Dukvakha-black?style=for-the-badge&logo=&logoColor=red" />](https://github.com/Dukvaha27)
- [<img alt="Bashir" src="https://img.shields.io/badge/-Rakhim-black?style=for-the-badge&logo=&logoColor=red" />](https://github.com/LAIZERLZR)
+ [<img alt="Bashir" src="https://img.shields.io/badge/-Bashir-black?style=for-the-badge&logo=&logoColor=red" />](https://github.com/LAIZERLZR)
 
