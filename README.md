@@ -43,3 +43,11 @@ ___
 3. Все CRUD операции с товарами для продавца
 4. Ну и с дизайном повозился
 
+___
+
+#### Команда разработчиков:
+
+ [<img alt="Yahkha" src="https://img.shields.io/badge/-Yahkha-black?style=for-the-badge&logo=&logoColor=red" />](https://github.com/bimurzaew)
+ [<img alt="Dukvakha" src="https://img.shields.io/badge/-Dukvakha-black?style=for-the-badge&logo=&logoColor=red" />](https://github.com/Dukvaha27)
+ [<img alt="Bashir" src="https://img.shields.io/badge/-Rakhim-black?style=for-the-badge&logo=&logoColor=red" />](https://github.com/LAIZERLZR)
+
