@@ -71,7 +71,7 @@ export const users = (state = initialState, action) => {
 export const register = ({ login, password, email, name, role, lastName }) => {
   return async (dispatch) => {
     dispatch({ type: "user/signup/pending" });
-    const response = await fetch("http://localhost:7777/user", {
+    const response = await fetch("/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +97,7 @@ export const register = ({ login, password, email, name, role, lastName }) => {
 export const auth = ({ login, password, role }) => {
   return async (dispatch) => {
     dispatch({ type: "user/signIn/pending" });
-    const response = await fetch("http://localhost:7777/user/auth", {
+    const response = await fetch("/user/auth", {
       method: "POST",
       body: JSON.stringify({ login, password, role }),
       headers: {
@@ -136,7 +136,7 @@ export const getUser = () => {
 
 export const logOut = () => {
   return async (dispatch) => {
-    dispatch({type:"user/logOut/fulfilled"})
-    localStorage.clear()
-  }
-}
+    dispatch({ type: "user/logOut/fulfilled" });
+    localStorage.clear();
+  };
+};
