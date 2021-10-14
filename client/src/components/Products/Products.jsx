@@ -63,6 +63,7 @@ function GetProducts(props) {
   const products = useSelector((state) => state.product.products);
   const cart = useSelector((state) => state.cart.products);
 
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -74,7 +75,7 @@ function GetProducts(props) {
   };
 
   return products.map((product) => {
-    // const inCart = cart.find((item) => item.product._id === product._id);
+    const inCart = cart.find((item) => item.product?._id === product._id);
 
     return (
       <Grid item xs={4}>
@@ -94,10 +95,10 @@ function GetProducts(props) {
           <Button
             className={classes.btn}
             variant="contained"
-            // disabled={inCart || product.amount === 0}
+            disabled={inCart || product.amount === 0}
             onClick={() => addProductToBox(product._id)}
             color={
-              // inCart ? "default" : product.amount ? "primary" : "secondary"
+              inCart ? "default" : product.amount ? "primary" : "secondary"
             }
           >
             {inCart

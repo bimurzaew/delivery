@@ -69,23 +69,23 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         products: action.payload,
       };
-    // case "addFood/cart/pending":
-    //   return {
-    //     ...state,
-    //     loading: true,
-    //   };
-    // case "addFood/cart/rejected":
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     error: action.payload,
-    //   };
-    // case "addFood/cart/fulfilled":
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     food: action.payload,
-    //   };
+    case "addFood/cart/pending":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "addFood/cart/rejected":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case "addFood/cart/fulfilled":
+      return {
+        ...state,
+        loading: false,
+        products: [...state.products,action.payload],
+      };
     default:
       return state;
   }
@@ -139,23 +139,26 @@ export const addProduct = (id) => {
   };
 };
 
-// export const addFood = (id) => {
-//   return async (dispatch) => {
-//     dispatch({ type: "addFood/cart/pending" });
-//     const response = await fetch("/cart/add/food", {
-//       method: "POST",
-//       body: JSON.stringify({
-//         food: id,
-//       }),
-//     });
-//     const json = await response.json();
-//     if (json.error) {
-//       dispatch({ type: "addFood/cart/rejected", payload: json });
-//     } else {
-//       dispatch({ type: "addFood/cart/fulfilled", payload: json });
-//     }
-//   };
-// };
+export const addFoodToCart = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: "addFood/cart/pending" });
+    const response = await fetch("/cart/add/food", {
+      method: "POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({
+        food: id,
+      }),
+    });
+    const json = await response.json();
+    if (json.error) {
+      dispatch({ type: "addFood/cart/rejected", payload: json });
+    } else {
+      dispatch({ type: "addFood/cart/fulfilled", payload: json });
+    }
+  };
+};
 
 export const deleteProduct = ({ id }) => {
   return async (dispatch) => {

@@ -3,8 +3,8 @@ const Product = require("../models/Product.model");
 
 module.exports.cartController = {
   getCart: async (req, res) => {
-    const data = await Cart.find().populate("product");
-    // console.log(data)
+    const data = await Cart.find().populate("product").populate("food");
+
     res.json(data);
   },
   plusAmountCart: async (req, res) => {
@@ -61,24 +61,38 @@ module.exports.cartController = {
       console.log(`ошибка при добавлении в корзину ${e}`);
     }
   },
-  // addFoodToCart: async (req, res) => {
-  //   try {
-  //     const { food } = req.body;
-  //     const box = await Cart.create({ food });
-  //     const find = await Cart.findById(box.id).populate("food");
-  //     res.json(find);
-  //   } catch (e) {
-  //     res.json(e.toString());
-  //   }
-  // },
+  addFoodToCart: async (req, res) => {
+    try {
+      const { food, amount=1 } = req.body;
+      const box = await Cart.create({ food , amount});
+      const find = await Cart.findById(box.id).populate("food");
+
+      res.json(find);
+    } catch (e) {
+      res.json(e.toString());
+    }
+  },
 
   deleteProductFromCart: async (req, res) => {
-    const amount = await Cart.findById(req.params.id).populate("product");
-    const product = await Product.findById(amount.product.id);
+    // const amount = await Cart.findById(req.params.id).populate("product");
+    // const product = await Product.findById(amount.product.id);
+    //
+    // await Product.findByIdAndUpdate(product.id, {
+    //   amount: amount.amount + product.amount,
+    // });
 
-    await Product.findByIdAndUpdate(product.id, {
-      amount: amount.amount + product.amount,
-    });
+    await Cart.findByIdAndRemove(req.params.id);
+
+    res.json("ok");
+  },
+  deleteFoodFromCart: async (req, res) => {
+    // const cart = await Cart.findById(req.params.id).populate("food");
+    // const food = await Food.findById(cart.food.id);
+    //
+    //
+    // await Food.findByIdAndUpdate(food.id, {
+    //   amount: cart.amount + food.amount,
+    // });
 
     await Cart.findByIdAndRemove(req.params.id);
 
