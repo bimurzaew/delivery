@@ -9,8 +9,10 @@ module.exports.productsController = {
 
       const { image } = req.files;
 
+      const mvPath = process.env.NODE_ENV === 'production' ? 'build' : 'public';
+
       const newFileName = `${Math.floor(Math.random() * 10000)}${image.name}`;
-      await image.mv(`./client/public/images/${newFileName}`, async (err) => {
+      await image.mv(`./client/${mvPath}/images/${newFileName}`, async (err) => {
         if (err) {
           res.json(err.toString());
         } else {
@@ -36,9 +38,13 @@ module.exports.productsController = {
       const image = req.files?.image;
 
       if (!image) {
-        const product = await Product.findByIdAndUpdate(req.params.id, {
-          $set: { ...req.body },
-        }, { new: true});
+        const product = await Product.findByIdAndUpdate(
+          req.params.id,
+          {
+            $set: { ...req.body },
+          },
+          { new: true }
+        );
         res.json(product);
       } else {
         const newFileName = `${Math.floor(Math.random() * 10000)}${image.name}`;
@@ -54,7 +60,6 @@ module.exports.productsController = {
               { new: true }
             );
             res.json(product);
-            console.log(product);
           }
         });
       }

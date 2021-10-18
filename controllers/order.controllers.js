@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer")
+const nodemailer = require("nodemailer");
 const Order = require("../models/Order");
 const Cart = require("../models/Cart.model");
 const User = require("../models/User.model");
@@ -17,7 +17,9 @@ module.exports.orderControllers = {
   },
   getOrderOne: async (req, res) => {
     try {
-      const data = await Order.findById(req.params.id).populate("products.product");
+      const data = await Order.findById(req.params.id).populate(
+        "products.product"
+      );
       res.json(data);
     } catch (e) {
       console.log(`ошибка при получении одного ordera ${e.toString()}`);
@@ -30,7 +32,7 @@ module.exports.orderControllers = {
       if (products.length === 0) {
         return false; // correct it
       }
-      const order = await Order.create({ products , email:req.body.email });
+      const order = await Order.create({ products, email: req.body.email });
 
       return res.json(order);
     } catch (e) {
@@ -40,16 +42,18 @@ module.exports.orderControllers = {
   getOrderByCourier: async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
-      const data = await Order.find({ courier:user}).populate("products.product");
+      const data = await Order.find({ courier: user }).populate(
+        "products.product"
+      );
 
       return res.json(data);
     } catch (e) {
       return res.json(e.toString());
     }
   },
-  completeOrder:async(req, res) => {
+  completeOrder: async (req, res) => {
     try {
-      const orderEmail = await Order.findById(req.params.id)
+      const orderEmail = await Order.findById(req.params.id);
       const transporter = await nodemailer.createTransport({
         host: "smtp.mail.ru",
         port: 465,
@@ -73,10 +77,9 @@ module.exports.orderControllers = {
 
       const order = await Order.create([]);
 
-
-      res.json(order)
-    }catch (e) {
-      res.json(`ошибка при удалении ордера ${e.toString()}`)
+      res.json(order);
+    } catch (e) {
+      res.json(`ошибка при удалении ордера ${e.toString()}`);
     }
   },
 };

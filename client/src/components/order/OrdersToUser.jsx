@@ -38,7 +38,7 @@ function OrdersToUser (props) {
         </thead>
         <tbody>
         {
-          orders.map((item,index) => {
+          orders?.map((item,index) => {
             return(
               <tr key={item._id}>
                 <td >{courier._id + index}</td>

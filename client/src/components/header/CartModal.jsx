@@ -4,7 +4,7 @@ import {
   ButtonGroup,
   Container,
   IconButton,
-   Popover,
+  Popover,
   Typography,
 } from "@material-ui/core";
 import { ShoppingCart } from "@material-ui/icons";
@@ -16,14 +16,14 @@ import {
   loadCart,
   minusProduct,
   plusProduct,
-} from '../../redux/features/cart'
+} from "../../redux/features/cart";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import ModalEmail from "./ModalEmail";
-import Loading from './Loading'
+import Loading from "./Loading";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
   },
   closeBtn: {
-    cursor:"pointer"
+    cursor: "pointer",
   },
   removeBtn: {
     fontSize: 20,
@@ -137,8 +137,6 @@ export default function CartModal() {
         }}
       >
         <Container className={classes.backCard}>
-
-
           <Box className={classes.CardTwo}>Ваш Заказ</Box>
 
           <table className={classes.table}>
@@ -153,18 +151,20 @@ export default function CartModal() {
               </tr>
             </thead>
             <tbody>
-              {
-                loading
-                ? <Loading/>:
+              {loading ? (
+                <Loading />
+              ) : (
                 cart.map((item, index) => {
-                return (
-
+                  return (
                     <tr className={classes.trCard}>
                       <td>{index + 1}</td>
                       <td>
                         <img src={`../../images/${item.image}`} alt="" />
                       </td>
-                      <td>{item?.product?.name}{item?.food?.name}</td>
+                      <td>
+                        {item?.product?.name}
+                        {item?.food?.name}
+                      </td>
                       <td>
                         {" "}
                         <Button
@@ -197,9 +197,9 @@ export default function CartModal() {
                         </ButtonGroup>
                       </td>
                     </tr>
-
-                );
-              })}
+                  );
+                })
+              )}
               <tr className={classes.tfoot}>
                 <td colSpan={3}>
                   <ModalEmail />
