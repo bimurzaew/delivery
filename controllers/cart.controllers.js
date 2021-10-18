@@ -63,8 +63,8 @@ module.exports.cartController = {
   },
   addFoodToCart: async (req, res) => {
     try {
-      const { food } = req.body;
-      const box = await Cart.create({ food });
+      const { food, amount } = req.body;
+      const box = await Cart.create({ food, amount });
       const find = await Cart.findById(box.id).populate("food");
       res.json(find);
     } catch (e) {

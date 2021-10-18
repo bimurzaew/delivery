@@ -1,4 +1,3 @@
-// import { json } from "express";
 const initialState = {
   products: [],
   loading: false,
@@ -84,7 +83,7 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        food: action.payload,
+        products: [...state.products, action.payload],
       };
     default:
       return state;
@@ -144,6 +143,9 @@ export const addFoodToCart = (id) => {
     dispatch({ type: "addFood/cart/pending" });
     const response = await fetch("/cart/add/food", {
       method: "POST",
+      headers:{
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         food: id,
       }),
