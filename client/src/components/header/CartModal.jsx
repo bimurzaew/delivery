@@ -17,6 +17,7 @@ import {
   minusProduct,
   plusProduct,
 } from '../../redux/features/cart'
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
@@ -136,7 +137,7 @@ export default function CartModal() {
         }}
       >
         <Container className={classes.backCard}>
-          <Box className={classes.CardTwo}>Ваш Заказ {sum}</Box>
+
 
           <Box className={classes.CardTwo}>Ваш Заказ</Box>
 
@@ -184,6 +185,7 @@ export default function CartModal() {
                         {item?.food?.amount}
                       </td>
                       {/*<th>{item.product.price + "₽"}</th>*/}
+
                       <td>
                         <ButtonGroup disableElevation variant="contained">
                           <Box

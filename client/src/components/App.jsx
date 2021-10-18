@@ -18,6 +18,7 @@ import CourierHeader from './header/CourierHeader'
 import OrdersToUser from './order/OrdersToUser'
 
 import Foods from "./Food";
+import VendorHeader from "./header/VendorHeader";
 
 function App() {
   return (
@@ -44,8 +45,6 @@ function App() {
             <Foods />
             <Footer />
           </Route>
-          
-          
           <Route path="/signIn">
             <SignInPage />
           </Route>
@@ -64,7 +63,7 @@ function App() {
             <ProductsByCategory />
           </Route>
           <Route path="/vendor">
-            <Header />
+            <VendorHeader />
             <Products />
             <Footer />
           </Route>

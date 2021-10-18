@@ -21,6 +21,7 @@ function Orders(props) {
   return (
     <>
       <Toolbar />
+      <Toolbar />
       <table className={"table table-dark table-striped"}>
         <thead>
           <tr>

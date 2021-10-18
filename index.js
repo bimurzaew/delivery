@@ -14,6 +14,11 @@ app.use(fileUpload({}));
 app.use("public", express.static(path.resolve(__dirname, "/client/public")));
 app.use(require("./routes/index"));
 
+app.use(express.static(path.resolve(__dirname, "client", "build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
+
 mongoose
   .connect(process.env.SERVER_CONNECT)
   .then(() => {

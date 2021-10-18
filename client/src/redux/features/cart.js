@@ -1,4 +1,3 @@
-// import { json } from "express";
 const initialState = {
   products: [],
   loading: false,
@@ -85,6 +84,7 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         products: [...state.products,action.payload],
+
       };
     default:
       return state;

@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../redux/features/users";
 import { useHistory } from "react-router-dom";
 import GroupTwoToneIcon from "@material-ui/icons/GroupTwoTone";
-import { MenuItem } from "@material-ui/core";
+import {Container} from "@material-ui/core";
 
 function Copyright() {
   return (
@@ -62,17 +62,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const currencies = [
-  {
-    value: "vendor",
-    label: "Продавец",
-  },
-  {
-    value: "courier",
-    label: "Курьер",
-  },
-];
-
 export default function SignInPage() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -81,9 +70,7 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
 
-  const loading = useSelector((state) => state.users.loading);
   const error = useSelector((state) => state.users.error);
-  const token = useSelector((state) => state.users.token);
 
   const history = useHistory();
   const handleChangeLogin = (e) => {
@@ -107,89 +94,77 @@ export default function SignInPage() {
   };
 
   return (
-    <Grid container component="main" className={classes.root}>
+    <Container  component="main" maxWidth='xs'>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid
-        item
-        xs={12}
-        sm={8}
-        md={5}
-        component={Paper}
-        style={{ backgroundColor: "#f7dcad" }}
-        elevation={6}
-        square
-      >
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <GroupTwoToneIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Вход
-          </Typography>
-          {<Typography color="secondary">{error}</Typography>}
-          <form className={classes.form} noValidate>
-            <TextField
-              onChange={handleChangeLogin}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Логин"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              onChange={handleChangePassword}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Пароль"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            {/*<TextField*/}
-            {/*  id="standard-select-currency"*/}
-            {/*  select*/}
-            {/*  value={role}*/}
-            {/*  onChange={handleChangeRole}*/}
-            {/*  helperText="Выберите роль"*/}
-            {/*  variant="standard"*/}
-            {/*>*/}
-            {/*  {currencies.map((option) => (*/}
-            {/*    <MenuItem key={option.value} value={option.value}>*/}
-            {/*      {option.label}*/}
-            {/*    </MenuItem>*/}
-            {/*  ))}*/}
-            {/*</TextField>*/}
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <GroupTwoToneIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Вход
+        </Typography>
+        {<Typography color="secondary">{error}</Typography>}
+        <form className={classes.form} noValidate>
+          <TextField
+            onChange={handleChangeLogin}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Логин"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            onChange={handleChangePassword}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Пароль"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          {/*<TextField*/}
+          {/*  id="standard-select-currency"*/}
+          {/*  select*/}
+          {/*  value={role}*/}
+          {/*  onChange={handleChangeRole}*/}
+          {/*  helperText="Выберите роль"*/}
+          {/*  variant="standard"*/}
+          {/*>*/}
+          {/*  {currencies.map((option) => (*/}
+          {/*    <MenuItem key={option.value} value={option.value}>*/}
+          {/*      {option.label}*/}
+          {/*    </MenuItem>*/}
+          {/*  ))}*/}
+          {/*</TextField>*/}
 
-            <Button
-              onClick={handleSubmit}
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              войти
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="/signUp" variant="body2">
-                  {"Нет аккаунта? Зарегистрироваться"}
-                </Link>
-              </Grid>
+          <Button
+            onClick={handleSubmit}
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            войти
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link href="/signUp" variant="body2">
+                {"Нет аккаунта? Зарегистрироваться"}
+              </Link>
             </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </form>
-        </div>
-      </Grid>
-    </Grid>
+          </Grid>
+          <Box mt={5}>
+            <Copyright />
+          </Box>
+        </form>
+      </div>
+    </Container>
   );
 }

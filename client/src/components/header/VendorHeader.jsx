@@ -44,7 +44,7 @@ function VendorHeader(props) {
         <Toolbar>
           <Typography className={classes.title} variant="h6">
             <NavLink className={classes.Delivery} to="/">
-              Intocode rulet
+              Delicious
             </NavLink>
           </Typography>
           <Typography className={classes.title} variant="h6">

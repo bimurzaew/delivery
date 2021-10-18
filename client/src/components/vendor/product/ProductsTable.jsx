@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  Box,
   Paper,
   Table,
   TableCell,
@@ -12,15 +11,11 @@ import {
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import {
-  deleteProduct,
-  getProductsForUser,
-} from "../../../redux/features/product";
+import { getProductsForUser } from "../../../redux/features/product";
 import { getCategories } from "../../../redux/features/categories";
 import { makeStyles } from "@material-ui/core/styles";
 import Loading from "../../preload/Loading";
 import ProductItems from "./ProductItems";
-import ButtonsAdd from "./ButtonsAdd";
 
 const useStyles = makeStyles(() => ({
   img: {

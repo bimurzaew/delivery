@@ -67,6 +67,7 @@ module.exports.cartController = {
       const box = await Cart.create({ food , amount});
       const find = await Cart.findById(box.id).populate("food");
 
+
       res.json(find);
     } catch (e) {
       res.json(e.toString());
