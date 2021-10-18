@@ -4,7 +4,7 @@ import {
   ButtonGroup,
   Container,
   IconButton,
-  Popover,
+   Popover,
   Typography,
 } from "@material-ui/core";
 import { ShoppingCart } from "@material-ui/icons";
@@ -16,7 +16,8 @@ import {
   loadCart,
   minusProduct,
   plusProduct,
-} from "../../redux/features/cart";
+} from '../../redux/features/cart'
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
@@ -163,7 +164,7 @@ export default function CartModal() {
                       <td>
                         <img src={`../../images/${item.image}`} alt="" />
                       </td>
-                      <td>{item?.product?.name}</td>
+                      <td>{item?.product?.name}{item?.food?.name}</td>
                       <td>
                         {" "}
                         <Button
@@ -180,9 +181,11 @@ export default function CartModal() {
                       <td>
                         {item?.product?.amount
                           ? item.product.amount + 1 - item.amount
-                          : 0}
+                          : ""}
+                        {item?.food?.amount}
                       </td>
-                      <th>{item?.product?.price + "₽"}</th>
+                      {/*<th>{item.product.price + "₽"}</th>*/}
+
                       <td>
                         <ButtonGroup disableElevation variant="contained">
                           <Box

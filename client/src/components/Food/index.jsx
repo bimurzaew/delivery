@@ -5,7 +5,13 @@ import { Card, CardActions, CardContent, Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { addFoodToCart } from "../../redux/features/cart";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ShareIcon from "@material-ui/icons/Share";
+import CardMedia from "@material-ui/core/CardMedia";
+import { NavLink } from "react-router-dom";
+import { addFoodToCart } from '../../redux/features/cart'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 function Foods() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const cart = useSelector(state => state.cart.products)
   const food = useSelector((state) => state.food.products);
 
   useEffect(() => {
@@ -60,34 +67,43 @@ function Foods() {
 
   return (
     <Grid container xs={15} className={classes.foodBox}>
-      {food.map((item) => {
+      {food.map((food) => {
+        const inCart = cart.find(item => item.food?._id === food._id)
         return (
           <Grid item className={classes.foodInfoBox}>
             <Card>
               <img
                 className={classes.foodImage}
-                src={`../../images/${item.image}`}
+                src={`../../images/${food.image}`}
+                alt=''
               />
               <CardContent>
                 <Typography className={classes.foodName}>
-                  {item.name}
+                  {food.name}
                 </Typography>
                 <Typography className={classes.foodPrice}>
-                  {item.price + "₽"}
+                  {food.price + "₽"}
                 </Typography>
                 <Typography className={classes.foodDesc}>
-                  {item.desc}
+                  {food.desc}
                 </Typography>
               </CardContent>
               <CardActions>
                 <Button
+                  disabled={inCart || food.amount === 0}
                   variant="contained"
-                  color="secondary"
+                  color={
+                    inCart ? "default" : food.amount ? "primary" : "secondary"
+                  }
                   onClick={() => {
-                    handleAddFood(item._id);
+                    handleAddFood(food._id);
                   }}
                 >
-                  В корзину
+                  {inCart
+                    ? "в корзине"
+                    : food.amount
+                      ? "добавить в корзину"
+                      : "нет в наличии"}
                 </Button>
               </CardActions>
             </Card>
