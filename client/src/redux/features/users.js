@@ -40,6 +40,7 @@ export const users = (state = initialState, action) => {
         ...state,
         loading: false,
         token: action.payload.token,
+        role: action.payload.payload.role,
         error: null,
       };
     case "user/load/pending":

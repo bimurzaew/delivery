@@ -6,11 +6,11 @@ import {
   Typography,
   Box,
 } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import CartModal from "./CartModal";
 import Link from "@material-ui/core/Link";
 import Person from "./Person";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Appbar: {
     background: "#6247aa ",
-    height:"80px"
-
+    height: "80px",
   },
   title: {
     flexGrow: 1,
@@ -41,28 +40,36 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "red",
     color: "white",
   },
-  link:{
-    textDecoration:"none",
-    color:"white"
+  link: {
+    textDecoration: "none",
+    color: "white",
   },
-  cart:{
-    fontSize:20
-  }
+  cart: {
+    fontSize: 20,
+  },
 }));
 
 function ClientHeader(props) {
   const classes = useStyles();
+  const token = useSelector((state) => state.users.token);
+  console.log(token);
   return (
     <>
       <AppBar className={classes.Appbar} position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6">
-            <Link className={classes.link} href="/">Delicious</Link>
+            <Link className={classes.link} href="/">
+              Delicious
+            </Link>
           </Typography>
           <Box className={classes.AppbarCardAndAvatar}>
-            <IconButton className={classes.cart}>
-              <CartModal />
-            </IconButton>
+            {!token ? (
+              <IconButton className={classes.cart}>
+                <CartModal />
+              </IconButton>
+            ) : (
+              ""
+            )}
             <IconButton>
               <Person />
             </IconButton>

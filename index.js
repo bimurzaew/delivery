@@ -19,6 +19,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
+
 mongoose
   .connect(process.env.SERVER_CONNECT)
   .then(() => {
