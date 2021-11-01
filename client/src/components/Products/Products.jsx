@@ -63,7 +63,6 @@ function GetProducts(props) {
   const products = useSelector((state) => state.product.products);
   const cart = useSelector((state) => state.cart.products);
 
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -78,8 +77,7 @@ function GetProducts(props) {
     const inCart = cart.find((item) => item.product?._id === product._id);
 
     return (
-      <Grid item xs={4}>
-
+      <Grid key={product._id} item xs={4}>
         <Paper className={classes.productCard}>
           <div>
             <img

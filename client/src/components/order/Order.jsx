@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addOrderToUser } from "../../redux/features/order";
 import { makeStyles } from '@material-ui/core';
 
@@ -72,7 +72,7 @@ function Order({ item, index, user }) {
       <td>{item.products.length}</td>
       <td>
         {item.products.reduce((sum, item) => {
-          return sum + item.product.price * item.amount;
+          return sum + item.product?.price * item?.amount;
         }, 0)}
       </td>
       <td>

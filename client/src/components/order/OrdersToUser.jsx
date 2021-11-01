@@ -44,7 +44,7 @@ function OrdersToUser (props) {
                 <td >{courier._id + index}</td>
                 <td>{item.products.length}</td>
                 <td>{item.products.reduce((sum, item)=>{
-                  return (sum + item.product.price) * item.amount
+                  return (sum + item?.product?.price) * item.amount
 
                 },0)}</td>
                 <td>
