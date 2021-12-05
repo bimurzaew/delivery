@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
-const Order = require("../models/Order");
+const Order = require("../models/Order.model");
 
 module.exports.usersController = {
   register: async (req, res) => {
