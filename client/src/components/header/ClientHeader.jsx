@@ -12,7 +12,7 @@ import Link from "@material-ui/core/Link";
 import Person from "./Person";
 import { useSelector } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
@@ -49,10 +49,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ClientHeader(props) {
+function ClientHeader() {
   const classes = useStyles();
   const token = useSelector((state) => state.users.token);
-  console.log(token);
   return (
     <>
       <AppBar className={classes.Appbar} position="fixed">

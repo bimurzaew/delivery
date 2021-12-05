@@ -7,13 +7,14 @@ import {
   DialogContent,
   DialogTitle,
   FormControlLabel,
-  IconButton, MenuItem,
+  IconButton,
+  MenuItem,
   styled,
   TextField,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { useDispatch, useSelector } from "react-redux";
-import {  useState } from "react";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import { addFood } from "../../../redux/features/food";
 import KitchenIcon from "@material-ui/icons/Kitchen";
@@ -61,15 +62,12 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function AddFood() {
-  const message = useSelector((state) => state.product.message);
-  const user = useSelector((state) => state.users.user);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const [file, setFile] = useState();
   const [name, setName] = useState();
   const [price, setPrice] = useState();
   const [desc, setDesc] = useState();
-
 
   const handleSendReq = (e) => {
     e.preventDefault();

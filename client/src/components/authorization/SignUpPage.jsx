@@ -63,9 +63,7 @@ export default function SignUpPage() {
   const [email, setEmail] = useState();
   const [role, setRole] = useState();
   const [lastName, setLastName] = useState();
-  console.log(role);
 
-  const loading = useSelector((state) => state.users.loading);
   const error = useSelector((state) => state.users.error);
   const message = useSelector((state) => state.users.message);
 

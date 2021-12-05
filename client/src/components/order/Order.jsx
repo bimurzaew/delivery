@@ -1,94 +1,75 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addOrderToUser } from "../../redux/features/order";
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles((theme)=>({
-  green:{
-    color:"green"
+const useStyles = makeStyles((theme) => ({
+  green: {
+    color: "green",
   },
-  yellow:{
-    color:"yellow"
+  yellow: {
+    color: "yellow",
   },
-  white:{
-    color:'white'
-  }
-}))
+  white: {
+    color: "white",
+  },
+}));
 
 function Order({ item, index, user }) {
-  const classes = useStyles()
+  const classes = useStyles();
   const dispatch = useDispatch();
 
-
   const buttonName = () => {
-    if (item.courier === user?._id){
-      return "заказ принят"
+    if (item.courier === user?._id) {
+      return "заказ принят";
     }
 
-    if (item.courier){
-      return "занята"
+    if (item.courier) {
+      return "занята";
     }
 
-    return "принять"
-  }
+    return "принять";
+  };
 
   const orderStatus = () => {
-    if (item?.courier === user?._id){
-      return (
-        <span className={classes.green}>
-           Вы приняли этот заказ
-        </span>
-      )
+    if (item?.courier === user?._id) {
+      return <span className={classes.green}>Вы приняли этот заказ</span>;
     }
-    if (item.courier){
+    if (item.courier) {
       return (
-        <span className={classes.yellow}>
-          Этот заказ занят другим курьером
-        </span>
-      )
+        <span className={classes.yellow}>Этот заказ занят другим курьером</span>
+      );
     }
-    return (
-      <span className={classes.white}>
-        заказ свободен
-      </span>
-    )
-  }
-
+    return <span className={classes.white}>заказ свободен</span>;
+  };
 
   const addOrderToCourier = (id) => {
     dispatch(addOrderToUser(id));
   };
 
-
   return (
     <tr key={item._id}>
       <td>
-        <NavLink to={`/order/${item._id}`}>
-          №191023923{index}
-        </NavLink>
+        <NavLink to={`/order/${item._id}`}>№191023923{index}</NavLink>
       </td>
       <td>{item.products.length}</td>
       <td>
         {item.products.reduce((sum, item) => {
-          return sum + item.product.price * item.amount;
+          return sum + item.product?.price * item?.amount;
         }, 0)}
       </td>
+      <td>{orderStatus()}</td>
       <td>
-        {
-          orderStatus()
-        }
-      </td>
-      <td>
-          <Button
-            // user.order === item._id
-            disabled={item.courier}
-            onClick={() => addOrderToCourier(item._id)}
-            variant="contained"
-          >
-            {buttonName()}
-          </Button>
+        <Button
+          // user.order === item._id
+          disabled={item.courier}
+          onClick={() => addOrderToCourier(item._id)}
+          variant="contained"
+        >
+          {buttonName()}
+        </Button>
       </td>
       )
     </tr>

@@ -17,7 +17,7 @@ import Button from "@material-ui/core/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { editProduct } from "../../../redux/features/product";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuDialogContent-root": {
@@ -29,14 +29,14 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const useStyles = makeStyles({
-  img:{
-    width:"300px",
-    borderRadius:"80px"
+  img: {
+    width: "300px",
+    borderRadius: "80px",
   },
-  imgBox:{
-    margin:0
-  }
-})
+  imgBox: {
+    margin: 0,
+  },
+});
 
 function CloseIcon() {
   return null;
@@ -72,7 +72,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function EditProduct({ item }) {
-  const classes = useStyles()
+  const classes = useStyles();
   const categories = useSelector((state) => state.categories.catalog);
   const editing = useSelector((state) => state.product.editing);
   const [open, setOpen] = useState(false);
@@ -86,8 +86,6 @@ export default function EditProduct({ item }) {
     category: item.category?._id,
     amount: item.amount,
   });
-
-  console.log(productData.category);
 
   const handleSendReq = (id) => {
     dispatch(editProduct({ file, id, ...productData }));
@@ -121,17 +119,23 @@ export default function EditProduct({ item }) {
         <DialogContent dividers>
           <Box>
             <FormControlLabel
-                className={classes.imgBox}
+              className={classes.imgBox}
               sx={{ mr: -1 }}
               control={
                 <input
                   type="file"
                   accept="image/*"
-                  style={{ display: "none", }}
+                  style={{ display: "none" }}
                 />
               }
               onChange={handleChangeFile}
-              label={<img className={classes.img} src={`../../images/${item.image}`} alt="" />}
+              label={
+                <img
+                  className={classes.img}
+                  src={`../../images/${item.image}`}
+                  alt=""
+                />
+              }
             />
           </Box>
           <Box>
@@ -198,10 +202,7 @@ export default function EditProduct({ item }) {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button
-            autoFocus
-            onClick={() => handleSendReq(item._id)}
-          >
+          <Button autoFocus onClick={() => handleSendReq(item._id)}>
             Сохранить
           </Button>
         </DialogActions>

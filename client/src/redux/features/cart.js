@@ -29,6 +29,7 @@ export const cartReducer = (state = initialState, action) => {
           if (item._id !== action.payload.id) {
             return item;
           }
+          return item
         }),
       };
     case "plusProduct/cart/fulfilled":

@@ -57,14 +57,6 @@ module.exports.usersController = {
       if (password.length === 0) {
         res.status(401).json({ error: "необходимо ввести пароль" });
       }
-      // if (role.length === 0) {
-      //   res.status(401).json({ error: "дог ойле йокх ю хьа" });
-      // }
-
-      // if (role !== candidate.role) {
-      //   res.json({ error: `хьом вац ${role}` });
-      // }
-
       if (!candidate) {
         res.status(401).json({ error: "неверный логин" });
       }
@@ -83,7 +75,7 @@ module.exports.usersController = {
       const token = jwt.sign(payload, process.env.SECRET_JWT, {
         expiresIn: "24h",
       });
-      res.json({ token, payload});
+      res.json({ token, payload });
     } catch (e) {
       res.status(401).json(e.toString());
     }

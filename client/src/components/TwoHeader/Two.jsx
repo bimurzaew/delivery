@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Container, Grid, Paper, Toolbar, Typography} from "@material-ui/core";
+import { Container, Grid, Paper, Toolbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Two(props) {
+function Two() {
   const classes = useStyles();
   return (
     <>
@@ -59,7 +59,15 @@ function Two(props) {
                   придется высказывание Людвига Фейербаха: Человек есть то, что
                   он ест. Но и другие цитаты о еде не менее поучительны.
                 </h5>
-                <span style={{color : 'white',marginLeft:"300px", fontSize:"20px"}}>(С) шич Ахьмад</span>
+                <span
+                  style={{
+                    color: "white",
+                    marginLeft: "300px",
+                    fontSize: "20px",
+                  }}
+                >
+                  (С) шич Ахьмад
+                </span>
               </div>
             </Grid>
           </Grid>

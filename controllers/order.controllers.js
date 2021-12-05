@@ -59,13 +59,13 @@ module.exports.orderControllers = {
         port: 465,
         secure: true,
         auth: {
-          user: "Dukvaha10@mail.ru",
-          pass: "773mLDPhKLpQYr34yw9Z",
+          user: "dukvaha1997@mail.ru",
+          pass: "11223344Dd.",
         },
       });
 
       await transporter.sendMail({
-        from: "Dukvaha10@mail.ru",
+        from: "dukvaha1997@mail.ru",
         to: orderEmail.email,
         subject: "Даар дукх",
         text: `заказ готов иди забирай`,

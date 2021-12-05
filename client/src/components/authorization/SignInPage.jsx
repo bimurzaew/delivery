@@ -4,7 +4,6 @@ import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
-import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -13,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../redux/features/users";
 import { useHistory } from "react-router-dom";
 import GroupTwoToneIcon from "@material-ui/icons/GroupTwoTone";
-import {Container} from "@material-ui/core";
+import { Container } from "@material-ui/core";
 
 function Copyright() {
   return (
@@ -68,7 +67,7 @@ export default function SignInPage() {
 
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [role] = useState("");
 
   const error = useSelector((state) => state.users.error);
 
@@ -79,9 +78,6 @@ export default function SignInPage() {
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
   };
-  const handleChangeRole = (e) => {
-    setRole(e.target.value);
-  };
 
   const handleSubmit = () => {
     dispatch(auth({ password, login, role }))
@@ -90,11 +86,11 @@ export default function SignInPage() {
           history.push("/");
         }
       })
-      .catch((e) => {});
+      .catch(() => {});
   };
 
   return (
-    <Container  component="main" maxWidth='xs'>
+    <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -129,20 +125,6 @@ export default function SignInPage() {
             id="password"
             autoComplete="current-password"
           />
-          {/*<TextField*/}
-          {/*  id="standard-select-currency"*/}
-          {/*  select*/}
-          {/*  value={role}*/}
-          {/*  onChange={handleChangeRole}*/}
-          {/*  helperText="Выберите роль"*/}
-          {/*  variant="standard"*/}
-          {/*>*/}
-          {/*  {currencies.map((option) => (*/}
-          {/*    <MenuItem key={option.value} value={option.value}>*/}
-          {/*      {option.label}*/}
-          {/*    </MenuItem>*/}
-          {/*  ))}*/}
-          {/*</TextField>*/}
 
           <Button
             onClick={handleSubmit}

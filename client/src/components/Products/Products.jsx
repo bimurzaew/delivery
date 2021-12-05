@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadProduct } from "../../redux/features/product";
 
-import { Button, Grid, Paper, Toolbar, Typography } from '@material-ui/core'
+import { Button, Grid, Paper, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { addProduct } from "../../redux/features/cart";
 
@@ -48,8 +48,8 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Corbel",
     fontWeight: "bold",
   },
-  btn:{
-    marginTop:5
+  btn: {
+    marginTop: 5,
   },
   productPrice: {
     fontSize: 20,
@@ -58,17 +58,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function GetProducts(props) {
+function GetProducts() {
   const classes = useStyles();
   const products = useSelector((state) => state.product.products);
   const cart = useSelector((state) => state.cart.products);
-
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(loadProduct());
-  }, []);
+  }, [dispatch]);
 
   const addProductToBox = (id) => {
     dispatch(addProduct(id));
@@ -78,8 +77,7 @@ function GetProducts(props) {
     const inCart = cart.find((item) => item.product?._id === product._id);
 
     return (
-      <Grid item xs={4}>
-
+      <Grid key={product._id}>
         <Paper className={classes.productCard}>
           <div>
             <img
@@ -88,10 +86,18 @@ function GetProducts(props) {
               alt=""
             />
           </div>
-          <Typography component="p"><b>имя</b>:{product.name}</Typography>
-          <Typography component="p"><b>цена</b>:{product.price}</Typography>
-          <Typography component="p"><b>описание</b>:{product.desc}</Typography>
-          <Typography component="p"><b>кол-во</b>:{product.amount}</Typography>
+          <Typography component="p">
+            <b>имя</b>:{product.name}
+          </Typography>
+          <Typography component="p">
+            <b>цена</b>:{product.price}
+          </Typography>
+          <Typography component="p">
+            <b>описание</b>:{product.desc}
+          </Typography>
+          <Typography component="p">
+            <b>кол-во</b>:{product.amount}
+          </Typography>
           <Button
             className={classes.btn}
             variant="contained"
@@ -108,7 +114,7 @@ function GetProducts(props) {
               : "нет в наличии"}
           </Button>
         </Paper>
-        <Toolbar/>
+        <Toolbar />
       </Grid>
     );
   });

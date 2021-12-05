@@ -72,6 +72,7 @@ export const productReducer = (state = initialState, action) => {
             if (item._id !== action.payload._id) {
               return item;
             }
+            return item
           }),
         ],
       };
@@ -159,7 +160,7 @@ export const getProductsForUser = () => {
   return async (dispatch, getState) => {
     dispatch({ type: "products/load/pending" });
     const state = getState();
-    const response = await fetch("products/user", {
+    const response = await fetch("/products/user", {
       headers: {
         Authorization: `Bearer ${state.users.token}`,
       },

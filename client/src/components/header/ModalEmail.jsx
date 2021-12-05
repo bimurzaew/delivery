@@ -6,14 +6,11 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { addOrder } from "../../redux/features/order";
-import { useDispatch, useSelector } from "react-redux";
-import { cleanCart } from "../../redux/features/cart";
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 import ErrorEmail from "./ErrorEmail";
-import { logDOM } from "@testing-library/react";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   footBtn: {
     margin: "15px 0",
     backgroundColor: "#7251b5",
@@ -23,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalEmail({ handleClick }) {
+export default function ModalEmail() {
   const [email, setEmail] = useState("");
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);

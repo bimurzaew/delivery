@@ -48,9 +48,9 @@ const useStyles = makeStyles((theme) => ({
     width: 1000,
   },
   icons: {
-    color: 'white',
-    textDecoration: 'none'
-  }
+    color: "white",
+    textDecoration: "none",
+  },
 }));
 
 function Footer(props) {
@@ -59,9 +59,21 @@ function Footer(props) {
     <Box className={classes.footerBox}>
       <Box className={classes.footerInfo}>
         <Box className={classes.footerFor}>
-          <Box><NavLink className={classes.icons} to="/">Для ресторанов</NavLink></Box>
-          <Box><NavLink className={classes.icons} to="/">Курьерам</NavLink></Box>
-          <Box><NavLink className={classes.icons} to="/">Контакты</NavLink></Box>
+          <Box>
+            <NavLink className={classes.icons} to="/">
+              Для ресторанов
+            </NavLink>
+          </Box>
+          <Box>
+            <NavLink className={classes.icons} to="/">
+              Курьерам
+            </NavLink>
+          </Box>
+          <Box>
+            <NavLink className={classes.icons} to="/">
+              Контакты
+            </NavLink>
+          </Box>
         </Box>
         <Box>
           <Box className={classes.connect}>
@@ -82,8 +94,12 @@ function Footer(props) {
         <Box className={classes.connectPhone}>
           <Box>Заказывайте с телефона</Box>
           <Box>
-            <NavLink className={classes.icons} to="/"><ShopIcon></ShopIcon></NavLink>
-            <NavLink className={classes.icons} to="/"><AppleIcon></AppleIcon></NavLink>
+            <NavLink className={classes.icons} to="/">
+              <ShopIcon></ShopIcon>
+            </NavLink>
+            <NavLink className={classes.icons} to="/">
+              <AppleIcon></AppleIcon>
+            </NavLink>
           </Box>
         </Box>
       </Box>

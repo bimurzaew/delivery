@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Container, Paper, Toolbar } from "@material-ui/core";
-import { getUser } from '../../redux/features/users'
+import { getUser } from "../../redux/features/users";
 
-function CourierPage(props) {
+function CourierPage() {
   const courier = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(getUser())
-  },[])
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   return (
     <>

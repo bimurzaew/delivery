@@ -73,9 +73,7 @@ BootstrapDialogTitle.propTypes = {
 
 export default function AddProduct() {
   const classes = useStyles();
-  const message = useSelector((state) => state.product.message);
   const categories = useSelector((state) => state.categories.catalog);
-  const user = useSelector((state) => state.users.user);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const [file, setFile] = useState();
@@ -84,20 +82,13 @@ export default function AddProduct() {
   const [desc, setDesc] = useState();
   const [category, setCategory] = useState();
   const [amount, setAmount] = useState();
-  const [productData, setProductData] = useState({
-    name,
-    price,
-    desc,
-    category,
-    amount,
-  });
 
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     dispatch(getUser());
-  }, []);
+  }, [dispatch]);
 
   const handleSendReq = (e) => {
     e.preventDefault();
@@ -108,9 +99,6 @@ export default function AddProduct() {
   };
   const handleFile = (e) => {
     setFile(e.target.files);
-  };
-  const handleChangeData = (e) => {
-    setProductData({ ...productData, [e.target.value]: [e.target.name] });
   };
   const handleChangeName = (e) => {
     setName(e.target.value);
