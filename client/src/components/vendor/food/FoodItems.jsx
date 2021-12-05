@@ -7,11 +7,10 @@ import {
   TableCell,
   TableRow,
 } from "@material-ui/core";
-import EditProduct from "../product/EditProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { deleteFood, getFood } from "../../../redux/features/food";
-import {getCategories} from "../../../redux/features/categories";
+import { getCategories } from "../../../redux/features/categories";
 import EditFood from "./EditFood";
 
 const useStyles = makeStyles(() => ({
@@ -23,7 +22,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ProductItems(props) {
+function ProductItems() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const food = useSelector((state) => state.food.products);
@@ -34,11 +33,11 @@ function ProductItems(props) {
   };
   useEffect(() => {
     dispatch(getFood());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <TableBody>

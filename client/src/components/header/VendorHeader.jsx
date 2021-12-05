@@ -10,13 +10,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
 import Person from "./Person";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
   Appbar: {
     background: "#6247aa ",
-    height:"80px"
+    height: "80px",
   },
   title: {
     flexGrow: 1,
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function VendorHeader(props) {
+function VendorHeader() {
   const classes = useStyles();
 
   return (
@@ -47,8 +47,7 @@ function VendorHeader(props) {
               Delicious
             </NavLink>
           </Typography>
-          <Typography className={classes.title} variant="h6">
-          </Typography>
+          <Typography className={classes.title} variant="h6"></Typography>
           <Box className={classes.AppbarCardAndAvatar}>
             <IconButton>
               <Person />

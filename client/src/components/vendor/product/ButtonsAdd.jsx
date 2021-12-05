@@ -3,12 +3,11 @@ import { styled, alpha } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import AddBoxIcon from '@material-ui/icons/AddBox'
-import {addProduct} from "../../../redux/features/product";
+import { addProduct } from "../../../redux/features/product";
 import AddProduct from "./AddProduct";
 import AddFood from "../food/AddFood";
-import {addFood} from "../../../redux/features/food";
-import {Fab} from "@material-ui/core";
+import { addFood } from "../../../redux/features/food";
+import { Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
 const StyledMenu = styled((props) => (
@@ -62,13 +61,10 @@ export default function ButtonsAdd() {
 
   return (
     <div>
-      <Button
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-      >
-          <Fab color="primary" aria-label="add">
-              <AddIcon />
-          </Fab>
+      <Button aria-expanded={open ? "true" : undefined} onClick={handleClick}>
+        <Fab color="primary" aria-label="add">
+          <AddIcon />
+        </Fab>
       </Button>
       <StyledMenu
         id="demo-customized-menu"

@@ -1,10 +1,10 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import React from "react";
+import Typography from "@material-ui/core/Typography";
 
-function Food({foods}) {
+function Food({ foods }) {
   return (
     <>
-      <img src={foods?.image}/>
+      <img src={foods?.image} />
       <Typography>{foods?.name}</Typography>
     </>
   );

@@ -59,6 +59,7 @@ export const foodReducer = (state = initialState, action) => {
             if (item._id !== action.payload._id) {
               return item;
             }
+            return item
           }),
         ],
         deleting: [],

@@ -25,7 +25,7 @@ import Box from "@material-ui/core/Box";
 import ModalEmail from "./ModalEmail";
 import Loading from "./Loading";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
@@ -92,7 +92,7 @@ export default function CartModal() {
 
   useEffect(() => {
     dispatch(loadCart());
-  }, []);
+  }, [dispatch]);
 
   const handleDelete = (id) => {
     dispatch(deleteProduct({ id }));

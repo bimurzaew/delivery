@@ -2,9 +2,8 @@ import React from "react";
 import { AppBar, Toolbar, Typography, Box, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Person from "./Person";
-import { useSelector } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   text: {
     textDecoration: "none",
     color: "white",
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CourierHeader(props) {
+function CourierHeader() {
   const classes = useStyles();
 
   return (

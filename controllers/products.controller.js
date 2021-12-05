@@ -1,5 +1,4 @@
 const Product = require("../models/Product.model");
-const Category = require("../models/Category.model");
 const User = require("../models/User.model");
 
 module.exports.productsController = {
@@ -9,26 +8,29 @@ module.exports.productsController = {
 
       const { image } = req.files;
 
-      const mvPath = process.env.NODE_ENV === 'production' ? 'build' : 'public';
+      const mvPath = process.env.NODE_ENV === "production" ? "build" : "public";
 
       const newFileName = `${Math.floor(Math.random() * 10000)}${image.name}`;
-      await image.mv(`./client/${mvPath}/images/${newFileName}`, async (err) => {
-        if (err) {
-          res.json(err.toString());
-        } else {
-          const product = await Product.create({
-            name,
-            price,
-            desc,
-            amount,
-            image: newFileName,
-            category,
-            user: req.user.id,
-            thing,
-          });
-          res.json(product);
+      await image.mv(
+        `./client/${mvPath}/images/${newFileName}`,
+        async (err) => {
+          if (err) {
+            res.json(err.toString());
+          } else {
+            const product = await Product.create({
+              name,
+              price,
+              desc,
+              amount,
+              image: newFileName,
+              category,
+              user: req.user.id,
+              thing,
+            });
+            res.json(product);
+          }
         }
-      });
+      );
     } catch (e) {
       res.status(401).json(e.toString());
     }
@@ -71,7 +73,6 @@ module.exports.productsController = {
     try {
       const product = await Product.findByIdAndDelete(req.params.id);
       res.json(product);
-      console.log(product);
     } catch (e) {
       res.json(e.toString());
     }

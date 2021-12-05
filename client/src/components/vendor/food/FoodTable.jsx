@@ -14,7 +14,6 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import FoodItems from "./FoodItems";
 import ButtonsAdd from "../product/ButtonsAdd";
-import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(() => ({
   img: {

@@ -5,15 +5,9 @@ import { Card, CardActions, CardContent, Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import CardMedia from "@material-ui/core/CardMedia";
-import { NavLink } from "react-router-dom";
-import { addFoodToCart } from '../../redux/features/cart'
+import { addFoodToCart } from "../../redux/features/cart";
 
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
@@ -54,28 +48,28 @@ const useStyles = makeStyles((theme) => ({
 function Foods() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart.products)
+  const cart = useSelector((state) => state.cart.products);
   const food = useSelector((state) => state.food.products);
 
   useEffect(() => {
     dispatch(loadFood());
-  }, []);
+  }, [dispatch]);
 
   const handleAddFood = (id) => {
     dispatch(addFoodToCart(id));
   };
 
   return (
-    <Grid container xs={15} className={classes.foodBox}>
+    <Grid container className={classes.foodBox}>
       {food.map((food) => {
-        const inCart = cart.find(item => item.food?._id === food._id)
+        const inCart = cart.find((item) => item.food?._id === food._id);
         return (
-          <Grid item className={classes.foodInfoBox}>
+          <Grid item className={classes.foodInfoBox} key={food._id} xs={12} sm={6} md={4}>
             <Card>
               <img
                 className={classes.foodImage}
                 src={`../../images/${food.image}`}
-                alt=''
+                alt=""
               />
               <CardContent>
                 <Typography className={classes.foodName}>
@@ -102,8 +96,8 @@ function Foods() {
                   {inCart
                     ? "в корзине"
                     : food.amount
-                      ? "добавить в корзину"
-                      : "нет в наличии"}
+                    ? "добавить в корзину"
+                    : "нет в наличии"}
                 </Button>
               </CardActions>
             </Card>

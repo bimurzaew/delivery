@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ProductItems(props) {
+function ProductItems() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);

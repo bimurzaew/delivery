@@ -3,8 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
-import {Box, CircularProgress, Container, Grid, Toolbar} from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { Box, Container, Grid, Toolbar } from "@material-ui/core";
 import { getUser } from "../../redux/features/users";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,25 +23,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 function PersonalPage() {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const loading = useSelector(state => state.users.loading)
+  const loading = useSelector((state) => state.users.loading);
   useEffect(() => {
     dispatch(getUser());
-  }, []);
+  }, [dispatch]);
 
   const user = useSelector((state) => state.users.user);
   const classes = useStyles();
   return (
-      <>
-        {loading ? <></> : <Container>
+    <>
+      {loading ? (
+        <></>
+      ) : (
+        <Container>
           <Toolbar />
           <Box>
-            <Grid container xs={20} className={classes.root}>
+            <Grid container className={classes.root}>
               <Grid item xs={3}>
                 <CardMedia
-                    className={classes.media}
-                    image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ35vmfs9Ne2gNHk0nr029XdEvv4ay637HwHyqJisCVYDvUy08nnEoX2tQvRKsGFWoVtCU&usqp=CAU"
-                    title="Contemplative Reptile"
+                  className={classes.media}
+                  image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ35vmfs9Ne2gNHk0nr029XdEvv4ay637HwHyqJisCVYDvUy08nnEoX2tQvRKsGFWoVtCU&usqp=CAU"
+                  title="Contemplative Reptile"
                 />
               </Grid>
               <Grid />
@@ -62,8 +63,9 @@ function PersonalPage() {
               </Grid>
             </Grid>
           </Box>
-        </Container>}
-      </>
+        </Container>
+      )}
+    </>
   );
 }
 export default PersonalPage;

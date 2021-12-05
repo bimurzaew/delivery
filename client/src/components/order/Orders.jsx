@@ -3,7 +3,7 @@ import { Toolbar } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { loadOrder } from "../../redux/features/order";
 import Order from "./Order";
-import { getUser } from '../../redux/features/users'
+import { getUser } from "../../redux/features/users";
 
 function Orders(props) {
   const orders = useSelector((state) => state.order.orders);
@@ -12,11 +12,11 @@ function Orders(props) {
 
   useEffect(() => {
     dispatch(getUser());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(loadOrder());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -29,7 +29,7 @@ function Orders(props) {
             <th>кол-во</th>
             <th>сумма</th>
             <th>статус</th>
-            <th/>
+            <th />
           </tr>
         </thead>
         <tbody>

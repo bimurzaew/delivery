@@ -2,17 +2,13 @@ import React, { useEffect } from "react";
 import Container from "@material-ui/core/Container";
 import { Box, Grid, Toolbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../redux/features/categories";
 import { loadProductByCategory } from "../../redux/features/product";
-import { NavLink, Route, useHistory, useParams } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import Products from "./Products";
-import Food from '../Food';
-import ProductsByCategory from './ProductsByCategory'
 
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     margin: "15px auto 0",
   },
@@ -59,12 +55,11 @@ const useStyles = makeStyles((theme) => ({
 function ProductGuest() {
   const catalog = useSelector((state) => state.categories.catalog);
   const dispatch = useDispatch();
-  const { id } = useParams();
   const history = useHistory();
 
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
+  }, [dispatch]);
 
   const getProduct = (id) => {
     history.push(`/product/category/${id}`);
@@ -81,8 +76,12 @@ function ProductGuest() {
           <div className={classes.category}>
             {catalog.map((item) => {
               return (
-                <div className={classes.categoryInfo}>
-                  <img className={classes.categoryImage} src={item.img}  alt=""/>
+                <div className={classes.categoryInfo} key={item._id}>
+                  <img
+                    className={classes.categoryImage}
+                    src={item.img}
+                    alt=""
+                  />
                   <NavLink
                     key={item._id}
                     className={classes.categoryLink}
@@ -91,7 +90,7 @@ function ProductGuest() {
                   >
                     <div
                       className={classes.categoryName}
-                      onClick={()=>getProduct(item._id)}
+                      onClick={() => getProduct(item._id)}
                     >
                       {item.name}
                     </div>
@@ -100,10 +99,9 @@ function ProductGuest() {
               );
             })}
           </div>
-            <Grid container spacing={5} justifyContent={"space-between"}>
-                  <Products />
-
-            </Grid>
+          <Grid container spacing={5} justifyContent={"space-between"}>
+            <Products />
+          </Grid>
         </Box>
       </Container>
     </>

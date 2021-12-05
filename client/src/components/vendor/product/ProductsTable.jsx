@@ -32,16 +32,14 @@ const useStyles = makeStyles(() => ({
 export default function ProductsTable() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product.products);
   const loading = useSelector((state) => state.product.loading);
-  const categories = useSelector((state) => state.categories.catalog);
 
   useEffect(() => {
     dispatch(getProductsForUser());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
-    getCategories();
-  }, []);
+    dispatch(getCategories());
+  }, [dispatch]);
 
   return (
     <>

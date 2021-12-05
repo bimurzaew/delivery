@@ -7,11 +7,11 @@ import Personal from "../Personal";
 function Products() {
   return (
     <>
-          <Toolbar />
-          <Personal />
-          <Toolbar />
-          <ProductsTable />
-          <FoodTable />
+      <Toolbar />
+      <Personal />
+      <Toolbar />
+      <ProductsTable />
+      <FoodTable />
     </>
   );
 }
